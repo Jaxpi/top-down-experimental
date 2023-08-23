@@ -28,6 +28,26 @@ image.onload = () => {
     );
 }
 
+window.addEventListener("keydown", (e) => {
+    switch (e.key) {
+        case "ArrowUp":
+          keys.ArrowUp.pressed = false;
+          break;
+    
+        case "ArrowDown":
+          keys.ArrowDown.pressed = false;
+          break;
+    
+        case "ArrowLeft":
+          keys.ArrowLeft.pressed = false;
+          break;
+    
+        case "ArrowRight":
+          keys.ArrowRight.pressed = false;
+          break;
+      }
+});
+
 // const offset = {
 //     x: -1240,
 //     y: -450,

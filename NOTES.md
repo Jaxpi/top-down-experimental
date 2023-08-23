@@ -67,6 +67,7 @@ image.onload = () => {
 *playerImage.width / number of sprites in that row*
 
 ### Create Character Frames and Looping From Sprite Sheet (this example is 3x4)
+
 *c.drawImage(
     playerImage,
     x position to crop,
@@ -92,4 +93,7 @@ image.onload = () => {
     playerImage.height/4
     );
 ```
+
+### Character Movement
+
 
