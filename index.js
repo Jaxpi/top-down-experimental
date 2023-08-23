@@ -70,29 +70,40 @@ function animate() {
         playerImage.height / 4,
     );
 
-    if (keys.ArrowDown.pressed) {
-        background.position.y = background.position.y - 3
+    if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
+        background.position.y += 3
+    } else if (keys.ArrowDown.pressed && lastKey === "ArrowDown") {
+        background.position.y -= 3
+    } else if (keys.ArrowLeft.pressed && lastKey === "ArrowLeft") {
+        background.position.x += 3
+    } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
+        background.position.x -= 3
     }
 };
 
 animate();
 
+let lastKey = "";
 window.addEventListener("keydown", (e) => {
     switch (e.key) {
         case "ArrowUp":
-          keys.ArrowUp.pressed = true;
+            keys.ArrowUp.pressed = true;
+            lastKey = "ArrowUp";
           break;
     
         case "ArrowDown":
-          keys.ArrowDown.pressed = true;
+            keys.ArrowDown.pressed = true;
+            lastKey = "ArrowDown";
           break;
     
         case "ArrowLeft":
-          keys.ArrowLeft.pressed = true;
+            keys.ArrowLeft.pressed = true;
+            lastKey = "ArrowLeft";
           break;
     
         case "ArrowRight":
-          keys.ArrowRight.pressed = true;
+            keys.ArrowRight.pressed = true;
+            lastKey = "ArrowRight";
           break;
       }
 });
