@@ -15,7 +15,17 @@ playerImage.src = "./imgs/elf-player.png";
 
 image.onload = () => {
     c.drawImage(image, -1265, -450);
-    c.drawImage(playerImage, canvas.width/2 - playerImage.width/3, canvas.height/2);
+    c.drawImage(
+        playerImage,
+        0,
+        0,
+        playerImage.width / 3,
+        playerImage.height / 4,
+        canvas.width / 2 - playerImage.width / 3,
+        canvas.height / 2,
+        playerImage.width / 3,
+        playerImage.height / 4,
+    );
 }
 
 // const offset = {
