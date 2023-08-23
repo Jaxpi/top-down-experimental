@@ -40,6 +40,10 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 ```
 
 ### DEFINE BACKGROUND IMAGE AND SOURCE
+
+- Create map in Tiled, zoom to desired size, hide boundary and other layers you don't want visible and export as image to app folder
+
+
 ```
 const image = new Image();
 image.src = "./imgs/top-down-experimental-map.png";
@@ -64,11 +68,11 @@ image.onload = () => {
     c.drawImage(playerImage, canvas.width/2 - playerImage.width/3, canvas.height/2);
 }
 ```
-*playerImage.width / number of sprites in that row*
+- *playerImage.width / number of sprites in that row*
 
 ### Create Character Frames and Looping From Sprite Sheet (this example is 3x4)
 
-*c.drawImage(
+- *c.drawImage(
     playerImage,
     x position to crop,
     y position to crop,
@@ -96,7 +100,7 @@ image.onload = () => {
 
 ### Character Movement
 
-Keydown Event Listener:
+- Keydown Event Listener:
 
 ```
 window.addEventListener("keydown", (e) => {
@@ -120,7 +124,7 @@ window.addEventListener("keydown", (e) => {
 });
 ```
 
-Move image.onload Code to Animate Function (add call function to see it on live server):
+- Move image.onload Code to Animate Function (add call function to see it on live server):
 
 ```
 function animate() {
@@ -142,9 +146,9 @@ function animate() {
 animate();
 ```
 
-Create Sprite Class to Function as a Reference For All New Created Interactables:
+- Create Sprite Class to Function as a Reference For All New Created Interactables:
 
-Replace offset coordinates with a constant:
+- Replace offset coordinates with a constant:
 ```
 const offset = {
     x: -1240,
@@ -152,7 +156,7 @@ const offset = {
 };
 ```
 
-Declare Sprite Class With Constructor (what to put) and draw (where to put) Functions:
+- Declare Sprite Class With Constructor (what to put) and draw (where to put) Functions:
 ```
 class Sprite {
     constructor({
@@ -169,7 +173,7 @@ class Sprite {
 }
 ```
 
-Make Background a Sprite:
+- Make Background a Sprite:
 ```
 const background = new Sprite({
     position: {
@@ -180,7 +184,7 @@ const background = new Sprite({
 })
 ```
 
-Set Keys to False and Add Keyup Function to Stop Movement:
+- Set Keys to False and Add Keyup Function to Stop Movement:
 
 ```
 const keys = {
@@ -239,7 +243,7 @@ window.addEventListener("keyup", (e) => {
 });
 ```
 
-Declare and Call Animate Function With If Statement to Move Background on Keydown Event:
+- Declare and Call Animate Function With If Statement to Move Background on Keydown Event:
 ```
 function animate() {
     window.requestAnimationFrame(animate);
@@ -270,7 +274,7 @@ function animate() {
 animate();
 ```
 
-Alter Code to Use Last Key Pressed With New Let and Altered If Statement:
+- Alter Code to Use Last Key Pressed With New Let and Altered If Statement:
 
 ```
     if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
@@ -311,3 +315,9 @@ window.addEventListener("keydown", (e) => {
       }
 });
 ```
+
+### Character Boundaries
+
+- In Tiled, Export As .json File to App Folder
+- Open the File and Find the Array Related to Boundaries
+- Copy and Paste the Array as a New Const in a New File Called boundaries.js in a New Folder Named Data
