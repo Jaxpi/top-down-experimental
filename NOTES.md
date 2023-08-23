@@ -60,7 +60,7 @@ const playerImage = new Image();
 playerImage.src = "./imgs/elf-player.png";
 
 image.onload = () => {
-    c.drawImage(image, -1250, -450);
+    c.drawImage(image, -1240, -450);
     c.drawImage(playerImage, canvas.width/2 - playerImage.width/3, canvas.height/2);
 }
 ```
@@ -86,7 +86,7 @@ image.onload = () => {
     0,
     playerImage.width/3,
     playerImage.height/4,
-    canvas.width/2 - playerImage.width/3,
+    canvas.width/2 - (playerImage.width/3 / 2),
     canvas.height/2,
     playerImage.width/3,
     playerImage.height/4
