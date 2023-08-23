@@ -96,4 +96,53 @@ image.onload = () => {
 
 ### Character Movement
 
+Keydown Event Listener:
 
+```
+window.addEventListener("keydown", (e) => {
+    switch (e.key) {
+        case "ArrowUp":
+          keys.ArrowUp.pressed = false;
+          break;
+    
+        case "ArrowDown":
+          keys.ArrowDown.pressed = false;
+          break;
+    
+        case "ArrowLeft":
+          keys.ArrowLeft.pressed = false;
+          break;
+    
+        case "ArrowRight":
+          keys.ArrowRight.pressed = false;
+          break;
+      }
+});
+```
+
+Move image.onload Code to Animate Function (add call function to see it on live server):
+
+```
+function animate() {
+    window.requestAnimationFrame(animate);
+    c.drawImage(image, -1240, -450);
+    c.drawImage(
+        playerImage,
+        0,
+        0,
+        playerImage.width / 3,
+        playerImage.height / 4,
+        canvas.width / 2 - (playerImage.width / 3) / 2,
+        canvas.height / 2,
+        playerImage.width / 3,
+        playerImage.height / 4,
+    );
+};
+
+animate();
+```
+
+Create Sprite Class to Function as a Reference For All New Created Interactables:
+
+
+Replace offset coordinates with a constant:
