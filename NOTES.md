@@ -378,3 +378,23 @@ function animate() {
     });
   c.drawImage(
 ```
+
+- Tie Boundaries to Map By Creating a Const Called movables and Adding Background and Boundaries to That, Then Altering Key Press if/else Statement to Match
+```
+const movables = [background, ...boundaries];
+
+if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
+      movables.forEach(movable => movable.position.y += 3);
+  } else if (keys.ArrowDown.pressed && lastKey === "ArrowDown") {
+    movables.forEach(movable => movable.position.y -= 3);
+  } else if (keys.ArrowLeft.pressed && lastKey === "ArrowLeft") {
+    movables.forEach(movable => movable.position.x += 3);
+  } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
+    movables.forEach(movable => movable.position.x -= 3);
+```
+
+- Declare Character Interaction With Boundaries
+
+```
+
+```

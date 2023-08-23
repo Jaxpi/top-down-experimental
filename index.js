@@ -81,6 +81,8 @@ const keys = {
   },
 };
 
+const movables = [background, ...boundaries];
+
 function animate() {
   window.requestAnimationFrame(animate);
     background.draw();
@@ -100,13 +102,13 @@ function animate() {
   );
 
   if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
-    background.position.y += 3;
+      movables.forEach(movable => movable.position.y += 3);
   } else if (keys.ArrowDown.pressed && lastKey === "ArrowDown") {
-    background.position.y -= 3;
+    movables.forEach(movable => movable.position.y -= 3);
   } else if (keys.ArrowLeft.pressed && lastKey === "ArrowLeft") {
-    background.position.x += 3;
+    movables.forEach(movable => movable.position.x += 3);
   } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
-    background.position.x -= 3;
+    movables.forEach(movable => movable.position.x -= 3);
   }
 }
 
