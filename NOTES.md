@@ -320,4 +320,61 @@ window.addEventListener("keydown", (e) => {
 
 - In Tiled, Export As .json File to App Folder
 - Open the File and Find the Array Related to Boundaries
-- Copy and Paste the Array as a New Const in a New File Called boundaries.js in a New Folder Named Data
+- Copy and Paste the Array as a New Const in a New File Called collisions.js in a New Folder Named Data
+- Delete fillStyle and fillRect Codes
+- Create for loop For Boundaries Array
+
+```
+const boundaryMap = [];
+for (let i = 0; i < collisions.length; i += 50) {
+  boundaryMap.push(collisions.slice(i, 50 + i));
+}
+```
+
+- Create New Class Called Boundary and Set Width and Height to Tiled Tile Size Times the Zoom Level (tile size is 16 and zoom level is 300% in this example, so width and height are 48 (16x3))
+- Create Draw Function to See it in Browser
+
+```
+class Boundary {
+    static width = 48;
+    static height = 48;
+    constructor({position}) {
+        this.position = position,
+        this.width = 48,
+        this.height = 48
+    }
+    draw() {
+        c.fillStyle = 'red';
+        c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+```
+
+- Create const boundaries to Declare a New Array
+- Push Into the Array Wherever There is a Symbol That Denotes a Boundary
+
+```
+const boundaries = []
+
+boundaryMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+        boundaries.push(new Boundary({
+            position: {
+                x: j * Boundary.width + offset.x,
+                y: i * Boundary.height + offset.y
+            }
+        }))
+    })
+})
+```
+
+- Draw Boundaries in Animate Function
+```
+function animate() {
+  window.requestAnimationFrame(animate);
+    background.draw();
+    boundaries.forEach(boundary => {
+        boundary.draw()
+    });
+  c.drawImage(
+```
