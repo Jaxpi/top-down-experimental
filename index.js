@@ -10,37 +10,37 @@ for (let i = 0; i < collisions.length; i += 50) {
 }
 
 class Boundary {
-    static width = 48;
-    static height = 48;
-    constructor({position}) {
-        this.position = position,
-        this.width = 48,
-        this.height = 48
-    }
-    draw() {
-        c.fillStyle = 'red';
-        c.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
+  static width = 48;
+  static height = 48;
+  constructor({ position }) {
+    (this.position = position), (this.width = 48), (this.height = 48);
+  }
+  draw() {
+    c.fillStyle = "red";
+    c.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
 }
 
 const offset = {
-    x: -1240,
-    y: -450,
+  x: -1240,
+  y: -450,
 };
-  
-const boundaries = []
+
+const boundaries = [];
 
 boundaryMap.forEach((row, i) => {
-    row.forEach((symbol, j) => {
-        if (symbol === 632)
-        boundaries.push(new Boundary({
-            position: {
-                x: j * Boundary.width + offset.x,
-                y: i * Boundary.height + offset.y
-            }
-        }))
-    })
-})
+  row.forEach((symbol, j) => {
+    if (symbol === 632)
+      boundaries.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y,
+          },
+        })
+      );
+  });
+});
 
 const image = new Image();
 image.src = "./imgs/top-down-experimental-map.png";
@@ -49,14 +49,41 @@ const playerImage = new Image();
 playerImage.src = "./imgs/elf-player.png";
 
 class Sprite {
-  constructor({ position, image }) {
-    (this.position = position), (this.image = image);
+  constructor({ position, image, frames = { max: 1 } }) {
+    this.position = position;
+    this.image = image;
+    this.frames = frames;
+    this.image.onload = () => {
+      this.width = this.image.width / this.frames.max
+      this.height = this.image.height
+    };
   }
 
   draw() {
-    c.drawImage(this.image, this.position.x, this.position.y);
+    c.drawImage(
+      this.image,
+      0,
+      0,
+      this.image.width / this.frames.max,
+      this.image.height / 4,
+      this.position.x,
+      this.position.y,
+      this.image.width / this.frames.max,
+      this.image.height / 4
+    );
   }
 }
+
+const player = new Sprite({
+  position: {
+    x: canvas.width / 2 - 144 / 3 / 2,
+    y: canvas.height / 2,
+  },
+  image: playerImage,
+  frames: {
+    max: 3,
+  },
+});
 
 const background = new Sprite({
   position: {
@@ -83,32 +110,27 @@ const keys = {
 
 const movables = [background, ...boundaries];
 
+function rectangularCollision
+
 function animate() {
   window.requestAnimationFrame(animate);
-    background.draw();
-    boundaries.forEach(boundary => {
-        boundary.draw()
-    });
-  c.drawImage(
-    playerImage,
-    0,
-    0,
-    playerImage.width / 3,
-    playerImage.height / 4,
-    canvas.width / 2 - playerImage.width / 3 / 2,
-    canvas.height / 2,
-    playerImage.width / 3,
-    playerImage.height / 4
-  );
+  background.draw();
+  boundaries.forEach((boundary) => {
+    boundary.draw();
+  });
+  player.draw();
+
+//   if (player.position.x + player.width >= boundary.position.x && player.position.x <= boundary.position.x + boundary.width && player.position.y <= boundary.position.y + boundary.height && player.position.y + player.height >= boundary.position.y) {
+//   }
 
   if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
-      movables.forEach(movable => movable.position.y += 3);
+    movables.forEach((movable) => (movable.position.y += 3));
   } else if (keys.ArrowDown.pressed && lastKey === "ArrowDown") {
-    movables.forEach(movable => movable.position.y -= 3);
+    movables.forEach((movable) => (movable.position.y -= 3));
   } else if (keys.ArrowLeft.pressed && lastKey === "ArrowLeft") {
-    movables.forEach(movable => movable.position.x += 3);
+    movables.forEach((movable) => (movable.position.x += 3));
   } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
-    movables.forEach(movable => movable.position.x -= 3);
+    movables.forEach((movable) => (movable.position.x -= 3));
   }
 }
 

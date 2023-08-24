@@ -393,6 +393,43 @@ if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
     movables.forEach(movable => movable.position.x -= 3);
 ```
 
+- Move c.drawImage for Player to the Sprite Class and Change playerImage to this.image
+- Create player const as New Sprite With Position X as canvas.width/2 - the width of the sprite sheet being used for that character / # of frames in the row / 2 and Frames With a Max Set to # of Frames in the Row
+
+```
+  draw() {
+    c.drawImage(
+      this.image,
+      0,
+      0,
+      this.image.width / this.frames.max,
+      this.image.height / 4,
+      this.position.x,
+      this.position.y,
+      this.image.width / this.frames.max,
+      this.image.height / 4
+    );
+  }
+}
+
+const player = new Sprite({
+  position: {
+    x: canvas.width / 2 - 144 / 3 / 2,
+    y: canvas.height / 2,
+  },
+  image: playerImage,
+  frames: {
+    max: 3,
+  },
+});
+```
+
+- Create New Rectangular Collisions Function to Hold Properties of Player/Boundary Positions
+
+```
+
+```
+
 - Declare Character Interaction With Boundaries
 
 ```
