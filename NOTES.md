@@ -394,6 +394,7 @@ if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
 ```
 
 - Move c.drawImage for Player to the Sprite Class and Change playerImage to this.image
+- Add playerImage.height = playerImage.height/4 to have only the first row (need to know how to use 2D sprite sheets to fix this issue properly)
 - Create player const as New Sprite With Position X as canvas.width/2 - the width of the sprite sheet being used for that character / # of frames in the row / 2 and Frames With a Max Set to # of Frames in the Row
 
 ```
@@ -403,11 +404,11 @@ if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
       0,
       0,
       this.image.width / this.frames.max,
-      this.image.height / 4,
+      this.image.height,
       this.position.x,
       this.position.y,
       this.image.width / this.frames.max,
-      this.image.height / 4
+      this.image.height
     );
   }
 }
@@ -427,7 +428,31 @@ const player = new Sprite({
 - Create New Rectangular Collisions Function to Hold Properties of Player/Boundary Positions
 
 ```
+const movables = [background, ...boundaries];
 
+function rectangularCollision({ rectangle1, rectangle2 }) {
+  return (
+    rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
+    rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+    rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
+    rectangle1.position.y + rectangle1.height >= rectangle2.position.y
+  );
+}
+
+function animate() {
+  window.requestAnimationFrame(animate);
+  background.draw();
+  boundaries.forEach((boundary) => {
+    boundary.draw()
+    if (
+      rectangularCollision({
+        rectangle1: player,
+        rectangle2: boundary,
+      })
+    ) {
+      console.log("colliding");
+    }
+  });
 ```
 
 - Declare Character Interaction With Boundaries
