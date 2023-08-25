@@ -651,7 +651,7 @@ this.moving = false;
  if (!this.moving) return;
 ```
 
-### Alter Animation Function to Iclude moving = true For Player on Keydowns
+### Alter Animation Function to Include moving = true For Player on Keydowns
 
 - Under let moving = true, add player.moving = false
 - Inside Each If Statement for Key Press Add player.moving = true as the First Code
@@ -662,4 +662,65 @@ let moving = true;
 
   if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
       player.moving = true;
+```
+
+### Alter Animation Function to Include Changing of Image For Different Movement Directions
+
+- Until You Know How to Use 2D Sprite Sheets For This - Create 4 Different Sprite Sheets, One For Each Movement Direction and Add to Game
+
+```
+const playerUpImage = new Image();
+playerUpImage.src = "./imgs/elf-player-up.png";
+
+const playerDownImage = new Image();
+playerDownImage.src = "./imgs/elf-player-down.png";
+
+const playerLeftImage = new Image();
+playerLeftImage.src = "./imgs/elf-player-left.png";
+
+const playerRightImage = new Image();
+playerRightImage.src = "./imgs/elf-player-right.png";
+```
+
+- In Sprite Class, Add Sprites as a New Property
+```
+class Sprite {
+  constructor({ position, image, frames = { max: 1 }, sprites }) {
+    this.position = position;
+    this.image = image;
+    this.frames = { ...frames, val: 0, elapsed: 0 };
+    this.image.onload = () => {
+      this.width = this.image.width / this.frames.max;
+      this.height = this.image.height;
+    };
+    this.moving = false;
+    this.sprites = sprites;
+  }
+```
+
+- In const player, Add Property Called Sprites and Add the Different Images
+```
+const player = new Sprite({
+  position: {
+    x: canvas.width / 2 - 144 / 3 / 2,
+    y: canvas.height / 2,
+  },
+  image: playerDownImage,
+  frames: {
+    max: 3,
+  },
+  sprites: {
+    up: playerUpImage,
+    down: playerDownImage,
+    left: playerLeftImage,
+    right: playerRightImage,
+  },
+});
+```
+
+- In Animate Function, Add Image Property to Each Key Press For the Correct Image Desired
+```
+  if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
+    player.moving = true;
+    player.image = player.sprites.up;
 ```

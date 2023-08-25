@@ -17,54 +17,68 @@ const offset = {
 const image = new Image();
 image.src = "./imgs/top-down-experimental-map.png";
 
-const playerImage = new Image();
-playerImage.src = "./imgs/elf-player.png";
-playerImage.height = playerImage.height / 4;
+const playerUpImage = new Image();
+playerUpImage.src = "./imgs/elf-player-up.png";
+
+const playerDownImage = new Image();
+playerDownImage.src = "./imgs/elf-player-down.png";
+
+const playerLeftImage = new Image();
+playerLeftImage.src = "./imgs/elf-player-left.png";
+
+const playerRightImage = new Image();
+playerRightImage.src = "./imgs/elf-player-right.png";
 
 const foregroundImage = new Image();
 foregroundImage.src = "./imgs/top-down-experimental-map-foreground.png";
 
 const player = new Sprite({
-    position: {
-      x: canvas.width / 2 - 144 / 3 / 2,
-      y: canvas.height / 2,
-    },
-    image: playerImage,
-    frames: {
-      max: 3,
-    },
-  });
-  
-  const background = new Sprite({
-    position: {
-      x: offset.x,
-      y: offset.y,
-    },
-    image: image,
-  });
-  
-  const foreground = new Sprite({
-      position: {
-        x: offset.x,
-        y: offset.y,
-      },
-      image: foregroundImage,
-    });
-  
-  const keys = {
-    ArrowUp: {
-      pressed: false,
-    },
-    ArrowDown: {
-      pressed: false,
-    },
-    ArrowLeft: {
-      pressed: false,
-    },
-    ArrowRight: {
-      pressed: false,
-    },
-  };
+  position: {
+    x: canvas.width / 2 - 144 / 3 / 2,
+    y: canvas.height / 2,
+  },
+  image: playerDownImage,
+  frames: {
+    max: 3,
+  },
+  sprites: {
+    up: playerUpImage,
+    down: playerDownImage,
+    left: playerLeftImage,
+    right: playerRightImage,
+  }
+});
+
+const background = new Sprite({
+  position: {
+    x: offset.x,
+    y: offset.y,
+  },
+  image: image,
+});
+
+const foreground = new Sprite({
+  position: {
+    x: offset.x,
+    y: offset.y,
+  },
+  image: foregroundImage,
+});
+
+const keys = {
+  ArrowUp: {
+    pressed: false,
+  },
+  ArrowDown: {
+    pressed: false,
+  },
+  ArrowLeft: {
+    pressed: false,
+  },
+  ArrowRight: {
+    pressed: false,
+  },
+};
 
 const boundaries = [];
 
@@ -107,15 +121,16 @@ function animate() {
       console.log("colliding");
     }
   });
-    player.draw();
-    foreground.draw();
+  player.draw();
+  foreground.draw();
 
-    let moving = true;
-    player.moving = false;
+  let moving = true;
+  player.moving = false;
 
   if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
-      player.moving = true;
-      for (let i = 0; i < boundaries.length; i++) {
+    player.moving = true;
+    player.image = player.sprites.up;
+    for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
       if (
         rectangularCollision({
@@ -139,6 +154,7 @@ function animate() {
       });
   } else if (keys.ArrowDown.pressed && lastKey === "ArrowDown") {
     player.moving = true;
+    player.image = player.sprites.down;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
       if (
@@ -160,6 +176,7 @@ function animate() {
     if (moving) movables.forEach((movable) => (movable.position.y -= 3));
   } else if (keys.ArrowLeft.pressed && lastKey === "ArrowLeft") {
     player.moving = true;
+    player.image = player.sprites.left;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
       if (
@@ -181,6 +198,7 @@ function animate() {
     if (moving) movables.forEach((movable) => (movable.position.x += 3));
   } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
     player.moving = true;
+    player.image = player.sprites.right;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
       if (
