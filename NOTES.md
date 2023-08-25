@@ -551,3 +551,57 @@ let moving = true;
     if (moving) movables.forEach((movable) => (movable.position.x -= 3));
   }
 ```
+
+## Foreground Image and New Class File:
+
+### Create Foreground Image
+
+- In Tiled, Have Only the Foreground Objects Layer Visible Then Export as Image at the Same Zoom Level as the Background Image
+- Import the Image to the Code and Create a New Sprite for the Foreground Image
+
+```
+const foregroundImage = new Image();
+image.src = "./imgs/top-down-experimental-map-foreground.png";
+
+const foreground = new Sprite({
+    position: {
+      x: offset.x,
+      y: offset.y,
+    },
+    image: foregroundImage,
+  });
+```
+
+### Create New File for Classes:
+
+- In index.html Create a Script Source For classes.js Above index.js
+
+```
+<head>
+  <style>
+    body {
+      background-color: black;
+    }
+  </style>
+</head>
+
+<canvas> </canvas>
+<script src="data/collisions.js"></script>
+<script src="classes.js"></script>
+<script src="index.js"></script>
+```
+
+- Copy and Paste the Class for Sprite and the Class for Boundary Into the New classes.js file
+
+### Animate Foreground Objects
+
+- Add foreground to the Moveables Array and Add foreground.draw(); to the Animate Function Directly After player.draw();
+
+```
+const movables = [background, ...boundaries, foreground];
+
+player.draw();
+foreground.draw();
+```
+
+## Character Sprite Animation
