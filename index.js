@@ -110,10 +110,12 @@ function animate() {
     player.draw();
     foreground.draw();
 
-  let moving = true;
+    let moving = true;
+    player.moving = false;
 
   if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
-    for (let i = 0; i < boundaries.length; i++) {
+      player.moving = true;
+      for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
       if (
         rectangularCollision({
@@ -136,6 +138,7 @@ function animate() {
         movable.position.y += 3;
       });
   } else if (keys.ArrowDown.pressed && lastKey === "ArrowDown") {
+    player.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
       if (
@@ -156,6 +159,7 @@ function animate() {
     }
     if (moving) movables.forEach((movable) => (movable.position.y -= 3));
   } else if (keys.ArrowLeft.pressed && lastKey === "ArrowLeft") {
+    player.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
       if (
@@ -176,6 +180,7 @@ function animate() {
     }
     if (moving) movables.forEach((movable) => (movable.position.x += 3));
   } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
+    player.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
       if (

@@ -604,4 +604,62 @@ player.draw();
 foreground.draw();
 ```
 
-## Character Sprite Animation
+## Character Sprite Animation:
+
+### Alter Sprite Class Code to Include Frame Changes
+
+- Change this.frames to Include a val Object
+```
+    this.frames = { ...frames, val: 0 };
+```
+- Change Draw Code to Include New Changes in X and Y Positions and Add If Statement to Loop Through Frames
+```
+  draw() {
+    c.drawImage(
+      this.image,
+      this.frames.val * this.width,
+      0,
+      this.image.width / this.frames.max,
+      this.image.height,
+      this.position.x,
+      this.position.y,
+      this.image.width / this.frames.max,
+      this.image.height
+    );
+    if (this.frames.val < this.frames.max - 1) this.frames.val++
+    else this.frames.val = 0;
+  }
+```
+
+- Slow Down Sprite Frame Animation Loop to Fit Walking Speed
+```
+    this.frames = { ...frames, val: 0, elapsed: 0 };
+
+        if (this.frames.max > 1) {
+      this.frames.elapsed++;
+    }
+    if (this.frames.elapsed % 10 === 0) {
+      if (this.frames.val < this.frames.max - 1) this.frames.val++;
+      else this.frames.val = 0;
+    }
+```
+
+- Add this.moving = false to Sprite Class and Enclose Frame Animation Loop in an If Statement to Only Occur When Moving Above the Frame Loop
+```
+this.moving = false;
+
+ if (!this.moving) return;
+```
+
+### Alter Animation Function to Iclude moving = true For Player on Keydowns
+
+- Under let moving = true, add player.moving = false
+- Inside Each If Statement for Key Press Add player.moving = true as the First Code
+
+```
+let moving = true;
+    player.moving = false;
+
+  if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
+      player.moving = true;
+```
