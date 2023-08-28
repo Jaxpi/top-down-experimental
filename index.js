@@ -9,6 +9,11 @@ for (let i = 0; i < collisions.length; i += 50) {
   boundaryMap.push(collisions.slice(i, 50 + i));
 }
 
+const interactionsMap = [];
+for (let i = 0; i < interactionsData.length; i += 50) {
+  interactionsMap.push(interactionsData.slice(i, 50 + i));
+}
+
 const offset = {
   x: -1240,
   y: -500,
@@ -96,7 +101,23 @@ boundaryMap.forEach((row, i) => {
   });
 });
 
-const movables = [background, ...boundaries, foreground];
+const interactions = [];
+
+interactionsMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 945)
+      interactions.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y,
+          },
+        })
+      );
+  });
+});
+
+const movables = [background, ...boundaries, foreground, ...interactions];
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
@@ -121,6 +142,9 @@ function animate() {
       console.log("colliding");
     }
   });
+  interactions.forEach((interactions) => {
+    interactions.draw()
+  })
   player.draw();
   foreground.draw();
 

@@ -724,3 +724,49 @@ const player = new Sprite({
     player.moving = true;
     player.image = player.sprites.up;
 ```
+
+## Character Interactions:
+
+### Use Tiled Layer Data in JSON File
+
+- Find the Layer Data Array For BattleZones, Doorways, Etc and Create a New .js File in the Data Folder With a New const For Whatever it is
+
+```
+const interactions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+```
+
+### Use New Data Array in index.js File
+
+- Below const boundaryMap, Create a New const For interactionsMap, Keeping Width and Length the Same Since the Map Is The Same Size
+
+```
+const interactionsMap = [];
+for (let i = 0; i < interactionsData.length; i += 50) {
+  interactionsMap.push(interactionsData.slice(i, 50 + i));
+}
+```
+Below the const boundaries and boundaryMap.forEach Codes, Do the Same For Interactions, Making Sure to Use Whatever Symbol Code is in the json File For That Array
+- Interactions Will Still Be a New Boundary
+
+```
+const interactions = [];
+
+interactionsMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 945)
+      interactions.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y,
+          },
+        })
+      );
+  });
+});
+```
+
+- Add interactions to the Moveables Array
+```
+const movables = [background, ...boundaries, foreground, ...interactions];
+```
