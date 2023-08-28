@@ -23,16 +23,16 @@ const image = new Image();
 image.src = "./imgs/top-down-experimental-map.png";
 
 const playerUpImage = new Image();
-playerUpImage.src = "./imgs/elf-player-up.png";
+playerUpImage.src = "./imgs/elf-player-up-sm.png";
 
 const playerDownImage = new Image();
-playerDownImage.src = "./imgs/elf-player-down.png";
+playerDownImage.src = "./imgs/elf-player-down-sm.png";
 
 const playerLeftImage = new Image();
-playerLeftImage.src = "./imgs/elf-player-left.png";
+playerLeftImage.src = "./imgs/elf-player-left-sm.png";
 
 const playerRightImage = new Image();
-playerRightImage.src = "./imgs/elf-player-right.png";
+playerRightImage.src = "./imgs/elf-player-right-sm.png";
 
 const foregroundImage = new Image();
 foregroundImage.src = "./imgs/top-down-experimental-map-foreground.png";
