@@ -128,8 +128,12 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
+const doorway = {
+  initiated: false,
+};
+
 function animate() {
-  window.requestAnimationFrame(animate);
+  const animationID = window.requestAnimationFrame(animate);
   background.draw();
   boundaries.forEach((boundary) => {
     boundary.draw();
@@ -148,6 +152,10 @@ function animate() {
   player.draw();
   foreground.draw();
 
+  let moving = true;
+  player.moving = false;
+
+  if (doorway.initiated) return;
   if (
     keys.ArrowUp.pressed ||
     keys.ArrowDown.pressed ||
@@ -161,12 +169,12 @@ function animate() {
           player.position.x + player.width,
           interaction.position.x + interaction.width
         ) -
-        Math.max(player.position.x, interaction.position.x)) *
-          (Math.min(
-            player.position.y + player.height,
-            interaction.position.y + interaction.height
-          ) -
-        Math.max(player.position.y, interaction.position.y));
+          Math.max(player.position.x, interaction.position.x)) *
+        (Math.min(
+          player.position.y + player.height,
+          interaction.position.y + interaction.height
+        ) -
+          Math.max(player.position.y, interaction.position.y));
       if (
         rectangularCollision({
           rectangle1: player,
@@ -175,13 +183,31 @@ function animate() {
         overlappingArea > (player.width * player.height) / 2
       ) {
         console.log("doorway");
+        window.cancelAnimationFrame(animationID);
+        doorway.initiated = true;
+        gsap.to("#overlappingDiv", {
+          opacity: 1,
+          // repeat: 2,
+          // yoyo: true,
+          duration: 0.4,
+          onComplete() {
+            gsap.to("#overlappingDiv", {
+              opacity: 1,
+              duration: 0.4,
+              onComplete() {
+                animateInteraction();
+                gsap.to("#overlappingDiv", {
+                  opacity: 0,
+                  duration: 0.4,
+                });
+              }
+            });
+          },
+        });
         break;
       }
     }
   }
-
-  let moving = true;
-  player.moving = false;
 
   if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
     player.moving = true;
@@ -279,6 +305,21 @@ function animate() {
 }
 
 animate();
+
+const generalStoreImg = new Image()
+generalStoreImg.src = './imgs/general-store-3.jpg'
+const generalStoreBackground = new Sprite({
+  position: {
+    x: 0,
+    y:0
+  },
+  image: generalStoreImg
+})
+
+function animateInteraction() {
+  window.requestAnimationFrame(animateInteraction)
+  generalStoreBackground.draw()
+}
 
 let lastKey = "";
 window.addEventListener("keydown", (e) => {

@@ -22,18 +22,21 @@
 ## Basic Background Image w/Zoomed-In Area Centered:
 
 ### DEFINE CANVAS IN HTML
+
 ```
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext("2d");
 ```
 
 ### DEFINE CANVAS SIZE
+
 ```
 canvas.width = 1024;
 canvas.height = 576;
 ```
 
 ### DEFINE CANVAS APPEARANCE
+
 ```
 c.fillStyle = 'white';
 c.fillRect(0, 0, canvas.width, canvas.height);
@@ -43,13 +46,13 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 - Create map in Tiled, zoom to desired size, hide boundary and other layers you don't want visible and export as image to app folder
 
-
 ```
 const image = new Image();
 image.src = "./imgs/top-down-experimental-map.png";
 ```
 
 ### DRAW IMAGE WHEN LOADED AND OFFSET TO BE CENTERED IF LARGER THAN CANVAS DIMENSIONS
+
 ```
 image.onload = () => {
     c.drawImage(image, -1250, -450);
@@ -59,6 +62,7 @@ image.onload = () => {
 ## Character Animation:
 
 ### Create Character Image and Load After Background Loads
+
 ```
 const playerImage = new Image();
 playerImage.src = "./imgs/elf-player.png";
@@ -68,21 +72,22 @@ image.onload = () => {
     c.drawImage(playerImage, canvas.width/2 - playerImage.width/3, canvas.height/2);
 }
 ```
-- *playerImage.width / number of sprites in that row*
+
+- _playerImage.width / number of sprites in that row_
 
 ### Create Character Frames and Looping From Sprite Sheet (this example is 3x4)
 
-- *c.drawImage(
-    playerImage,
-    x position to crop,
-    y position to crop,
-    crop width (playerImage.width / # of sprites in row),
-    crop height (playerImage.height / # of sprites in column),
-    placement on x axis,
-    placement on y axis,
-    drawn image width,
-    drawn image height
-    );*
+- _c.drawImage(
+  playerImage,
+  x position to crop,
+  y position to crop,
+  crop width (playerImage.width / # of sprites in row),
+  crop height (playerImage.height / # of sprites in column),
+  placement on x axis,
+  placement on y axis,
+  drawn image width,
+  drawn image height
+  );_
 
 ```
     c.drawImage(
@@ -108,15 +113,15 @@ window.addEventListener("keydown", (e) => {
         case "ArrowUp":
           keys.ArrowUp.pressed = false;
           break;
-    
+
         case "ArrowDown":
           keys.ArrowDown.pressed = false;
           break;
-    
+
         case "ArrowLeft":
           keys.ArrowLeft.pressed = false;
           break;
-    
+
         case "ArrowRight":
           keys.ArrowRight.pressed = false;
           break;
@@ -149,6 +154,7 @@ animate();
 - Create Sprite Class to Function as a Reference For All New Created Interactables:
 
 - Replace offset coordinates with a constant:
+
 ```
 const offset = {
     x: -1240,
@@ -157,6 +163,7 @@ const offset = {
 ```
 
 - Declare Sprite Class With Constructor (what to put) and draw (where to put) Functions:
+
 ```
 class Sprite {
     constructor({
@@ -174,6 +181,7 @@ class Sprite {
 ```
 
 - Make Background a Sprite:
+
 ```
 const background = new Sprite({
     position: {
@@ -207,15 +215,15 @@ window.addEventListener("keydown", (e) => {
         case "ArrowUp":
           keys.ArrowUp.pressed = true;
           break;
-    
+
         case "ArrowDown":
           keys.ArrowDown.pressed = true;
           break;
-    
+
         case "ArrowLeft":
           keys.ArrowLeft.pressed = true;
           break;
-    
+
         case "ArrowRight":
           keys.ArrowRight.pressed = true;
           break;
@@ -227,15 +235,15 @@ window.addEventListener("keyup", (e) => {
         case "ArrowUp":
           keys.ArrowUp.pressed = false;
           break;
-    
+
         case "ArrowDown":
           keys.ArrowDown.pressed = false;
           break;
-    
+
         case "ArrowLeft":
           keys.ArrowLeft.pressed = false;
           break;
-    
+
         case "ArrowRight":
           keys.ArrowRight.pressed = false;
           break;
@@ -244,6 +252,7 @@ window.addEventListener("keyup", (e) => {
 ```
 
 - Declare and Call Animate Function With If Statement to Move Background on Keydown Event:
+
 ```
 function animate() {
     window.requestAnimationFrame(animate);
@@ -297,17 +306,17 @@ window.addEventListener("keydown", (e) => {
             keys.ArrowUp.pressed = true;
             lastKey = "ArrowUp";
           break;
-    
+
         case "ArrowDown":
             keys.ArrowDown.pressed = true;
             lastKey = "ArrowDown";
           break;
-    
+
         case "ArrowLeft":
             keys.ArrowLeft.pressed = true;
             lastKey = "ArrowLeft";
           break;
-    
+
         case "ArrowRight":
             keys.ArrowRight.pressed = true;
             lastKey = "ArrowRight";
@@ -369,6 +378,7 @@ boundaryMap.forEach((row, i) => {
 ```
 
 - Draw Boundaries in Animate Function
+
 ```
 function animate() {
   window.requestAnimationFrame(animate);
@@ -380,6 +390,7 @@ function animate() {
 ```
 
 - Tie Boundaries to Map By Creating a Const Called movables and Adding Background and Boundaries to That, Then Altering Key Press if/else Statement to Match
+
 ```
 const movables = [background, ...boundaries];
 
@@ -454,6 +465,7 @@ function animate() {
     }
   });
 ```
+
 - Clear Boundary Appearance in Boundary Class
 
 ```
@@ -609,10 +621,13 @@ foreground.draw();
 ### Alter Sprite Class Code to Include Frame Changes
 
 - Change this.frames to Include a val Object
+
 ```
     this.frames = { ...frames, val: 0 };
 ```
+
 - Change Draw Code to Include New Changes in X and Y Positions and Add If Statement to Loop Through Frames
+
 ```
   draw() {
     c.drawImage(
@@ -632,6 +647,7 @@ foreground.draw();
 ```
 
 - Slow Down Sprite Frame Animation Loop to Fit Walking Speed
+
 ```
     this.frames = { ...frames, val: 0, elapsed: 0 };
 
@@ -645,6 +661,7 @@ foreground.draw();
 ```
 
 - Add this.moving = false to Sprite Class and Enclose Frame Animation Loop in an If Statement to Only Occur When Moving Above the Frame Loop
+
 ```
 this.moving = false;
 
@@ -683,6 +700,7 @@ playerRightImage.src = "./imgs/elf-player-right.png";
 ```
 
 - In Sprite Class, Add Sprites as a New Property
+
 ```
 class Sprite {
   constructor({ position, image, frames = { max: 1 }, sprites }) {
@@ -699,6 +717,7 @@ class Sprite {
 ```
 
 - In const player, Add Property Called Sprites and Add the Different Images
+
 ```
 const player = new Sprite({
   position: {
@@ -719,6 +738,7 @@ const player = new Sprite({
 ```
 
 - In Animate Function, Add Image Property to Each Key Press For the Correct Image Desired
+
 ```
   if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
     player.moving = true;
@@ -745,7 +765,9 @@ for (let i = 0; i < interactionsData.length; i += 50) {
   interactionsMap.push(interactionsData.slice(i, 50 + i));
 }
 ```
+
 Below the const boundaries and boundaryMap.forEach Codes, Do the Same For Interactions, Making Sure to Use Whatever Symbol Code is in the json File For That Array
+
 - Interactions Will Still Be a New Boundary
 
 ```
@@ -767,11 +789,13 @@ interactionsMap.forEach((row, i) => {
 ```
 
 - Add interactions to the Moveables Array
+
 ```
 const movables = [background, ...boundaries, foreground, ...interactions];
 ```
 
 - Create Animation Function Code For What to Do When Interaction Collision Occurs Below foreground.draw()
+
 ```
 if (keys.ArrowUp.pressed || keys.ArrowDown.pressed || keys.ArrowLeft.pressed|| keys.ArrowRight.pressed) {
       for (let i = 0; i < interactions.length; i++) {
@@ -790,6 +814,7 @@ if (keys.ArrowUp.pressed || keys.ArrowDown.pressed || keys.ArrowLeft.pressed|| k
 ```
 
 - Shrink the Area of Intersection so Interactions Don't Activate Unless Most of the Player is Colliding
+
 ```
 if (keys.ArrowUp.pressed || keys.ArrowDown.pressed || keys.ArrowLeft.pressed|| keys.ArrowRight.pressed) {
       for (let i = 0; i < interactions.length; i++) {
@@ -809,6 +834,7 @@ if (keys.ArrowUp.pressed || keys.ArrowDown.pressed || keys.ArrowLeft.pressed|| k
 ```
 
 - Create the overlappingArea const Beneath const interaction
+
 ```
 const overlappingArea = (Math.min(player.position.x + player.width, interaction.position.x + interaction.width) - Math.max(player.position.x, interaction.position.x)) * (Math.min(player.position.y + player.height, interaction.position.y + interaction.height) - Math.max(player.position.y, interaction.position.y))
 ```
@@ -816,7 +842,178 @@ const overlappingArea = (Math.min(player.position.x + player.width, interaction.
 ### Randomize Interactions for Battles
 
 - Add an Additional Criterion to the Overlapping That Creates a Random Number and Only Starts an Interaction if That Number is Less Than a Set Value (the smaller the value, the less frequent an interaction will be initiated)
+
 ```
 overlappingArea > (player.width * player.height) / 2 && Math.random() < 0.01
 ```
+
+### Detect Interaction and Stop Player Movement Upon Interaction
+
+- Stop Player From Moving by Creating a New const Above Animation Loop
+
+```
+const doorway = {
+  initiated: false
+}
+```
+
+- Add If Statement Above the If Statement for interactions That Says If That Const is True to Return and Not Call the Rest of the Code
+
+```
+if (doorway.initiated) return
+  if (
+    keys.ArrowUp.pressed ||
+    keys.ArrowDown.pressed ||
+    keys.ArrowLeft.pressed ||
+    keys.ArrowRight.pressed
+  ) {...
+```
+
+- At the Bottom of the Interaction Code Set Initiation to True
+
+```
+        }) &&
+        overlappingArea > (player.width * player.height) / 2
+      ) {
+        console.log("doorway");
+        doorway.initiated = true
+        break;
+```
+
+- Move let moving = true; and player.moving = false; Codes Above the if (doorway.initiated) return Code
+
+```
+foreground.draw();
+
+  let moving = true;
+  player.moving = false;
+
+  if (doorway.initiated) return
+```
+
+### Create Visual Transition Upon Interaction
+
+- Create New Div in HTML For Transition Animation Area
+
+```
+<div style="display: inline-block; position: relative;">
+  <div id="overlappingDiv" style="background-color: black; position: absolute; top: 0; right: 0; bottom: 0; left: 0; pointer-events: none;"></div>
+  <canvas> </canvas>
+</div>
+```
+
+- Import Animation Library (https://cdnjs.com/libraries/gsap), Copy Script Tag, Insert Above All Other Script Tags in index.html
+
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="data/interactions.js"></script>
+```
+
+- Add gsap Code to index.js in Interaction Initiation Code Below doorway.initiated = true
+
+```
+doorway.initiated = true
+gsap.to('#overlappingDiv', {
+  opacity: 1,
+  repeat: 3,
+  yoyo: true,
+  duration: 0.4
+  onComplete() {
+    gsap.to('#overlappingDiv', {
+      opacity: 1,
+      duration: 0.4
+    })
+  }
+})
+break;
+```
+
+- Activate New Animation Loop and Deactivate Old One
+- Add a New const in the Animation Function for animationID and Set it to window.requestAnimationFrame
+
+```
+function animate() {
+  const animationID = window.requestAnimationFrame
+```
+
+- Cancel the Animation Just Above the Initiation of the Interaction
+
+```
+window.cancelAnimationFrame(animationID);
+doorway.initiated = true;
+```
+
+- Within the onComplete Function Call a New Animation Loop
+
+```
+animateInteraction();
+```
+
+- Create the New Animation Function Below the Call For the Animate Function
+
+```
+animate();
+
+function animateInteraction() {
+  window.requestAnimationFrame(animateInteraction)
+}
+```
+
+- Add a New Image and Sprite For After the Transition Above the New Function
+
+```
+animate();
+
+const generalStoreImg = new Image()
+generalStoreImg.src = './imgs/general-store-2,jpeg'
+const generalStoreBackground = new Sprite({
+  position: {
+    x: 0,
+    y:0
+  },
+  image: generalStoreImg
+})
+
+function animateInteraction() {...
+```
+
+- Call Draw Method on New Sprite in the New Animation Function
+
+```
+function animateInteraction() {
+  window.requestAnimationFrame(animateInteraction)
+  generalStoreBackground.draw()
+}
+```
+
+- Remove Black Overlay After Transition by Altering the Interaction Initiation Code to Move the animateInteraction Call to Within the onComplete Function and Include Another gsap.to after the animateInteraction Function is Called
+
+```
+window.cancelAnimationFrame(animationID);
+doorway.initiated = true;
+gsap.to("#overlappingDiv", {
+  opacity: 1,
+  repeat: 3,
+  yoyo: true,
+  duration: 0.4,
+  onComplete() {
+    gsap.to("#overlappingDiv", {
+      opacity: 1,
+      duration: 0.4,
+      onComplete() {
+        animateInteraction();
+        gsap.to("#overlappingDiv", {
+          opacity: 0,
+          duration: 0.4,
+        });
+      }
+    });
+  },
+});
+break;
+```
+
+## Adding Battle Interactions (or others):
+
+### Creating Battle Sprites
 
