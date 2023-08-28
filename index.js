@@ -172,6 +172,20 @@ function animate() {
         break;
       }
     }
+
+    for (let i = 0; i < interactions.length; i++) {
+      const interaction = interactions[i];
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: interaction
+        })
+      ) {
+        console.log("doorway")
+        break;
+      }
+    }
+
     if (moving)
       movables.forEach((movable) => {
         movable.position.y += 3;

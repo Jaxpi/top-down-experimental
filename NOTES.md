@@ -770,3 +770,26 @@ interactionsMap.forEach((row, i) => {
 ```
 const movables = [background, ...boundaries, foreground, ...interactions];
 ```
+
+- Create Animation Function Code For What to Do When Interaction Collision Occurs
+- For Doorways You Can Leave This in The if (keys.ArrowUp.pressed... Section 
+```
+
+```
+- For Other Interactions Like Randomized Battle Interactions While Moving Through a Certain Area, Use the Code Below foreground.draw()
+```
+if (keys.ArrowUp.pressed || keys.ArrowDown.pressed || keys.ArrowLeft.pressed|| keys.ArrowRight.pressed) {
+      for (let i = 0; i < interactions.length; i++) {
+      const interaction = interactions[i];
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: interaction
+        })
+      ) {
+        console.log("doorway")
+        break;
+      }
+    }
+}
+```
