@@ -771,12 +771,7 @@ interactionsMap.forEach((row, i) => {
 const movables = [background, ...boundaries, foreground, ...interactions];
 ```
 
-- Create Animation Function Code For What to Do When Interaction Collision Occurs
-- For Doorways You Can Leave This in The if (keys.ArrowUp.pressed... Section 
-```
-
-```
-- For Other Interactions Like Randomized Battle Interactions While Moving Through a Certain Area, Use the Code Below foreground.draw()
+- Create Animation Function Code For What to Do When Interaction Collision Occurs Below foreground.draw()
 ```
 if (keys.ArrowUp.pressed || keys.ArrowDown.pressed || keys.ArrowLeft.pressed|| keys.ArrowRight.pressed) {
       for (let i = 0; i < interactions.length; i++) {
@@ -792,4 +787,28 @@ if (keys.ArrowUp.pressed || keys.ArrowDown.pressed || keys.ArrowLeft.pressed|| k
       }
     }
 }
+```
+
+- Shrink the Area of Intersection so Interactions Don't Activate Unless Most of the Player is Colliding
+```
+if (keys.ArrowUp.pressed || keys.ArrowDown.pressed || keys.ArrowLeft.pressed|| keys.ArrowRight.pressed) {
+      for (let i = 0; i < interactions.length; i++) {
+      const interaction = interactions[i];
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: interaction
+        }) &&
+        overlappingArea > (player.width * player.height) / 2
+      ) {
+        console.log("doorway")
+        break;
+      }
+    }
+}
+```
+
+- Create the overlappingArea const Beneath const interaction
+```
+const overlappingArea = (Math.min(player.position.x + player.width, interaction.position.x + interaction.width) - Math.max(player.position.x, interaction.position.x)) * (Math.min(player.position.y + player.height, interaction.position.y + interaction.height) - Math.max(player.position.y, interaction.position.y))
 ```

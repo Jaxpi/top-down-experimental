@@ -51,7 +51,7 @@ const player = new Sprite({
     down: playerDownImage,
     left: playerLeftImage,
     right: playerRightImage,
-  }
+  },
 });
 
 const background = new Sprite({
@@ -143,10 +143,42 @@ function animate() {
     }
   });
   interactions.forEach((interactions) => {
-    interactions.draw()
-  })
+    interactions.draw();
+  });
   player.draw();
   foreground.draw();
+
+  if (
+    keys.ArrowUp.pressed ||
+    keys.ArrowDown.pressed ||
+    keys.ArrowLeft.pressed ||
+    keys.ArrowRight.pressed
+  ) {
+    for (let i = 0; i < interactions.length; i++) {
+      const interaction = interactions[i];
+      const overlappingArea =
+        (Math.min(
+          player.position.x + player.width,
+          interaction.position.x + interaction.width
+        ) -
+        Math.max(player.position.x, interaction.position.x)) *
+          (Math.min(
+            player.position.y + player.height,
+            interaction.position.y + interaction.height
+          ) -
+        Math.max(player.position.y, interaction.position.y));
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: interaction,
+        }) &&
+        overlappingArea > (player.width * player.height) / 2
+      ) {
+        console.log("doorway");
+        break;
+      }
+    }
+  }
 
   let moving = true;
   player.moving = false;
@@ -169,19 +201,6 @@ function animate() {
         })
       ) {
         moving = false;
-        break;
-      }
-    }
-
-    for (let i = 0; i < interactions.length; i++) {
-      const interaction = interactions[i];
-      if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: interaction
-        })
-      ) {
-        console.log("doorway")
         break;
       }
     }
