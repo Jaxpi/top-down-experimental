@@ -812,3 +812,11 @@ if (keys.ArrowUp.pressed || keys.ArrowDown.pressed || keys.ArrowLeft.pressed|| k
 ```
 const overlappingArea = (Math.min(player.position.x + player.width, interaction.position.x + interaction.width) - Math.max(player.position.x, interaction.position.x)) * (Math.min(player.position.y + player.height, interaction.position.y + interaction.height) - Math.max(player.position.y, interaction.position.y))
 ```
+
+### Randomize Interactions for Battles
+
+- Add an Additional Criterion to the Overlapping That Creates a Random Number and Only Starts an Interaction if That Number is Less Than a Set Value (the smaller the value, the less frequent an interaction will be initiated)
+```
+overlappingArea > (player.width * player.height) / 2 && Math.random() < 0.01
+```
+
