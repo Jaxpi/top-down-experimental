@@ -39,7 +39,7 @@ foregroundImage.src = "./imgs/top-down-experimental-map-foreground.png";
 
 const player = new Sprite({
   position: {
-    x: canvas.width / 2 - 144 / 3 / 2,
+    x: canvas.width / 2 - 130 / 3 / 2,
     y: canvas.height / 2,
   },
   image: playerDownImage,
@@ -316,9 +316,36 @@ const generalStoreBackground = new Sprite({
   image: generalStoreImg
 })
 
+const battleCharImg = new Image()
+battleCharImg.src = './imgs/elf-player-up-lg.png'
+const darklingImg = new Image()
+darklingImg.src = './imgs/darkling-enemy-1.png'
+const battleChar = new Sprite({
+  position: {
+    x: 100,
+    y: 220
+  },
+  image: battleCharImg,
+  frames: {
+    max: 3,
+  }
+})
+const darkling = new Sprite({
+  position: {
+    x: 500,
+    y: 100
+  },
+  image: darklingImg,
+  frames: {
+    max: 3,
+  }
+})
+
 function animateInteraction() {
   window.requestAnimationFrame(animateInteraction)
   generalStoreBackground.draw()
+  darkling.draw()
+  battleChar.draw()
 }
 
 let lastKey = "";
