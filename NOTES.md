@@ -1139,3 +1139,16 @@ const darkling = new Sprite({
 })
 ```
 
+### Adding Attack Bar
+
+### Adding Health Bar
+
+### Adding Attacks
+
+### Adding Dialogue
+
+### Create Battle End Animation
+
+### Create Transition Back to Main World
+
+### Add Music and Sound Effects
