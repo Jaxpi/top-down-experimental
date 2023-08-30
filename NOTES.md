@@ -1052,3 +1052,90 @@ function animateInteraction() {
   battleChar.draw()
 }
 ```
+- Refactor Sprite Class to Allow for Battle Animations Without Arrow Key Movement
+```
+class Sprite {
+  constructor({ position, image, frames = { max: 1 }, sprites, animate = false }) {
+    this.position = position;
+    this.image = image;
+    this.frames = { ...frames, val: 0, elapsed: 0 };
+    this.image.onload = () => {
+      this.width = this.image.width / this.frames.max;
+      this.height = this.image.height;
+    };
+    this.animate = animate;
+    this.sprites = sprites;
+  }
+
+  draw() {
+    c.drawImage(
+      this.image,
+      this.frames.val * this.width,
+      0,
+      this.image.width / this.frames.max,
+      this.image.height,
+      this.position.x,
+      this.position.y,
+      this.image.width / this.frames.max,
+      this.image.height
+    );
+
+    if (!this.animate) return;
+```
+
+- Change All Instances of player.moving To player.animate in index.js File
+- Refactor New Sprites to Include Animate Property
+```
+const darkling = new Sprite({
+  position: {
+    x: 500,
+    y: 100
+  },
+  image: darklingImg,
+  frames: {
+    max: 3,
+  },
+  animate: true
+})
+```
+
+- Add New Sprite Property in classes.js For Frame Change Rate Called Hold and Change Sprite Class Code to Match
+```
+class Sprite {
+  constructor({ position, image, frames = { max: 1, hold: 10 }, sprites, animate = false })...
+
+if (!this.animate) return;
+
+if (this.frames.max > 1) {
+  this.frames.elapsed++;
+}
+if (this.frames.elapsed % this.frames.hold === 0) 
+```
+
+- Add Hold Property to Sprites in index.js (using larger numbers to make the animation slower)
+```
+const player = new Sprite({
+  position: {
+    x: canvas.width / 2 - 130 / 3 / 2,
+    y: canvas.height / 2,
+  },
+  image: playerDownImage,
+  frames: {
+    max: 3,
+    hold: 10
+  },...
+
+const darkling = new Sprite({
+  position: {
+    x: 500,
+    y: 100
+  },
+  image: darklingImg,
+  frames: {
+    max: 3,
+    hold: 20
+  },
+  animate: true
+})
+```
+

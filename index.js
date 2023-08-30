@@ -45,6 +45,7 @@ const player = new Sprite({
   image: playerDownImage,
   frames: {
     max: 3,
+    hold: 10
   },
   sprites: {
     up: playerUpImage,
@@ -153,7 +154,7 @@ function animate() {
   foreground.draw();
 
   let moving = true;
-  player.moving = false;
+  player.animate = false;
 
   if (doorway.initiated) return;
   if (
@@ -210,7 +211,7 @@ function animate() {
   }
 
   if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.up;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -236,7 +237,7 @@ function animate() {
         movable.position.y += 3;
       });
   } else if (keys.ArrowDown.pressed && lastKey === "ArrowDown") {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.down;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -258,7 +259,7 @@ function animate() {
     }
     if (moving) movables.forEach((movable) => (movable.position.y -= 3));
   } else if (keys.ArrowLeft.pressed && lastKey === "ArrowLeft") {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.left;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -280,7 +281,7 @@ function animate() {
     }
     if (moving) movables.forEach((movable) => (movable.position.x += 3));
   } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.right;
     for (let i = 0; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -338,7 +339,9 @@ const darkling = new Sprite({
   image: darklingImg,
   frames: {
     max: 3,
-  }
+    hold: 20
+  },
+  animate: true
 })
 
 function animateInteraction() {
