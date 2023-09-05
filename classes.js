@@ -66,6 +66,7 @@ class BattleCharacters extends Sprite {
     rotation = 0,
     isEnemy = false,
     name,
+    attacks
   }) {
     super({
       position,
@@ -75,7 +76,10 @@ class BattleCharacters extends Sprite {
       animate,
       rotation,
     });
-    (this.isEnemy = isEnemy), (this.health = 100), (this.name = name);
+    this.isEnemy = isEnemy,
+    this.health = 100,
+    this.name = name,
+    this.attacks = attacks
   }
 
   attack({ attack, recipient, renderedSprites }) {

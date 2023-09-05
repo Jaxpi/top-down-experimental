@@ -2007,7 +2007,44 @@ const battleCharacters = {
 
 - Create New Class That Extends Sprite Called BattleCharacters and Cut and Paste the Attack Codes From Sprite Into This Class
 ```
+class BattleCharacters extends Sprite {
+  constructor({
+    position,
+    image,
+    frames = { max: 1, hold: 10 },
+    sprites,
+    animate = false,
+    rotation = 0,
+    isEnemy = false,
+    name,
+    attacks
+  }) {
+    super({
+      position,
+      image,
+      frames,
+      sprites,
+      animate,
+      rotation,
+    });
+    this.isEnemy = isEnemy,
+    this.health = 100,
+    this.name = name,
+    this.attacks = attacks
+  }
 
+  attack({ attack, recipient, renderedSprites }) {...
+```
+
+- Change battleScene.js Code to Dynamically Populate Attack Names
+```
+const renderedSprites = [darkling, battleChar];
+
+battleChar.attacks.forEach((attack) => {
+  const button = document.createElement('button')
+  button.innerHTML = attack.name
+  document.querySelector('#attacksBox').append(button)
+})
 ```
 
 ### Create Battle End Animation

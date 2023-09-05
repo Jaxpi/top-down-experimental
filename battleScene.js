@@ -14,9 +14,11 @@ const darkling = new BattleCharacters(battleCharacters.Darkling);
 
 const renderedSprites = [darkling, battleChar];
 
-const button = document.createElement('button')
-button.innerHTML = ''
-document.querySelector('#attacksBox').append(button)
+battleChar.attacks.forEach((attack) => {
+  const button = document.createElement('button')
+  button.innerHTML = attack.name
+  document.querySelector('#attacksBox').append(button)
+})
 
 function animateInteraction() {
   window.requestAnimationFrame(animateInteraction);
