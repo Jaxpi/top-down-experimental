@@ -2129,6 +2129,277 @@ const randomAttack = darkling.attacks[Math.floor(Math.random() * darkling.attack
 
 ### Create Transition Back to Main World
 
+- In index.html Set overlappingDiv Z-Index to 10
+```
+<div
+  id="overlappingDiv"
+  style="
+    background-color: black;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+```
+
+- Cancel Battle Animation Loop in battleScenes.js
+```
+queue.push(() => {
+  gsap.to('#overlappingDiv', {
+    opacity: 1,
+    onComplete: () => {
+      cancelAnimationFrame(interactionAnimationID)
+    }
+```
+
+```
+let interactionAnimationID
+
+function animateInteraction() {
+  interactionAnimationID = window.requestAnimationFrame(animateInteraction);
+  generalStoreBackground.draw();
+```
+
+- In index.html Wrap Everything Related to Battle Interaction Display in a Div Called userInterface and Put It All Beneath Canvas
+```
+ <canvas> </canvas>
+
+  <div id="userInterface">
+    <div
+      id="enemyStats"
+      style="
+        background-color: white;
+        width: 250px;
+        position: absolute;
+        top: 50;
+        left: 50;
+        border: 3px solid black;
+        padding: 12px;
+      "
+    >
+      <h1>Enemy</h1>
+      <div style="position: relative">
+        <div
+          id="EnemyBackgroundBar"
+          style="
+            height: 5px;
+            background-color: rgb(170, 170, 170);
+            margin-top: 10px;
+          "
+        ></div>
+        <div
+          id="enemyHealthBar"
+          style="
+            height: 5px;
+            background-color: rgba(0, 204, 31, 0.794);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <div
+      id="playerStats"
+      style="
+        background-color: white;
+        width: 250px;
+        position: absolute;
+        top: 330;
+        right: 50;
+        border: 3px solid black;
+        padding: 12px;
+      "
+    >
+      <h1>Player</h1>
+      <div style="position: relative">
+        <div
+          id="playerBackgroundBar"
+          style="
+            height: 5px;
+            background-color: rgb(170, 170, 170);
+            margin-top: 10px;
+          "
+        ></div>
+        <div
+          id="playerHealthBar"
+          style="
+            height: 5px;
+            background-color: rgba(0, 204, 31, 0.794);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+          "
+        ></div>
+      </div>
+    </div>
+    <div
+      id="battleInterface"
+      style="
+        background-color: white;
+        height: 140px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-top: 3px solid black;
+        display: flex;
+      "
+    >
+      <div
+        style="
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: white;
+          font-size: 24px;
+          padding: 12px;
+          display: none;
+          cursor: pointer;
+        "
+        id="dialogueBox"
+      >
+        Dialogue
+      </div>
+      <div
+        id="attacksBox"
+        style="
+          width: 66.66%;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        "
+      >
+        <!-- <button>Tackle</button>
+      <button>Shadow</button> -->
+        <!-- <button>3</button>
+      <button>4</button> -->
+      </div>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 33.33%;
+          border-left: 3px solid black;
+        "
+      >
+        <h1 id="attackType">Attack Type</h1>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+- In battleScene.js Add Code to Hide This Entire Div
+```
+if (darkling.health <= 0) {
+      queue.push(() => {
+        darkling.faint()
+      });
+      queue.push(() => {
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          onComplete: () => {
+            cancelAnimationFrame(interactionAnimationID)
+            animate()
+            document.querySelector('#userInterface').style.display = 'none'
+            gsap.to('#overlappingDiv', {
+              opacity: 0,
+            })
+          }
+        })
+      })
+    }
+```
+
+- Reinitialize Interaction/Battle Scenes to Begin a New One
+- Above animateInteraction Function, Create a New Function Called initInteraction And Place All Battle Code Within That Function
+```
+let battleChar;
+let darkling;
+let renderedSprites;
+let interactionAnimationID;
+let queue;
+
+function initInteraction() {
+  battleChar = new BattleCharacters(battleCharacters.Player);
+  darkling = new BattleCharacters(battleCharacters.Darkling);
+  renderedSprites = [darkling, battleChar];
+  queue = [];
+
+  battleChar.attacks.forEach((attack) => {
+    const button = document.createElement("button");
+    button.innerHTML = attack.name;
+    document.querySelector("#attacksBox").append(button);
+  });
+
+  document.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const selectedAttack = attacks[e.currentTarget.innerHTML];
+      battleChar.attack({
+        attack: selectedAttack,
+        recipient: darkling,
+        renderedSprites,
+      });
+
+      if (darkling.health <= 0) {
+        queue.push(() => {
+          darkling.faint();
+        });
+        queue.push(() => {
+          gsap.to("#overlappingDiv", {
+            opacity: 1,
+            onComplete: () => {
+              cancelAnimationFrame(interactionAnimationID);
+              animate();
+              document.querySelector("#userInterface").style.display = "none";
+              gsap.to("#overlappingDiv", {
+                opacity: 0,
+              });
+            },
+          });
+        });
+      }
+
+      const randomAttack =
+        darkling.attacks[Math.floor(Math.random() * darkling.attacks.length)];
+
+      queue.push(() => {
+        darkling.attack({
+          attack: randomAttack,
+          recipient: battleChar,
+          renderedSprites,
+        });
+
+        if (battleChar.health <= 0) {
+          queue.push(() => {
+            battleChar.faint();
+          });
+
+          return;
+        }
+      });
+    });
+
+    button.addEventListener("mouseenter", (e) => {
+      const selectedAttack = attacks[e.currentTarget.innerHTML];
+      document.querySelector("#attackType").innerHTML = selectedAttack.type;
+      document.querySelector("#attackType").style.color = selectedAttack.color;
+    });
+  });
+}
+```
+
+- Add initInteraction to index.js Above animateInteraction() Within the Animate Function
+- Within the initInteraction Method, 
 
 
 ### Add Music and Sound Effects
