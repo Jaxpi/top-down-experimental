@@ -1142,17 +1142,196 @@ const darkling = new Sprite({
 ### Create Battle Interface
 
 - Add a Div to index.html for battleInterface
+- Add a Div for Attack Buttons
+- Add a Div for Attack Type
+- Alter Style Code to Improve Display
+```
+<head>
+  <style>
+    body {
+      background-color: black;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    button {
+      border: 0;
+      font-size: 24px;
+    }
+    button:hover {
+      background-color: lightgray;
+      cursor: pointer;
+    }
+  </style>
+</head>
 
-### Adding Attack Bar
+<div style="display: inline-block; position: relative">
+  <div
+    id="overlappingDiv"
+    style="
+      background-color: black;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+    "
+  ></div>
+  <canvas> </canvas>
 
-### Adding Health Bar
+  <div
+    id="battleInterface"
+    style="
+      background-color: white;
+      height: 140px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-top: 3px solid black;
+      display: flex;
+    "
+  >
+    <div
+      style="
+        width: 66.66%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      "
+    >
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>4</button>
+    </div>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 33.33%;
+        border-left: 3px solid black;
+      "
+    >
+      <h1>Attack Type</h1>
+    </div>
+  </div>
+</div>
+```
+
+### Adding Attack Bar and Health Bar
+
+- Create a Div Above Canvas For the Stats Box
+- Create an H1 Tag For the Name
+- Create a Container Div For the Health Bar and Background Bar to Be Seen As Health Decreases
+- Create Two Long Thin Rectangles to Represent the Health and Position the Green One to Overlay the Gray One
+- Copy and Paste for the Player
+```
+<div style="display: inline-block; position: relative">
+  <div
+    id="overlappingDiv"
+    style="
+      background-color: black;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+    "
+  ></div>
+
+  <div id="enemyStats"
+    style="
+      background-color: white;
+      width: 250px;
+      position: absolute;
+      top: 50;
+      left: 50;
+      border: 3px solid black;
+      padding: 12px;
+    "
+  >
+    <h1>Enemy</h1>
+    <div style="position: relative">
+      <div
+        id="backgroundBar"
+        style="
+          height: 5px;
+          background-color: rgb(170, 170, 170);
+          margin-top: 10px;
+        "
+      ></div>
+      <div
+        id="healthBar"
+        style="
+          height: 5px;
+          background-color: rgba(0, 204, 31, 0.794);
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+        "
+      ></div>
+    </div>
+  </div>
+
+  <div id="playerStats"
+  style="
+    background-color: white;
+    width: 250px;
+    position: absolute;
+    top: 330;
+    right: 50;
+    border: 3px solid black;
+    padding: 12px;
+  "
+>
+  <h1>Player</h1>
+  <div style="position: relative">
+    <div
+      id="backgroundBar"
+      style="
+        height: 5px;
+        background-color: rgb(170, 170, 170);
+        margin-top: 10px;
+      "
+    ></div>
+    <div
+      id="healthBar"
+      style="
+        height: 5px;
+        background-color: rgba(0, 204, 31, 0.794);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+      "
+    ></div>
+  </div>
+</div>
+```
 
 ### Adding Attacks
 
+
+
 ### Adding Dialogue
+
+
 
 ### Create Battle End Animation
 
+
+
 ### Create Transition Back to Main World
 
+
+
 ### Add Music and Sound Effects
+
