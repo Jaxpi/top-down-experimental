@@ -1139,6 +1139,10 @@ const darkling = new Sprite({
 })
 ```
 
+### Create Battle Interface
+
+- Add a Div to index.html for battleInterface
+
 ### Adding Attack Bar
 
 ### Adding Health Bar
