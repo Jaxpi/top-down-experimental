@@ -9,4 +9,10 @@ const attacks = {
     damage: 25,
     type: "Dark",
   },
+  Haunt: {
+    name: "Haunt",
+    damage: 20,
+    type: "Dark",
+  }
+  // Create New Attacks Here and in battleCharacters.js add the attack to whichever character you want to have it, then add the features of that attack to classes.js BattleCharacters Sprite as a new switch case
 };

@@ -32,6 +32,6 @@ const battleCharacters = {
     animate: true,
     isEnemy: true,
     name: "Enemy",
-    attacks: [attacks.Shadow],
+    attacks: [attacks.Shadow, attacks.Haunt],
   },
 };

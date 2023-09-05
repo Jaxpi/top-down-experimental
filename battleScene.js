@@ -42,16 +42,11 @@ document.querySelectorAll("button").forEach((button) => {
       renderedSprites,
     });
 
+    const randomAttack = darkling.attacks[Math.floor(Math.random() * darkling.attacks.length)]
+
     queue.push(() => {
       darkling.attack({
-        attack: attacks.Tackle,
-        recipient: battleChar,
-        renderedSprites,
-      });
-    })
-    queue.push(() => {
-      darkling.attack({
-        attack: attacks.Shadow,
+        attack: randomAttack,
         recipient: battleChar,
         renderedSprites,
       });

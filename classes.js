@@ -99,9 +99,13 @@ class BattleCharacters extends Sprite {
       case "Shadow":
         const shadowImage = new Image();
         shadowImage.src = "./imgs/Smoke2.png";
+
+        let shadowOrigin = this.position.x + 100
+        if (this.isEnemy) shadowOrigin = this.position.x -50;
+
         const shadow = new Sprite({
           position: {
-            x: this.position.x + 100,
+            x: shadowOrigin,
             y: this.position.y,
           },
           image: shadowImage,
@@ -179,6 +183,43 @@ class BattleCharacters extends Sprite {
             x: this.position.x,
           });
         break;
+        case "Haunt":
+          const tl = gsap.timeline();
+  
+          let moveDistance = 20;
+        if (this.isEnemy) moveDistance = -20;
+        this.rotation = 5.5
+          tl
+            .to(this.position, {
+              x: this.position.x - moveDistance,
+            })
+            .to(this.position, {
+              x: this.position.x + moveDistance * 2,
+              duration: 0.1,
+              onComplete: () => {
+                gsap.to(healthBar, {
+                  width: this.health + "%",
+                });
+  
+                gsap.to(recipient.position, {
+                  x: recipient.position.x + 10,
+                  yoyo: true,
+                  repeat: 5,
+                  duration: 0.08,
+                });
+                gsap.to(recipient, {
+                  opacity: 0.5,
+                  repeat: 5,
+                  yoyo: true,
+                  duration: 0.08,
+                });
+                this.rotation = 0
+              },
+            })
+            .to(this.position, {
+              x: this.position.x,
+            });
+          break;
     }
   }
 }

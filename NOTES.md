@@ -2046,6 +2046,17 @@ battleChar.attacks.forEach((attack) => {
   document.querySelector('#attacksBox').append(button)
 })
 ```
+### Randomize Enemy Attacks
+
+- In battleScenes.js Add Code Within Button Click Event Listener For Attack Randomization
+```
+const randomAttack = darkling.attacks[Math.floor(Math.random() * darkling.attacks.length)]
+
+    queue.push(() => {
+      darkling.attack({
+        attack: randomAttack,
+```
+
 
 ### Create Battle End Animation
 
