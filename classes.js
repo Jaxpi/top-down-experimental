@@ -82,6 +82,17 @@ class BattleCharacters extends Sprite {
     this.attacks = attacks
   }
 
+  faint() {
+    document.querySelector("#dialogueBox").innerHTML =
+      this.name + " fainted!";
+    gsap.to(this.position, {
+      y: this.position.y + 20
+    })
+    gsap.to(this, {
+      opacity: 0
+    })
+  }
+
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector("#dialogueBox").style.display = "block";
     document.querySelector("#dialogueBox").innerHTML =
@@ -93,7 +104,7 @@ class BattleCharacters extends Sprite {
     let rotation = 1;
     if (this.isEnemy) rotation = -2.5;
 
-    this.health -= attack.damage;
+    recipient.health -= attack.damage;
 
     switch (attack.name) {
       case "Shadow":
@@ -126,7 +137,7 @@ class BattleCharacters extends Sprite {
           duration: 1,
           onComplete: () => {
             gsap.to(healthBar, {
-              width: this.health + "%",
+              width: recipient.health + "%",
             });
 
             gsap.to(recipient.position, {
@@ -162,7 +173,7 @@ class BattleCharacters extends Sprite {
             duration: 0.1,
             onComplete: () => {
               gsap.to(healthBar, {
-                width: this.health + "%",
+                width: recipient.health + "%",
               });
 
               gsap.to(recipient.position, {
@@ -198,7 +209,7 @@ class BattleCharacters extends Sprite {
               duration: 0.1,
               onComplete: () => {
                 gsap.to(healthBar, {
-                  width: this.health + "%",
+                  width: recipient.health + "%",
                 });
   
                 gsap.to(recipient.position, {

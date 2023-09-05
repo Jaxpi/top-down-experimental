@@ -1523,7 +1523,7 @@ gsap.to(shadow.position, {
     let healthBar = "#enemyHealthBar";
     if (this.isEnemy) healthBar = "#playerHealthBar";
 
-    this.health -= attack.damage;
+    recipient.health -= attack.damage;
 
     switch (attack.name) {
       case "Shadow":
@@ -1550,7 +1550,7 @@ gsap.to(shadow.position, {
           duration: 1,
           onComplete: () => {
             gsap.to(healthBar, {
-              width: this.health + "%",
+              width: recipient.health + "%",
             });
 
             gsap.to(recipient.position, {
@@ -1585,7 +1585,7 @@ gsap.to(shadow.position, {
             duration: 0.1,
             onComplete: () => {
               gsap.to(healthBar, {
-                width: this.health + "%",
+                width: recipient.health + "%",
               });
 
               gsap.to(recipient.position, {
@@ -1633,7 +1633,7 @@ gsap.to(shadow.position, {
   duration: 1,
   onComplete: () => {
     gsap.to(healthBar, {
-      width: this.health + "%",
+      width: recipient.health + "%",
     });
 
     gsap.to(recipient.position, {
@@ -2079,6 +2079,53 @@ const randomAttack = darkling.attacks[Math.floor(Math.random() * darkling.attack
 ### Create Battle End Animation
 
 - When All Health is Lost, Provide a Display
+- Create an If Statement Within battleScene.js For If a Battle Character Faints
+```
+ battleChar.attack({
+      attack: selectedAttack,
+      recipient: darkling,
+      renderedSprites,
+    });
+
+    if (darkling.health <= 0) {
+      queue.push(() => {
+        darkling.faint()
+      });
+
+      return
+    }
+
+    const randomAttack = darkling.attacks[Math.floor(Math.random() * darkling.attacks.length)]
+
+    queue.push(() => {
+      darkling.attack({
+        attack: randomAttack,
+        recipient: battleChar,
+        renderedSprites,
+      });
+
+      if (battleChar.health <= 0) {
+        queue.push(() => {
+          battleChar.faint()
+        });
+  
+        return
+      }
+```
+
+- Add Faint Method to BattleCharacters Class Above Attack Method
+```
+  faint() {
+    document.querySelector("#dialogueBox").innerHTML =
+      this.name + " fainted!";
+    gsap.to(this.position, {
+      y: this.position.y + 20
+    })
+    gsap.to(this, {
+      opacity: 0
+    })
+  }
+```
 
 ### Create Transition Back to Main World
 

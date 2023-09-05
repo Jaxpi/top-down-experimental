@@ -42,6 +42,14 @@ document.querySelectorAll("button").forEach((button) => {
       renderedSprites,
     });
 
+    if (darkling.health <= 0) {
+      queue.push(() => {
+        darkling.faint()
+      });
+
+      return
+    }
+
     const randomAttack = darkling.attacks[Math.floor(Math.random() * darkling.attacks.length)]
 
     queue.push(() => {
@@ -50,6 +58,14 @@ document.querySelectorAll("button").forEach((button) => {
         recipient: battleChar,
         renderedSprites,
       });
+
+      if (battleChar.health <= 0) {
+        queue.push(() => {
+          battleChar.faint()
+        });
+  
+        return
+      }
     })
   });
   button.addEventListener('mouseenter', (e) => {
