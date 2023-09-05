@@ -34,7 +34,8 @@
     "
   ></div>
 
-  <div id="enemyStats"
+  <div
+    id="enemyStats"
     style="
       background-color: white;
       width: 250px;
@@ -69,40 +70,41 @@
     </div>
   </div>
 
-  <div id="playerStats"
-  style="
-    background-color: white;
-    width: 250px;
-    position: absolute;
-    top: 330;
-    right: 50;
-    border: 3px solid black;
-    padding: 12px;
-  "
->
-  <h1>Player</h1>
-  <div style="position: relative">
-    <div
-      id="playerBackgroundBar"
-      style="
-        height: 5px;
-        background-color: rgb(170, 170, 170);
-        margin-top: 10px;
-      "
-    ></div>
-    <div
-      id="playerHealthBar"
-      style="
-        height: 5px;
-        background-color: rgba(0, 204, 31, 0.794);
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-      "
-    ></div>
+  <div
+    id="playerStats"
+    style="
+      background-color: white;
+      width: 250px;
+      position: absolute;
+      top: 330;
+      right: 50;
+      border: 3px solid black;
+      padding: 12px;
+    "
+  >
+    <h1>Player</h1>
+    <div style="position: relative">
+      <div
+        id="playerBackgroundBar"
+        style="
+          height: 5px;
+          background-color: rgb(170, 170, 170);
+          margin-top: 10px;
+        "
+      ></div>
+      <div
+        id="playerHealthBar"
+        style="
+          height: 5px;
+          background-color: rgba(0, 204, 31, 0.794);
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+        "
+      ></div>
+    </div>
   </div>
-</div>
 
   <canvas> </canvas>
 
@@ -121,15 +123,32 @@
   >
     <div
       style="
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: white;
+        font-size: 24px;
+        padding: 12px;
+        display: none;
+        cursor: pointer;
+      "
+      id="dialogueBox"
+    >
+      Dialogue
+    </div>
+    <div id="attacksBox"
+      style="
         width: 66.66%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
       "
     >
-      <button>Tackle</button>
-      <button>2</button>
-      <button>3</button>
-      <button>4</button>
+      <!-- <button>Tackle</button>
+      <button>Shadow</button> -->
+      <!-- <button>3</button>
+      <button>4</button> -->
     </div>
     <div
       style="
@@ -153,5 +172,8 @@
 ></script>
 <script src="data/interactions.js"></script>
 <script src="data/collisions.js"></script>
+<script src="data/attacks.js"></script>
+<script src="data/battleCharacters.js"></script>
 <script src="classes.js"></script>
 <script src="index.js"></script>
+<script src="battleScene.js"></script>

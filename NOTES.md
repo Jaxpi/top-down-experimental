@@ -1432,11 +1432,583 @@ const darkling = new Sprite({
 
 ### Adding a Projectile Attack
 
+- Create a New js File in the Data Folder Called attacks.js
+- Take the Attack Properties From index.js and Move Them to This File as New Const Called attacks
+```
+const attacks = {
+  Tackle: {
+    name: "Tackle",
+    damage: 10,
+    type: "Normal",
+    },
+    Shadow: {
+        name: "Shadow",
+        damage: 25,
+        type: "Dark",
+      },
+};
+```
+- Import This in index.html
+```
+<script src="data/interactions.js"></script>
+<script src="data/collisions.js"></script>
+<script src="data/attacks.js"></script>
+<script src="classes.js"></script>
+<script src="index.js"></script>
+```
+- Change Attack Code to Represent the Selected Attack
+```
+document.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML]
+    battleChar.attack({
+      attack: selectedAttack,
+      recipient: darkling
+    });
+  });
+});
+```
 
+- Refactor index.js Draw Code to Allow For Various Attack Styles
+```
+const renderedSprites = []
+
+function animateInteraction() {
+  window.requestAnimationFrame(animateInteraction);
+  generalStoreBackground.draw();
+  darkling.draw();
+  battleChar.draw();
+}
+
+renderedSprites.forEach((sprite) => {
+  sprite.draw()
+})
+```
+- Refactor Attack Code in classes.js to Push New Sprite Into the Array
+```
+  attack({ attack, recipient, renderedSprites }) {
+    switch (attack.name) {
+      case "Shadow":
+        const shadowImage = new Image();
+        shadowImage.src = "./imgs.Smoke.png";
+        const shadow = new Sprite({
+          position: {
+            x: this.position.x,
+            y: this.position.y,
+          },
+          image: shadowImage,
+        });
+
+        renderedSprites.push(shadow);
+
+        break;
+      case "Tackle":
+```
+- Create New Animation For Second Attack
+```
+renderedSprites.push(shadow);
+
+gsap.to(shadow.position, {
+  x: recipient.position.x,
+  y: recipient.position.y,
+  duration: 1,
+  onComplete: () => {
+    renderedSprites.pop()
+  }
+});
+```
+- Refactor to Include Same Health Bar and Wincing Annimation and Keep healthBar and attack.damage Effects Available to All Cases
+```
+  attack({ attack, recipient, renderedSprites }) {
+    let healthBar = "#enemyHealthBar";
+    if (this.isEnemy) healthBar = "#playerHealthBar";
+
+    this.health -= attack.damage;
+
+    switch (attack.name) {
+      case "Shadow":
+        const shadowImage = new Image();
+        shadowImage.src = "./imgs/Smoke2.png";
+        const shadow = new Sprite({
+          position: {
+            x: this.position.x,
+            y: this.position.y,
+          },
+          image: shadowImage,
+          frames: {
+            max: 4,
+            hold: 10,
+          },
+          animate: true,
+        });
+
+        renderedSprites.push(shadow);
+
+        gsap.to(shadow.position, {
+          x: recipient.position.x,
+          y: recipient.position.y,
+          duration: 1,
+          onComplete: () => {
+            gsap.to(healthBar, {
+              width: this.health + "%",
+            });
+
+            gsap.to(recipient.position, {
+              x: recipient.position.x + 10,
+              yoyo: true,
+              repeat: 5,
+              duration: 0.08,
+            });
+            gsap.to(recipient, {
+              opacity: 0.5,
+              repeat: 5,
+              yoyo: true,
+              duration: 0.08,
+            });
+            renderedSprites.pop()
+          }
+        });
+
+        break;
+      case "Tackle":
+        const timeline = gsap.timeline();
+
+        let movementDistance = 20;
+        if (this.isEnemy) movementDistance = -20;
+
+        timeline
+          .to(this.position, {
+            x: this.position.x - movementDistance,
+          })
+          .to(this.position, {
+            x: this.position.x + movementDistance * 2,
+            duration: 0.1,
+            onComplete: () => {
+              gsap.to(healthBar, {
+                width: this.health + "%",
+              });
+
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo: true,
+                repeat: 5,
+                duration: 0.08,
+              });
+              gsap.to(recipient, {
+                opacity: 0.5,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08,
+              });
+            },
+          })
+          .to(this.position, {
+            x: this.position.x,
+          });
+        break;
+    }
+  }
+```
+- Make Projectile Appear to Originate in Front of the Player by Adding battleChar and darkling Into the Rendered Sprites Array in index.js
+```
+const renderedSprites = [darkling, battleChar]
+
+function animateInteraction() {
+  window.requestAnimationFrame(animateInteraction);
+  generalStoreBackground.draw();
+
+  renderedSprites.forEach((sprite) => {
+    sprite.draw()
+  })
+}
+```
+- Refactor classes.js Code to Utilize splice For the Array in Order to Have the Z Indexes of the Sprites in the Proper Order
+```
+// in position 1, removing 0 items, add shadow to array
+renderedSprites.splice(1, 0, shadow)
+
+gsap.to(shadow.position, {
+  x: recipient.position.x,
+  y: recipient.position.y,
+  duration: 1,
+  onComplete: () => {
+    gsap.to(healthBar, {
+      width: this.health + "%",
+    });
+
+    gsap.to(recipient.position, {
+      x: recipient.position.x + 10,
+      yoyo: true,
+      repeat: 5,
+      duration: 0.08,
+    });
+    gsap.to(recipient, {
+      opacity: 0.5,
+      repeat: 5,
+      yoyo: true,
+      duration: 0.08,
+    });
+    // in position 1, remove 1 item from the array
+    renderedSprites.splice(1, 1)
+  }
+});
+```
+- Add Property For Rotation For Any Projectile Image That Needs Angular Rotation to Appear to Be Heading in the Right Direction
+```
+class Sprite {
+  constructor({
+    position,
+    image,
+    frames = { max: 1, hold: 10 },
+    sprites,
+    animate = false,
+    isEnemy = false,
+    rotation = 0
+  }) {
+    this.position = position;
+    this.image = image;
+    this.frames = { ...frames, val: 0, elapsed: 0 };
+    this.image.onload = () => {
+      this.width = this.image.width / this.frames.max;
+      this.height = this.image.height;
+    };
+    this.animate = animate;
+    this.sprites = sprites;
+    this.opacity = 1;
+    this.health = 100;
+    this.isEnemy = isEnemy;
+    this.rotation = rotation
+  }
+```
+```
+draw() {
+    c.save();
+    c.translate(this.position.x + this.width / 2, this.position.y + this.height / 2)
+    c.rotate(this.rotation)
+    c.translate(-this.position.x - this.width / 2, -this.position.y - this.height / 2)
+    c.globalAlpha = this.opacity;
+```
+```
+case "Shadow":
+const shadowImage = new Image();
+shadowImage.src = "./imgs/Smoke2.png";
+const shadow = new Sprite({
+  position: {
+    x: this.position.x + 100,
+    y: this.position.y,
+  },
+  image: shadowImage,
+  frames: {
+    max: 4,
+    hold: 10,
+  },
+  animate: true,
+  rotation: 1
+});
+```
+- Change Rotation for When Enemy Uses That Attack
+```
+ attack({ attack, recipient, renderedSprites }) {
+    let healthBar = "#enemyHealthBar";
+    if (this.isEnemy) healthBar = "#playerHealthBar";
+
+    let rotation = 1
+    if (this.isEnemy) rotation = -2.5
+
+```
 
 ### Adding Dialogue
 
+- Create Dialogue Container to Overlay Attack Interface in index.html
+```
+ <canvas> </canvas>
 
+  <div
+    id="battleInterface"
+    style="
+      background-color: white;
+      height: 140px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-top: 3px solid black;
+      display: flex;
+    "
+  >
+    <div
+      style="
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: white;
+        font-size: 24px;
+        padding: 12px;
+        display: none;
+        cursor: pointer;
+      "
+      id="dialogueBox"
+    >
+      Dialogue
+    </div>
+```
+
+- In classes.js Add Name Property to Sprite Constructor
+```
+class Sprite {
+  constructor({
+    position,
+    image,
+    frames = { max: 1, hold: 10 },
+    sprites,
+    animate = false,
+    isEnemy = false,
+    rotation = 0,
+    name
+  }) {
+    this.position = position;
+    this.image = image;
+    this.frames = { ...frames, val: 0, elapsed: 0 };
+    this.image.onload = () => {
+      this.width = this.image.width / this.frames.max;
+      this.height = this.image.height;
+    };
+    this.animate = animate;
+    this.sprites = sprites;
+    this.opacity = 1;
+    this.health = 100;
+    this.isEnemy = isEnemy;
+    this.rotation = rotation;
+    this.name = name
+  }
+```
+- Give Names to Sprite Characters
+```
+const battleCharImg = new Image();
+battleCharImg.src = "./imgs/elf-player-up-lg.png";
+const battleChar = new Sprite({
+  position: {
+    x: 100,
+    y: 220,
+  },
+  image: battleCharImg,
+  frames: {
+    max: 3,
+  },
+  animate: true,
+  name: 'Player'
+});
+
+const darklingImg = new Image();
+darklingImg.src = "./imgs/darkling-enemy-1.png";
+const darkling = new Sprite({
+  position: {
+    x: 500,
+    y: 100,
+  },
+  image: darklingImg,
+  frames: {
+    max: 3,
+    hold: 20,
+  },
+  animate: true,
+  isEnemy: true,
+  name: 'Enemy'
+});
+```
+- Add Code to Unhide Dialogue Box and Populate it With Desired Text
+```
+attack({ attack, recipient, renderedSprites }) {
+    document.querySelector("#dialogueBox").style.display = "block";
+    document.querySelector("#dialogueBox").innerHTML = this.name + " used " + attack.name
+```
+
+- Refactor Code to Put All Battle Sequence Content Into a New File Called battleScene.js
+```
+const generalStoreImg = new Image();
+generalStoreImg.src = "./imgs/general-store-3.jpg";
+const generalStoreBackground = new Sprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  image: generalStoreImg,
+});
+
+const battleCharImg = new Image();
+battleCharImg.src = "./imgs/elf-player-up-lg.png";
+const battleChar = new Sprite({
+  position: {
+    x: 100,
+    y: 220,
+  },
+  image: battleCharImg,
+  frames: {
+    max: 3,
+  },
+  animate: true,
+  name: 'Player'
+});
+
+const darklingImg = new Image();
+darklingImg.src = "./imgs/darkling-enemy-1.png";
+const darkling = new Sprite({
+  position: {
+    x: 500,
+    y: 100,
+  },
+  image: darklingImg,
+  frames: {
+    max: 3,
+    hold: 20,
+  },
+  animate: true,
+  isEnemy: true,
+  name: 'Enemy'
+});
+
+const renderedSprites = [darkling, battleChar]
+
+function animateInteraction() {
+  window.requestAnimationFrame(animateInteraction);
+  generalStoreBackground.draw();
+
+  renderedSprites.forEach((sprite) => {
+    sprite.draw()
+  })
+}
+
+animateInteraction();
+
+document.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML]
+    battleChar.attack({
+      attack: selectedAttack,
+      recipient: darkling,
+      renderedSprites
+    });
+  });
+});
+```
+
+- Import This File Into index.html
+```
+<script src="classes.js"></script>
+<script src="index.js"></script>
+<script src="battleScene.js"></script>
+```
+
+- Add Event Listener Onto Dialogue Box at the End of battleScene.js to Move On With Event Queue or Return to Attack Selection
+```
+document.querySelector("#dialogueBox").addEventListener("click", (e) => {
+  e.currentTarget.style.display = "none";
+});
+```
+
+- Provide a Queue Array so the Enemy Can Attack and Populate With Attacks for the Enemy
+```
+const queue = [];
+
+document.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML];
+    battleChar.attack({
+      attack: selectedAttack,
+      recipient: darkling,
+      renderedSprites,
+    });
+
+    queue.push(() => {
+      darkling.attack({
+        attack: attacks.Tackle,
+        recipient: battleChar,
+        renderedSprites,
+      });
+    })
+    queue.push(() => {
+      darkling.attack({
+        attack: attacks.Shadow,
+        recipient: battleChar,
+        renderedSprites,
+      });
+    })
+  });
+});
+
+document.querySelector("#dialogueBox").addEventListener("click", (e) => {
+  if (queue.length > 0) {
+    queue[0]()
+    queue.shift()
+  } else e.currentTarget.style.display = "none";
+});
+```
+- Dynamically Populate Displayed Attack Names Based on Sprite
+- In index.html Add an ID Tag to the Div That Contains the Attacks and Label it attacksBox
+- In battleScene.js Add Code to Create Buttons Dynamically
+```
+const renderedSprites = [darkling, battleChar];
+
+const button = document.createElement('button')
+button.innerHTML = '?'
+document.querySelector('#attacksBox').append()
+```
+
+- Create a New File in the Data Folder Called battleCharacters.js and Import into index.html
+- Pull All Character Code From battleScene.js and Put it Into battleCharacters.js
+
+```
+const battleChar = new Sprite(battleCharacters.Player);
+
+const darkling = new Sprite(battleCharacters.Darkling);
+```
+
+```
+const battleCharImg = new Image();
+battleCharImg.src = "./imgs/elf-player-up-lg.png";
+
+const darklingImg = new Image();
+darklingImg.src = "./imgs/darkling-enemy-1.png";
+
+const battleCharacters = {
+  Player: {
+    position: {
+      x: 100,
+      y: 220,
+    },
+    image: battleCharImg,
+    frames: {
+      max: 3,
+    },
+    animate: true,
+    name: "Player",
+    attacks: [attacks.Tackle, attacks.Shadow],
+  },
+
+  Darkling: {
+    position: {
+      x: 500,
+      y: 100,
+    },
+    image: darklingImg,
+    frames: {
+      max: 3,
+      hold: 20,
+    },
+    animate: true,
+    isEnemy: true,
+    name: "Enemy",
+    attacks: [attacks.Shadow],
+  },
+};
+```
+
+- Create New Class That Extends Sprite Called BattleCharacters and Cut and Paste the Attack Codes From Sprite Into This Class
+```
+
+```
 
 ### Create Battle End Animation
 

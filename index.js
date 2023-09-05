@@ -305,67 +305,7 @@ function animate() {
   }
 }
 
-animate();
-
-const generalStoreImg = new Image();
-generalStoreImg.src = "./imgs/general-store-3.jpg";
-const generalStoreBackground = new Sprite({
-  position: {
-    x: 0,
-    y: 0,
-  },
-  image: generalStoreImg,
-});
-
-const battleCharImg = new Image();
-battleCharImg.src = "./imgs/elf-player-up-lg.png";
-const darklingImg = new Image();
-darklingImg.src = "./imgs/darkling-enemy-1.png";
-const battleChar = new Sprite({
-  position: {
-    x: 100,
-    y: 220,
-  },
-  image: battleCharImg,
-  frames: {
-    max: 3,
-  },
-});
-const darkling = new Sprite({
-  position: {
-    x: 500,
-    y: 100,
-  },
-  image: darklingImg,
-  frames: {
-    max: 3,
-    hold: 20,
-  },
-  animate: true,
-  isEnemy: true
-});
-
-function animateInteraction() {
-  window.requestAnimationFrame(animateInteraction);
-  generalStoreBackground.draw();
-  darkling.draw();
-  battleChar.draw();
-}
-
-animateInteraction();
-
-document.querySelectorAll("button").forEach((button) => {
-  button.addEventListener("click", () => {
-    battleChar.attack({
-      attack: {
-        name: "Tackle",
-        damage: 10,
-        type: "Normal",
-      },
-      recipient: darkling
-    });
-  });
-});
+// animate();
 
 let lastKey = "";
 window.addEventListener("keydown", (e) => {
