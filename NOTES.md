@@ -1319,7 +1319,22 @@ const darkling = new Sprite({
 
 ### Adding Attacks
 
-
+- Add Event Listener on Battle Buttons for Clicks and Have That Initiate an Attack
+```
+document.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", () => {
+    battleChar.attack({
+      attack: {
+        name: "Tackle",
+        damage: 10,
+        type: "Normal",
+      },
+      recipient: darkling
+    });
+  });
+});
+```
+- Add Attack Code in Sprite Class to Show Attack Animation
 
 ### Adding Dialogue
 

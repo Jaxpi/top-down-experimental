@@ -1,5 +1,11 @@
 class Sprite {
-  constructor({ position, image, frames = { max: 1, hold: 10 }, sprites, animate = false }) {
+  constructor({
+    position,
+    image,
+    frames = { max: 1, hold: 10 },
+    sprites,
+    animate = false,
+  }) {
     this.position = position;
     this.image = image;
     this.frames = { ...frames, val: 0, elapsed: 0 };
@@ -33,6 +39,17 @@ class Sprite {
       if (this.frames.val < this.frames.max - 1) this.frames.val++;
       else this.frames.val = 0;
     }
+  }
+
+  attack({ attack, recipient }) {
+    const timeline = gsap.timeline()
+    timeline.to(this.position, {
+      x: this.position.x - 20
+    }).to(this.position, {
+      x: this.position.x + 40
+    }).to(this.position, {
+      x: this.position.x
+    })
   }
 }
 
