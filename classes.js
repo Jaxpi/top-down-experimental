@@ -5,6 +5,7 @@ class Sprite {
     frames = { max: 1, hold: 10 },
     sprites,
     animate = false,
+    isEnemy = false,
   }) {
     this.position = position;
     this.image = image;
@@ -15,9 +16,14 @@ class Sprite {
     };
     this.animate = animate;
     this.sprites = sprites;
+    this.opacity = 1;
+    this.health = 100;
+    this.isEnemy = isEnemy;
   }
 
   draw() {
+    c.save();
+    c.globalAlpha = this.opacity;
     c.drawImage(
       this.image,
       this.frames.val * this.width,
@@ -29,7 +35,7 @@ class Sprite {
       this.image.width / this.frames.max,
       this.image.height
     );
-
+    c.restore();
     if (!this.animate) return;
 
     if (this.frames.max > 1) {
@@ -42,14 +48,45 @@ class Sprite {
   }
 
   attack({ attack, recipient }) {
-    const timeline = gsap.timeline()
-    timeline.to(this.position, {
-      x: this.position.x - 20
-    }).to(this.position, {
-      x: this.position.x + 40
-    }).to(this.position, {
-      x: this.position.x
-    })
+    const timeline = gsap.timeline();
+
+    this.health -= attack.damage
+
+    let movementDistance = 20;
+    if (this.isEnemy) movementDistance = -20;
+
+    let healthBar = "#enemyHealthBar";
+    if (this.isEnemy) healthBar = "#playerHealthBar";
+
+    timeline
+      .to(this.position, {
+        x: this.position.x - movementDistance,
+      })
+      .to(this.position, {
+        x: this.position.x + movementDistance * 2,
+        duration: 0.1,
+        onComplete: () => {
+          gsap.to(healthBar, {
+            width: this.health + "%",
+          });
+
+          gsap.to(recipient.position, {
+            x: recipient.position.x + 10,
+            yoyo: true,
+            repeat: 5,
+            duration: 0.08,
+          });
+          gsap.to(recipient, {
+            opacity: 0.5,
+            repeat: 5,
+            yoyo: true,
+            duration: 0.08,
+          });
+        },
+      })
+      .to(this.position, {
+        x: this.position.x,
+      });
   }
 }
 

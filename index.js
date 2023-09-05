@@ -342,6 +342,7 @@ const darkling = new Sprite({
     hold: 20,
   },
   animate: true,
+  isEnemy: true
 });
 
 function animateInteraction() {
