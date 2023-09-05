@@ -2057,10 +2057,28 @@ const randomAttack = darkling.attacks[Math.floor(Math.random() * darkling.attack
         attack: randomAttack,
 ```
 
+- Dynamically Display Attack Type in battleScenes.js Button Event Listener
+- Add id attackType to index.html
+- Provide Color Properties to Attacks in attacks.js
+```
+    queue.push(() => {
+      darkling.attack({
+        attack: randomAttack,
+        recipient: battleChar,
+        renderedSprites,
+      });
+    })
+  });
+  button.addEventListener('mouseenter', (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML];
+    document.querySelector('#attackType').innerHTML = selectedAttack.type
+    document.querySelector('#attackType').style.color = selectedAttack.color
+  })
+```
 
 ### Create Battle End Animation
 
-
+- When All Health is Lost, Provide a Display
 
 ### Create Transition Back to Main World
 
