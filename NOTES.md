@@ -2472,6 +2472,7 @@ const battleCharacters = {
 };
 ```
 - Add Code to battleScene.js to Return to Main World When Player Faints and Remove Doorway Initiation By Adding doorway.initiated = false to Both Characters After Fainting to Allow For World Movement Again
+- Also Add Code to Move Character Down From Doorway to Prevent Reinitialization Before Moving
 ```
  if (battleChar.health <= 0) {
   queue.push(() => {
@@ -2489,6 +2490,7 @@ const battleCharacters = {
         });
 
         doorway.initiated = false
+        player.position.y += 20
 ```
 
 ### Add Music and Sound Effects

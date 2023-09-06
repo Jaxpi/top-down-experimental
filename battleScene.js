@@ -57,6 +57,8 @@ function initInteraction() {
               });
 
               doorway.initiated = false
+              // adding this to prevent reinitialization in doorway
+              player.position.y += 20
 
             },
           });
@@ -89,6 +91,7 @@ function initInteraction() {
                 });
 
                 doorway.initiated = false
+                player.position.y += 20
 
               },
             });

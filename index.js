@@ -120,6 +120,7 @@ interactionsMap.forEach((row, i) => {
 
 const movables = [background, ...boundaries, foreground, ...interactions];
 
+// Removing + rectangle2.height will allow character to walk more "into" the doorway before initializing interaction (if the doorway is above the chracter)
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
@@ -183,7 +184,6 @@ function animate() {
         }) &&
         overlappingArea > (player.width * player.height) / 2
       ) {
-        console.log("doorway");
         window.cancelAnimationFrame(animationID);
         doorway.initiated = true;
         gsap.to("#overlappingDiv", {
