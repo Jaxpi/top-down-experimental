@@ -2163,11 +2163,11 @@ function animateInteraction() {
   generalStoreBackground.draw();
 ```
 
-- In index.html Wrap Everything Related to Battle Interaction Display in a Div Called userInterface and Put It All Beneath Canvas
+- In index.html Wrap Everything Related to Battle Interaction Display in a Div Called userInterface With a Style of Display None (For Default Purposes) and Put It All Beneath Canvas
 ```
  <canvas> </canvas>
 
-  <div id="userInterface">
+  <div id="userInterface" style="display: none;>
     <div
       id="enemyStats"
       style="
@@ -2495,6 +2495,38 @@ const battleCharacters = {
 
 ### Add Music and Sound Effects
 
+- Install HowlerJS By Adding the CDNJS Script to the Top of the index.html Scripts
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+```
 - Create New File in Data Folder Called audio.js
 - Import Into index.html Above Others
-- Create an Audio Const
+- Create an Audio Const and Populate With New Howls For Different Scenes and Situations
+```
+const audio = {
+    Map: new Howl({
+        src: './audio/map.wav',
+        html5: true
+    })
+}
+```
+
+- In index.js Create a New Event Listener At the Bottom For the Audio to Play When the Screen Is First Clicked On
+```
+let clicked = false
+addEventListener('click', () => {
+  if (!clicked) {
+    audio.Map.play()
+    clicked = true
+  }
+});
+```
+
+- In index.js Where an Interaction is Initiated Add Code to Stop Map Audio and Play Battle and InitBattle Audio
+```
+audio.Map.stop();
+audio.InitBattle.play();
+audio.Battle.play();
+doorway.initiated = true;
+```
+

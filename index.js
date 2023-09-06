@@ -185,6 +185,10 @@ function animate() {
         overlappingArea > (player.width * player.height) / 2
       ) {
         window.cancelAnimationFrame(animationID);
+
+        audio.Map.stop();
+        audio.InitBattle.play();
+        audio.Battle.play();
         doorway.initiated = true;
         gsap.to("#overlappingDiv", {
           opacity: 1,
@@ -306,7 +310,7 @@ function animate() {
   }
 }
 
-// animate();
+animate();
 
 let lastKey = "";
 window.addEventListener("keydown", (e) => {
@@ -350,5 +354,13 @@ window.addEventListener("keyup", (e) => {
     case "ArrowRight":
       keys.ArrowRight.pressed = false;
       break;
+  }
+});
+
+let clicked = false
+addEventListener('click', () => {
+  if (!clicked) {
+    audio.Map.play()
+    clicked = true
   }
 });

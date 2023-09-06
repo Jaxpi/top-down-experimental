@@ -118,8 +118,8 @@ function animateInteraction() {
   });
 }
 
-initInteraction();
-animateInteraction();
+// initInteraction();
+// animateInteraction();
 
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
   if (queue.length > 0) {
