@@ -15,6 +15,12 @@ let interactionAnimationID;
 let queue;
 
 function initInteraction() {
+  document.querySelector('#userInterface').style.display = 'block'
+  document.querySelector('#dialogueBox').style.display = 'none'
+  document.querySelector('#enemyHealthBar').style.width = '100%'
+  document.querySelector('#playerHealthBar').style.width = '100%'
+  document.querySelector('#attacksBox').replaceChildren()
+  
   battleChar = new BattleCharacters(battleCharacters.Player);
   darkling = new BattleCharacters(battleCharacters.Darkling);
   renderedSprites = [darkling, battleChar];

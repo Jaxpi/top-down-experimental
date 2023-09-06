@@ -1,16 +1,12 @@
-const battleCharImg = new Image();
-battleCharImg.src = "./imgs/elf-player-up-lg.png";
-
-const darklingImg = new Image();
-darklingImg.src = "./imgs/darkling-enemy-1.png";
-
 const battleCharacters = {
   Player: {
     position: {
       x: 100,
       y: 220,
     },
-    image: battleCharImg,
+    image: {
+      src: './imgs/elf-player-up-lg.png'
+    },
     frames: {
       max: 3,
     },
@@ -24,7 +20,9 @@ const battleCharacters = {
       x: 500,
       y: 100,
     },
-    image: darklingImg,
+    image:  {
+      src: './imgs/darkling-enemy-1.png'
+    },
     frames: {
       max: 3,
       hold: 20,

@@ -2399,7 +2399,78 @@ function initInteraction() {
 ```
 
 - Add initInteraction to index.js Above animateInteraction() Within the Animate Function
-- Within the initInteraction Method, 
+- Within the initInteraction Method, Add Code to Replace/Rehide Objects Upon Reinitialization of Battle
+```
+function initInteraction() {
+  document.querySelector('#userInterface').style.display = 'block'
+  document.querySelector('#dialogueBox').style.display = 'none'
+  document.querySelector('#enemyHealthBar').style.width = '100%'
+  document.querySelector('#playerHealthBar').style.width = '100%'
+  document.querySelector('#attacksBox').replaceChildren()
+  
+  battleChar = new BattleCharacters
+```
+
+- Refactor Sprite Class Constructor to Include Better Image Codes For Reinitialization of Battles
+```
+class Sprite {
+  constructor({
+    position,
+    image,
+    frames = { max: 1, hold: 10 },
+    sprites,
+    animate = false,
+    rotation = 0,
+  }) {
+    this.position = position;
+    this.image = new Image();
+    this.frames = { ...frames, val: 0, elapsed: 0 };
+    this.image.onload = () => {
+      this.width = this.image.width / this.frames.max;
+      this.height = this.image.height;
+    };
+    this.image.src = image.src;
+    this.animate = animate;
+```
+
+- Refactor battleCharacters to Inlcude Image Source Property
+```
+const battleCharacters = {
+  Player: {
+    position: {
+      x: 100,
+      y: 220,
+    },
+    image: {
+      src: './imgs/elf-player-up-lg.png'
+    },
+    frames: {
+      max: 3,
+    },
+    animate: true,
+    name: "Player",
+    attacks: [attacks.Tackle, attacks.Shadow],
+  },
+
+  Darkling: {
+    position: {
+      x: 500,
+      y: 100,
+    },
+    image:  {
+      src: './imgs/darkling-enemy-1.png'
+    },
+    frames: {
+      max: 3,
+      hold: 20,
+    },
+    animate: true,
+    isEnemy: true,
+    name: "Enemy",
+    attacks: [attacks.Shadow, attacks.Haunt],
+  },
+};
+```
 
 
 ### Add Music and Sound Effects
