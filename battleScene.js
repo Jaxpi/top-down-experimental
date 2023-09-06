@@ -59,6 +59,7 @@ function initInteraction() {
               doorway.initiated = false
               // adding this to prevent reinitialization in doorway
               player.position.y += 20
+              audio.Map.play();
 
             },
           });
@@ -92,6 +93,7 @@ function initInteraction() {
 
                 doorway.initiated = false
                 player.position.y += 20
+                audio.Map.play();
 
               },
             });

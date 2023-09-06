@@ -92,6 +92,8 @@ class BattleCharacters extends Sprite {
     gsap.to(this, {
       opacity: 0
     })
+    audio.Victory.play();
+    audio.Battle.stop();
   }
 
   attack({ attack, recipient, renderedSprites }) {
@@ -109,6 +111,7 @@ class BattleCharacters extends Sprite {
 
     switch (attack.name) {
       case "Shadow":
+        audio.InitFireball.play();
         const shadowImage = new Image();
         shadowImage.src = "./imgs/Smoke2.png";
 
@@ -137,6 +140,7 @@ class BattleCharacters extends Sprite {
           y: recipient.position.y,
           duration: 1,
           onComplete: () => {
+            audio.FireballHit.play();
             gsap.to(healthBar, {
               width: recipient.health + "%",
             });
@@ -173,6 +177,7 @@ class BattleCharacters extends Sprite {
             x: this.position.x + movementDistance * 2,
             duration: 0.1,
             onComplete: () => {
+              audio.TackleHit.play();
               gsap.to(healthBar, {
                 width: recipient.health + "%",
               });
@@ -209,6 +214,7 @@ class BattleCharacters extends Sprite {
               x: this.position.x + moveDistance * 2,
               duration: 0.1,
               onComplete: () => {
+                audio.TackleHit.play();
                 gsap.to(healthBar, {
                   width: recipient.health + "%",
                 });

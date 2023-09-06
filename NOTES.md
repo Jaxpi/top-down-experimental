@@ -2506,8 +2506,33 @@ const battleCharacters = {
 const audio = {
     Map: new Howl({
         src: './audio/map.wav',
+        volume: 0.2,
         html5: true
-    })
+    }),
+    InitBattle: new Howl({
+        src: './audio/initBattle.wav',
+        volume: 0.1,
+    }),
+    Battle: new Howl({
+        src: './audio/battle.mp3',
+        volume: 0.2,
+    }),
+    TackleHit: new Howl({
+        src: './audio/tackleHit.wav',
+        volume: 0.1,
+    }),
+    InitFireball: new Howl({
+        src: './audio/initFireball.wav',
+        volume: 0.1,
+    }),
+    FireballHit: new Howl({
+        src: './audio/fireballHit.wav',
+        volume: 0.1,
+    }),
+    Victory: new Howl({
+        src: './audio/victory.wav',
+        volume: 0.1,
+    }),
 }
 ```
 
@@ -2530,3 +2555,80 @@ audio.Battle.play();
 doorway.initiated = true;
 ```
 
+- In classes.js Find Tackle and Add audio.TackleHit.play(); After onComplete So it Plays When Enemy is Hit
+```
+case "Tackle":
+const timeline = gsap.timeline();
+
+let movementDistance = 20;
+if (this.isEnemy) movementDistance = -20;
+
+timeline
+  .to(this.position, {
+    x: this.position.x - movementDistance,
+  })
+  .to(this.position, {
+    x: this.position.x + movementDistance * 2,
+    duration: 0.1,
+    onComplete: () => {
+      audio.TackleHit.play();
+      gsap.to(healthBar, {
+```
+- Do the Same For Fireball (Shadow or Other Projectile), But Do the Init Part as Soon as it Starts
+```
+case "Shadow":
+  audio.InitFireball.play();
+  const shadowImage = new Image();
+  shadowImage.src = "./imgs/Smoke2.png";
+
+  let shadowOrigin = this.position.x + 100
+  if (this.isEnemy) shadowOrigin = this.position.x -50;
+
+  const shadow = new Sprite({
+    position: {
+      x: shadowOrigin,
+      y: this.position.y,
+    },
+    image: shadowImage,
+    frames: {
+      max: 4,
+      hold: 10,
+    },
+    animate: true,
+    rotation,
+  });
+
+  // in position 1, removing 0 items, add shadow to array
+  renderedSprites.splice(1, 0, shadow);
+
+  gsap.to(shadow.position, {
+    x: recipient.position.x,
+    y: recipient.position.y,
+    duration: 1,
+    onComplete: () => {
+      audio.FireballHit.play();
+      gsap.to(healthBar, {
+```
+
+- Add audio.Victory.play(); and audio.Battle.stop(); At the End of the Faint Method in classes/js
+```
+faint() {
+  document.querySelector("#dialogueBox").innerHTML =
+    this.name + " fainted!";
+  gsap.to(this.position, {
+    y: this.position.y + 20
+  })
+  gsap.to(this, {
+    opacity: 0
+  })
+  audio.Victory.play();
+  audio.Battle.stop();
+}
+```
+
+- In battleScene.js After doorway.initiated = false At the End of A Character Fainting, Add audio.Map.play();
+```
+doorway.initiated = false
+player.position.y += 20
+audio.Map.play();
+```
