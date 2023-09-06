@@ -2495,3 +2495,6 @@ const battleCharacters = {
 
 ### Add Music and Sound Effects
 
+- Create New File in Data Folder Called audio.js
+- Import Into index.html Above Others
+- Create an Audio Const
