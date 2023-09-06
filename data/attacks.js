@@ -13,7 +13,7 @@ const attacks = {
   },
   Haunt: {
     name: "Haunt",
-    damage: 20,
+    damage: 100,
     type: "Dark",
     color: "black"
   }

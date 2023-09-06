@@ -15,12 +15,12 @@ let interactionAnimationID;
 let queue;
 
 function initInteraction() {
-  document.querySelector('#userInterface').style.display = 'block'
-  document.querySelector('#dialogueBox').style.display = 'none'
-  document.querySelector('#enemyHealthBar').style.width = '100%'
-  document.querySelector('#playerHealthBar').style.width = '100%'
-  document.querySelector('#attacksBox').replaceChildren()
-  
+  document.querySelector("#userInterface").style.display = "block";
+  document.querySelector("#dialogueBox").style.display = "none";
+  document.querySelector("#enemyHealthBar").style.width = "100%";
+  document.querySelector("#playerHealthBar").style.width = "100%";
+  document.querySelector("#attacksBox").replaceChildren();
+
   battleChar = new BattleCharacters(battleCharacters.Player);
   darkling = new BattleCharacters(battleCharacters.Darkling);
   renderedSprites = [darkling, battleChar];
@@ -55,6 +55,9 @@ function initInteraction() {
               gsap.to("#overlappingDiv", {
                 opacity: 0,
               });
+
+              doorway.initiated = false
+
             },
           });
         });
@@ -74,7 +77,22 @@ function initInteraction() {
           queue.push(() => {
             battleChar.faint();
           });
+          queue.push(() => {
+            gsap.to("#overlappingDiv", {
+              opacity: 1,
+              onComplete: () => {
+                cancelAnimationFrame(interactionAnimationID);
+                animate();
+                document.querySelector("#userInterface").style.display = "none";
+                gsap.to("#overlappingDiv", {
+                  opacity: 0,
+                });
 
+                doorway.initiated = false
+
+              },
+            });
+          });
           return;
         }
       });

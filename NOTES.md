@@ -2471,7 +2471,25 @@ const battleCharacters = {
   },
 };
 ```
+- Add Code to battleScene.js to Return to Main World When Player Faints and Remove Doorway Initiation By Adding doorway.initiated = false to Both Characters After Fainting to Allow For World Movement Again
+```
+ if (battleChar.health <= 0) {
+  queue.push(() => {
+    battleChar.faint();
+  });
+  queue.push(() => {
+    gsap.to("#overlappingDiv", {
+      opacity: 1,
+      onComplete: () => {
+        cancelAnimationFrame(interactionAnimationID);
+        animate();
+        document.querySelector("#userInterface").style.display = "none";
+        gsap.to("#overlappingDiv", {
+          opacity: 0,
+        });
 
+        doorway.initiated = false
+```
 
 ### Add Music and Sound Effects
 
