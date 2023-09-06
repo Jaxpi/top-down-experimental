@@ -67,7 +67,7 @@ class BattleCharacters extends Sprite {
     rotation = 0,
     isEnemy = false,
     name,
-    attacks
+    attacks,
   }) {
     super({
       position,
@@ -77,21 +77,20 @@ class BattleCharacters extends Sprite {
       animate,
       rotation,
     });
-    this.isEnemy = isEnemy,
-    this.health = 100,
-    this.name = name,
-    this.attacks = attacks
+    (this.isEnemy = isEnemy),
+      (this.health = 100),
+      (this.name = name),
+      (this.attacks = attacks);
   }
 
   faint() {
-    document.querySelector("#dialogueBox").innerHTML =
-      this.name + " fainted!";
+    document.querySelector("#dialogueBox").innerHTML = this.name + " fainted!";
     gsap.to(this.position, {
-      y: this.position.y + 20
-    })
+      y: this.position.y + 20,
+    });
     gsap.to(this, {
-      opacity: 0
-    })
+      opacity: 0,
+    });
     audio.Victory.play();
     audio.Battle.stop();
   }
@@ -115,8 +114,8 @@ class BattleCharacters extends Sprite {
         const shadowImage = new Image();
         shadowImage.src = "./imgs/Smoke2.png";
 
-        let shadowOrigin = this.position.x + 100
-        if (this.isEnemy) shadowOrigin = this.position.x -50;
+        let shadowOrigin = this.position.x + 100;
+        if (this.isEnemy) shadowOrigin = this.position.x - 50;
 
         const shadow = new Sprite({
           position: {
@@ -200,44 +199,94 @@ class BattleCharacters extends Sprite {
             x: this.position.x,
           });
         break;
-        case "Haunt":
-          const tl = gsap.timeline();
-  
-          let moveDistance = 20;
-        if (this.isEnemy) moveDistance = -20;
-        this.rotation = 5.5
-          tl
-            .to(this.position, {
-              x: this.position.x - moveDistance,
-            })
-            .to(this.position, {
-              x: this.position.x + moveDistance * 2,
-              duration: 0.1,
-              onComplete: () => {
-                audio.TackleHit.play();
-                gsap.to(healthBar, {
-                  width: recipient.health + "%",
-                });
-  
-                gsap.to(recipient.position, {
-                  x: recipient.position.x + 10,
-                  yoyo: true,
-                  repeat: 5,
-                  duration: 0.08,
-                });
-                gsap.to(recipient, {
-                  opacity: 0.5,
-                  repeat: 5,
-                  yoyo: true,
-                  duration: 0.08,
-                });
-                this.rotation = 0
-              },
-            })
-            .to(this.position, {
-              x: this.position.x,
+      case "Poison":
+        audio.InitFireball.play();
+        const poisonImage = new Image();
+        poisonImage.src = "./imgs/Poison.png";
+
+        let poisonOrigin = this.position.x + 100;
+        if (this.isEnemy) poisonOrigin = this.position.x - 50;
+
+        const poison = new Sprite({
+          position: {
+            x: poisonOrigin,
+            y: this.position.y,
+          },
+          image: poisonImage,
+          frames: {
+            max: 1,
+            hold: 10,
+          },
+          animate: true,
+        });
+
+        // in position 1, removing 0 items, add poison to array
+        renderedSprites.splice(1, 0, poison);
+
+        gsap.to(poison.position, {
+          x: recipient.position.x,
+          y: recipient.position.y,
+          duration: 1,
+          onComplete: () => {
+            audio.FireballHit.play();
+            gsap.to(healthBar, {
+              width: recipient.health + "%",
             });
-          break;
+
+            gsap.to(recipient.position, {
+              x: recipient.position.x + 10,
+              yoyo: true,
+              repeat: 5,
+              duration: 0.08,
+            });
+            gsap.to(recipient, {
+              opacity: 0.5,
+              repeat: 5,
+              yoyo: true,
+              duration: 0.08,
+            });
+            // in position 1, remove 1 item from the array
+            renderedSprites.splice(1, 1);
+          },
+        });
+        break;
+      case "Haunt":
+        const tl = gsap.timeline();
+
+        let moveDistance = 20;
+        if (this.isEnemy) moveDistance = -20;
+        this.rotation = 5.5;
+        tl.to(this.position, {
+          x: this.position.x - moveDistance,
+        })
+          .to(this.position, {
+            x: this.position.x + moveDistance * 2,
+            duration: 0.1,
+            onComplete: () => {
+              audio.TackleHit.play();
+              gsap.to(healthBar, {
+                width: recipient.health + "%",
+              });
+
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo: true,
+                repeat: 5,
+                duration: 0.08,
+              });
+              gsap.to(recipient, {
+                opacity: 0.5,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08,
+              });
+              this.rotation = 0;
+            },
+          })
+          .to(this.position, {
+            x: this.position.x,
+          });
+        break;
     }
   }
 }

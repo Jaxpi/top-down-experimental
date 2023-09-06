@@ -5,6 +5,12 @@ const attacks = {
     type: "Normal",
     color: "brown"
   },
+  Poison: {
+    name: "Poison",
+    damage: 30,
+    type: "Poison",
+    color: "purple"
+  },
   Shadow: {
     name: "Shadow",
     damage: 25,

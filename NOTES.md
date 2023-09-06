@@ -2632,3 +2632,22 @@ doorway.initiated = false
 player.position.y += 20
 audio.Map.play();
 ```
+## Things to Try - Future Updates
+
+### Shrink Collision Rectangle of Player
+
+### Mute Button on Screen
+
+### Mouse Scroll Wheel to Zoom In/Out
+
+### Leveling Up
+
+### Gaining New Powers/Outfits/Tools/Weapons
+
+### Bag of Items/Potions
+
+### Varied Interactions/Different Doorways Have Different Scenarios (shop, doctor, puzzles for treasures, etc.)
+
+### Transitioning to a New World
+
+### Actions While in Main World/Random Enemies

@@ -10,7 +10,7 @@ const audio = {
     }),
     Battle: new Howl({
         src: './audio/battle.mp3',
-        volume: 0.2,
+        volume: 0.15,
     }),
     TackleHit: new Howl({
         src: './audio/tackleHit.wav',
