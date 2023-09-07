@@ -14,7 +14,7 @@ let renderedSprites;
 let interactionAnimationID;
 let queue;
 
-function initInteraction() {
+function initBattle() {
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
   document.querySelector("#enemyHealthBar").style.width = "100%";
@@ -112,8 +112,8 @@ function initInteraction() {
   });
 }
 
-function animateInteraction() {
-  interactionAnimationID = window.requestAnimationFrame(animateInteraction);
+function animateBattle() {
+  interactionAnimationID = window.requestAnimationFrame(animateBattle);
   generalStoreBackground.draw();
 
   renderedSprites.forEach((sprite) => {
@@ -121,8 +121,8 @@ function animateInteraction() {
   });
 }
 
-// initInteraction();
-// animateInteraction();
+// initBattle();
+// animateBattle();
 
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
   if (queue.length > 0) {

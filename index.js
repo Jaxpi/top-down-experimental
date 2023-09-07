@@ -9,9 +9,14 @@ for (let i = 0; i < collisions.length; i += 50) {
   boundaryMap.push(collisions.slice(i, 50 + i));
 }
 
-const interactionsMap = [];
-for (let i = 0; i < interactionsData.length; i += 50) {
-  interactionsMap.push(interactionsData.slice(i, 50 + i));
+const fireEnemyZoneMap = [];
+for (let i = 0; i < fireEnemyZoneData.length; i += 50) {
+  fireEnemyZoneMap.push(fireEnemyZoneData.slice(i, 50 + i));
+}
+
+const iceEnemyZoneMap = [];
+for (let i = 0; i < iceEnemyZoneData.length; i += 50) {
+  iceEnemyZoneMap.push(iceEnemyZoneData.slice(i, 50 + i));
 }
 
 const offset = {
@@ -164,7 +169,7 @@ iceEnemyZoneMap.forEach((row, i) => {
   });
 });
 
-const movables = [background, ...boundaries, foreground, ...interactions, ...fireEnemyZone, ...iceEnemyZone];
+const movables = [background, ...boundaries, foreground, ...fireEnemyZone, ...iceEnemyZone];
 
 // Removing + rectangle2.height will allow character to walk more "into" the doorway before initializing interaction (if the doorway is above the character)
 function rectangularCollision({ rectangle1, rectangle2 }) {
@@ -194,8 +199,11 @@ function animate() {
       console.log("colliding");
     }
   });
-  interactions.forEach((interactions) => {
-    interactions.draw();
+  fireEnemyZone.forEach((fireEnemyZone) => {
+    fireEnemyZone.draw();
+  });
+  iceEnemyZone.forEach((iceEnemyZone) => {
+    iceEnemyZone.draw();
   });
   player.draw();
   foreground.draw();
@@ -211,23 +219,23 @@ function animate() {
     keys.ArrowLeft.pressed ||
     keys.ArrowRight.pressed
   ) {
-    for (let i = 0; i < interactions.length; i++) {
-      const interaction = interactions[i];
+    for (let i = 0; i < fireEnemyZone.length; i++) {
+      const fireEnemyZoneSpot = fireEnemyZone[i];
       const overlappingArea =
         (Math.min(
           player.position.x + player.width,
-          interaction.position.x + interaction.width
+          fireEnemyZoneSpot.position.x + fireEnemyZoneSpot.width
         ) -
-          Math.max(player.position.x, interaction.position.x)) *
+          Math.max(player.position.x, fireEnemyZoneSpot.position.x)) *
         (Math.min(
           player.position.y + player.height,
-          interaction.position.y + interaction.height
+          fireEnemyZoneSpot.position.y + fireEnemyZoneSpot.height
         ) -
-          Math.max(player.position.y, interaction.position.y));
+          Math.max(player.position.y, fireEnemyZoneSpot.position.y));
       if (
         rectangularCollision({
           rectangle1: playerHitBox,
-          rectangle2: interaction,
+          rectangle2: fireEnemyZoneSpot,
         }) &&
         overlappingArea > (player.width * player.height) / 2
       ) {
@@ -247,8 +255,8 @@ function animate() {
               opacity: 1,
               duration: 0.4,
               onComplete() {
-                initInteraction();
-                animateInteraction();
+                initBattle();
+                animateBattle();
                 gsap.to("#overlappingDiv", {
                   opacity: 0,
                   duration: 0.4,
