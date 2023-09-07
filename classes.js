@@ -162,6 +162,112 @@ class BattleCharacters extends Sprite {
         });
 
         break;
+        case "Burn":
+          audio.InitFireball.play();
+          const fireballImage = new Image();
+          fireballImage.src = "./imgs/fireball.png";
+  
+          let fireballOrigin = this.position.x + 100;
+          if (this.isEnemy) fireballOrigin = this.position.x - 50;
+  
+          const fireball = new Sprite({
+            position: {
+              x: fireballOrigin,
+              y: this.position.y,
+            },
+            image: fireballImage,
+            frames: {
+              max: 4,
+              hold: 10,
+            },
+            animate: true,
+            rotation,
+          });
+  
+          // in position 1, removing 0 items, add fireball to array
+          renderedSprites.splice(1, 0, fireball);
+  
+          gsap.to(fireball.position, {
+            x: recipient.position.x,
+            y: recipient.position.y,
+            duration: 1,
+            onComplete: () => {
+              audio.FireballHit.play();
+              gsap.to(healthBar, {
+                width: recipient.health + "%",
+              });
+  
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo: true,
+                repeat: 5,
+                duration: 0.08,
+              });
+              gsap.to(recipient, {
+                opacity: 0.5,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08,
+              });
+              // in position 1, remove 1 item from the array
+              renderedSprites.splice(1, 1);
+            },
+          });
+  
+        break;
+        case "Freeze":
+          audio.InitFireball.play();
+          const iceballImage = new Image();
+          iceballImage.src = "./imgs/iceball.png";
+  
+          let iceballOrigin = this.position.x + 100;
+          if (this.isEnemy) iceballOrigin = this.position.x - 50;
+  
+          const iceball = new Sprite({
+            position: {
+              x: iceballOrigin,
+              y: this.position.y,
+            },
+            image: iceballImage,
+            frames: {
+              max: 4,
+              hold: 10,
+            },
+            animate: true,
+            rotation,
+          });
+  
+          // in position 1, removing 0 items, add iceball to array
+          renderedSprites.splice(1, 0, iceball);
+  
+          gsap.to(iceball.position, {
+            x: recipient.position.x,
+            y: recipient.position.y,
+            duration: 1,
+            onComplete: () => {
+              audio.FireballHit.play();
+              gsap.to(healthBar, {
+                width: recipient.health + "%",
+              });
+  
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo: true,
+                repeat: 5,
+                duration: 0.08,
+              });
+              gsap.to(recipient, {
+                opacity: 0.5,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08,
+              });
+              // in position 1, remove 1 item from the array
+              renderedSprites.splice(1, 1);
+            },
+          });
+  
+          break;
       case "Tackle":
         const timeline = gsap.timeline();
 

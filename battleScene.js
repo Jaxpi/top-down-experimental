@@ -47,7 +47,7 @@ function initBattle() {
   darkling = new BattleCharacters(battleCharacters.Darkling);
   darklingRed = new BattleCharacters(battleCharacters.DarklingRed);
   darklingBlue = new BattleCharacters(battleCharacters.DarklingBlue);
-  renderedSprites = [darkling, battleChar];
+  renderedSprites = [darklingRed, battleChar];
   queue = [];
 
   battleChar.attacks.forEach((attack) => {
