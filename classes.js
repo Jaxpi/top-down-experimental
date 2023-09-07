@@ -167,18 +167,18 @@ class BattleCharacters extends Sprite {
           const fireballImage = new Image();
           fireballImage.src = "./imgs/fireball.png";
   
-          let fireballOrigin = this.position.x + 100;
-          if (this.isEnemy) fireballOrigin = this.position.x - 50;
+          let fireballOrigin = this.position.x + 200;
+          if (this.isEnemy) fireballOrigin = this.position.x + 50;
   
           const fireball = new Sprite({
             position: {
               x: fireballOrigin,
-              y: this.position.y,
+              y: this.position.y + 50,
             },
             image: fireballImage,
             frames: {
               max: 4,
-              hold: 10,
+              hold: 2,
             },
             animate: true,
             rotation,
@@ -188,8 +188,8 @@ class BattleCharacters extends Sprite {
           renderedSprites.splice(1, 0, fireball);
   
           gsap.to(fireball.position, {
-            x: recipient.position.x,
-            y: recipient.position.y,
+            x: recipient.position.x + recipient.width/3,
+            y: recipient.position.y + recipient.height/5,
             duration: 1,
             onComplete: () => {
               audio.FireballHit.play();
@@ -220,18 +220,18 @@ class BattleCharacters extends Sprite {
           const iceballImage = new Image();
           iceballImage.src = "./imgs/iceball.png";
   
-          let iceballOrigin = this.position.x + 100;
-          if (this.isEnemy) iceballOrigin = this.position.x - 50;
+          let iceballOrigin = this.position.x + 200;
+          if (this.isEnemy) iceballOrigin = this.position.x + 50;
   
           const iceball = new Sprite({
             position: {
               x: iceballOrigin,
-              y: this.position.y,
+              y: this.position.y + 50,
             },
             image: iceballImage,
             frames: {
               max: 4,
-              hold: 10,
+              hold: 2,
             },
             animate: true,
             rotation,
@@ -241,8 +241,8 @@ class BattleCharacters extends Sprite {
           renderedSprites.splice(1, 0, iceball);
   
           gsap.to(iceball.position, {
-            x: recipient.position.x,
-            y: recipient.position.y,
+            x: recipient.position.x + recipient.width/3,
+            y: recipient.position.y + recipient.height/5,
             duration: 1,
             onComplete: () => {
               audio.FireballHit.play();

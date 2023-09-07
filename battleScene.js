@@ -145,8 +145,8 @@ function animateBattle() {
   });
 }
 
-// initBattle();
-// animateBattle();
+initBattle();
+animateBattle();
 
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
   if (queue.length > 0) {

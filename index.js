@@ -365,7 +365,7 @@ function animate() {
   }
 }
 
-animate();
+// animate();
 
 let lastKey = "";
 window.addEventListener("keydown", (e) => {
