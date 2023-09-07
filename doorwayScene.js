@@ -19,7 +19,7 @@ const tavernBackground = new Sprite({
 });
 
 const grocerImg = new Image();
-grocerImg.src = "./imgs/interior-grocer-1-crop.png";
+grocerImg.src = "./imgs/grocery-store-1.jpeg";
 const grocerBackground = new Sprite({
   position: {
     x: 0,
@@ -28,12 +28,12 @@ const grocerBackground = new Sprite({
   image: grocerImg,
 });
 
-const doctorImg = new Image();
-doctorImg.src = "./imgs/interior-doctor-1-crop.png";
-const doctorBackground = new Sprite({
+const medicalImg = new Image();
+medicalImg.src = "./imgs/interior-medical-2-crop.jpeg";
+const medicalBackground = new Sprite({
   position: {
     x: 0,
     y: 0,
   },
-  image: doctorImg,
+  image: medicalImg,
 });
