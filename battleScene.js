@@ -1,13 +1,3 @@
-// const generalStoreImg = new Image();
-// generalStoreImg.src = "./imgs/general-store-3.jpg";
-// const generalStoreBackground = new Sprite({
-//   position: {
-//     x: 0,
-//     y: 0,
-//   },
-//   image: generalStoreImg,
-// });
-
 const icyGrasslandImg = new Image();
 icyGrasslandImg.src = "./imgs/icy-grassland-1-crop.jpeg";
 const icyGrassland = new Sprite({
