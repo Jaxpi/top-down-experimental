@@ -166,7 +166,7 @@ iceEnemyZoneMap.forEach((row, i) => {
 
 const movables = [background, ...boundaries, foreground, ...interactions, ...fireEnemyZone, ...iceEnemyZone];
 
-// Removing + rectangle2.height will allow character to walk more "into" the doorway before initializing interaction (if the doorway is above the chracter)
+// Removing + rectangle2.height will allow character to walk more "into" the doorway before initializing interaction (if the doorway is above the character)
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
@@ -176,7 +176,7 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-const doorway = {
+const enemyBattle = {
   initiated: false,
 };
 
@@ -204,7 +204,7 @@ function animate() {
   let moving = true;
   player.animate = false;
 
-  if (doorway.initiated) return;
+  if (enemyBattle.initiated) return;
   if (
     keys.ArrowUp.pressed ||
     keys.ArrowDown.pressed ||
@@ -236,7 +236,7 @@ function animate() {
         audio.Map.stop();
         audio.InitBattle.play();
         audio.Battle.play();
-        doorway.initiated = true;
+        enemyBattle.initiated = true;
         gsap.to("#overlappingDiv", {
           opacity: 1,
           // repeat: 2,

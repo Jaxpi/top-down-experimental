@@ -56,8 +56,8 @@ function initInteraction() {
                 opacity: 0,
               });
 
-              doorway.initiated = false
-              // adding this to prevent reinitialization in doorway
+              enemyBattle.initiated = false
+              // adding this to prevent reinitialization in enemyBattle
               player.position.y += 20
               playerHitBox.position.y += 20
               audio.Map.play();
@@ -92,7 +92,7 @@ function initInteraction() {
                   opacity: 0,
                 });
 
-                doorway.initiated = false
+                enemyBattle.initiated = false
                 player.position.y += 20
                 audio.Map.play();
 
