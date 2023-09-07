@@ -8,14 +8,24 @@
 //   image: generalStoreImg,
 // });
 
-const icyGrasslandImg = new Image();
-icyGrasslandImg.src = "./imgs/icy-grassland-1-crop.jpeg";
-const icyGrassland = new Sprite({
+// const icyGrasslandImg = new Image();
+// icyGrasslandImg.src = "./imgs/icy-grassland-1-crop.jpeg";
+// const icyGrassland = new Sprite({
+//   position: {
+//     x: 0,
+//     y: 0,
+//   },
+//   image: icyGrasslandImg,
+// });
+
+const fireRuinsImg = new Image();
+fireRuinsImg.src = "./imgs/ruins-7-crop.jpeg";
+const fireRuins = new Sprite({
   position: {
     x: 0,
     y: 0,
   },
-  image: icyGrasslandImg,
+  image: fireRuinsImg,
 });
 
 let battleChar;
@@ -124,7 +134,7 @@ function initBattle() {
 
 function animateBattle() {
   interactionAnimationID = window.requestAnimationFrame(animateBattle);
-  icyGrassland.draw();
+  fireRuins.draw();
 
   renderedSprites.forEach((sprite) => {
     sprite.draw();
