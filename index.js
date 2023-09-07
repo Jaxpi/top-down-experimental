@@ -255,8 +255,8 @@ function animate() {
               opacity: 1,
               duration: 0.4,
               onComplete() {
-                initBattle();
-                animateBattle();
+                initFireBattle();
+                animateFireBattle();
                 gsap.to("#overlappingDiv", {
                   opacity: 0,
                   duration: 0.4,
@@ -266,6 +266,55 @@ function animate() {
           },
         });
         break;
+      }
+      for (let i = 0; i < iceEnemyZone.length; i++) {
+        const iceEnemyZoneSpot = iceEnemyZone[i];
+        const overlappingArea =
+          (Math.min(
+            player.position.x + player.width,
+            iceEnemyZoneSpot.position.x + iceEnemyZoneSpot.width
+          ) -
+            Math.max(player.position.x, iceEnemyZoneSpot.position.x)) *
+          (Math.min(
+            player.position.y + player.height,
+            iceEnemyZoneSpot.position.y + iceEnemyZoneSpot.height
+          ) -
+            Math.max(player.position.y, iceEnemyZoneSpot.position.y));
+        if (
+          rectangularCollision({
+            rectangle1: playerHitBox,
+            rectangle2: iceEnemyZoneSpot,
+          }) &&
+          overlappingArea > (player.width * player.height) / 2
+        ) {
+          window.cancelAnimationFrame(animationID);
+  
+          audio.Map.stop();
+          audio.InitBattle.play();
+          audio.Battle.play();
+          enemyBattle.initiated = true;
+          gsap.to("#overlappingDiv", {
+            opacity: 1,
+            // repeat: 2,
+            // yoyo: true,
+            duration: 0.4,
+            onComplete() {
+              gsap.to("#overlappingDiv", {
+                opacity: 1,
+                duration: 0.4,
+                onComplete() {
+                  initIceBattle();
+                  animateIceBattle();
+                  gsap.to("#overlappingDiv", {
+                    opacity: 0,
+                    duration: 0.4,
+                  });
+                },
+              });
+            },
+          });
+          break;
+        }
       }
     }
   }
@@ -365,7 +414,7 @@ function animate() {
   }
 }
 
-// animate();
+animate();
 
 let lastKey = "";
 window.addEventListener("keydown", (e) => {
@@ -413,9 +462,9 @@ window.addEventListener("keyup", (e) => {
 });
 
 let clicked = false
-addEventListener('click', () => {
-  if (!clicked) {
-    audio.Map.play()
-    clicked = true
-  }
-});
+  addEventListener('click', () => {
+    if (!clicked) {
+      audio.Map.play()
+      clicked = true
+    }
+  });

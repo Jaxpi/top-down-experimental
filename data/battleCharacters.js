@@ -48,7 +48,7 @@ const battleCharacters = {
     animate: true,
     isEnemy: true,
     name: "Enemy",
-    attacks: [attacks.Burn, attacks.Haunt],
+    attacks: [attacks.Burn],
   },
 
   DarklingBlue: {
@@ -66,6 +66,6 @@ const battleCharacters = {
     animate: true,
     isEnemy: true,
     name: "Enemy",
-    attacks: [attacks.Freeze, attacks.Haunt],
+    attacks: [attacks.Freeze],
   },
 };
