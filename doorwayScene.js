@@ -17,3 +17,23 @@ const tavernBackground = new Sprite({
   },
   image: tavernImg,
 });
+
+const grocerImg = new Image();
+grocerImg.src = "./imgs/interior-grocer-1-crop.png";
+const grocerBackground = new Sprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  image: grocerImg,
+});
+
+const doctorImg = new Image();
+doctorImg.src = "./imgs/interior-doctor-1-crop.png";
+const doctorBackground = new Sprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  image: doctorImg,
+});
