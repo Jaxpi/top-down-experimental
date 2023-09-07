@@ -32,4 +32,40 @@ const battleCharacters = {
     name: "Enemy",
     attacks: [attacks.Shadow, attacks.Haunt],
   },
+
+  DarklingRed: {
+    position: {
+      x: 500,
+      y: 100,
+    },
+    image:  {
+      src: './imgs/darkling-enemy-red.png'
+    },
+    frames: {
+      max: 3,
+      hold: 20,
+    },
+    animate: true,
+    isEnemy: true,
+    name: "Enemy",
+    attacks: [attacks.Burn, attacks.Haunt],
+  },
+
+  DarklingBlue: {
+    position: {
+      x: 500,
+      y: 100,
+    },
+    image:  {
+      src: './imgs/darkling-enemy-blue.png'
+    },
+    frames: {
+      max: 3,
+      hold: 20,
+    },
+    animate: true,
+    isEnemy: true,
+    name: "Enemy",
+    attacks: [attacks.Freeze, attacks.Haunt],
+  },
 };
