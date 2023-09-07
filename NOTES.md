@@ -2636,6 +2636,8 @@ audio.Map.play();
 
 ### Shrink Collision Rectangle of Player
 
+- Add a New Sprite With an Image of a Circle the Size of the Desired Player's "hitbox" After the Player Sprite Creation in index.js
+
 ### Mute Button on Screen
 
 ### Mouse Scroll Wheel to Zoom In/Out

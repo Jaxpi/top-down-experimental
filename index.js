@@ -55,6 +55,20 @@ const player = new Sprite({
   },
 });
 
+const hitboxImage = new Image();
+hitboxImage.src = "./imgs/hitbox.png";
+
+const playerHitBox = new Sprite({
+  position: {
+    x: player.position.x + 10,
+    y: player.position.y + 25,
+  },
+  image: hitboxImage,
+  frames: {
+    max: 1,
+  },
+});
+
 const background = new Sprite({
   position: {
     x: offset.x,
