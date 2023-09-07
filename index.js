@@ -116,12 +116,28 @@ boundaryMap.forEach((row, i) => {
   });
 });
 
-const interactions = [];
+// const interactions = [];
 
-interactionsMap.forEach((row, i) => {
+// interactionsMap.forEach((row, i) => {
+//   row.forEach((symbol, j) => {
+//     if (symbol === 945)
+//       interactions.push(
+//         new Boundary({
+//           position: {
+//             x: j * Boundary.width + offset.x,
+//             y: i * Boundary.height + offset.y,
+//           },
+//         })
+//       );
+//   });
+// });
+
+const fireEnemyZone = [];
+
+fireEnemyZoneMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol === 945)
-      interactions.push(
+    if (symbol === 3432)
+    fireEnemyZone.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
@@ -132,7 +148,23 @@ interactionsMap.forEach((row, i) => {
   });
 });
 
-const movables = [background, ...boundaries, foreground, ...interactions];
+const iceEnemyZone = [];
+
+iceEnemyZoneMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 3432)
+    iceEnemyZone.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y,
+          },
+        })
+      );
+  });
+});
+
+const movables = [background, ...boundaries, foreground, ...interactions, ...fireEnemyZone, ...iceEnemyZone];
 
 // Removing + rectangle2.height will allow character to walk more "into" the doorway before initializing interaction (if the doorway is above the chracter)
 function rectangularCollision({ rectangle1, rectangle2 }) {
