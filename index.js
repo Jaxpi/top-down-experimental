@@ -104,7 +104,7 @@ const boundaries = [];
 
 boundaryMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol === 632)
+    if (symbol === 3432)
       boundaries.push(
         new Boundary({
           position: {
