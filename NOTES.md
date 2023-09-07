@@ -2637,6 +2637,28 @@ audio.Map.play();
 ### Shrink Collision Rectangle of Player
 
 - Add a New Sprite With an Image of a Circle the Size of the Desired Player's "hitbox" After the Player Sprite Creation in index.js
+```
+const hitboxImage = new Image();
+hitboxImage.src = "./imgs/hitbox.png";
+
+const playerHitBox = new Sprite({
+  position: {
+    x: player.position.x + 10,
+    y: player.position.y + 25,
+  },
+  image: hitboxImage,
+  frames: {
+    max: 1,
+  },
+});
+```
+
+- Change All Instances of rectangle1: player to rectangle1: playerHitBox
+```
+rectangularCollision({
+  rectangle1: playerHitBox,
+  rectangle2: boundary,
+```
 
 ### Mute Button on Screen
 

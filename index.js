@@ -193,7 +193,7 @@ function animate() {
           Math.max(player.position.y, interaction.position.y));
       if (
         rectangularCollision({
-          rectangle1: player,
+          rectangle1: playerHitBox,
           rectangle2: interaction,
         }) &&
         overlappingArea > (player.width * player.height) / 2
@@ -236,7 +236,7 @@ function animate() {
       const boundary = boundaries[i];
       if (
         rectangularCollision({
-          rectangle1: player,
+          rectangle1: playerHitBox,
           rectangle2: {
             ...boundary,
             position: {
@@ -262,7 +262,7 @@ function animate() {
       const boundary = boundaries[i];
       if (
         rectangularCollision({
-          rectangle1: player,
+          rectangle1: playerHitBox,
           rectangle2: {
             ...boundary,
             position: {
@@ -284,7 +284,7 @@ function animate() {
       const boundary = boundaries[i];
       if (
         rectangularCollision({
-          rectangle1: player,
+          rectangle1: playerHitBox,
           rectangle2: {
             ...boundary,
             position: {
@@ -306,7 +306,7 @@ function animate() {
       const boundary = boundaries[i];
       if (
         rectangularCollision({
-          rectangle1: player,
+          rectangle1: playerHitBox,
           rectangle2: {
             ...boundary,
             position: {
