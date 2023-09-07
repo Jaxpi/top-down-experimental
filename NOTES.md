@@ -2660,6 +2660,15 @@ rectangularCollision({
   rectangle2: boundary,
 ```
 
+- In battleScene.js Add playerHitBox to the Spot That Adds 20 to the Y Position After a Doorway Interaction to Keep Player and Hitbox Together
+```
+doorway.initiated = false
+// adding this to prevent reinitialization in doorway
+player.position.y += 20
+playerHitBox.position.y += 20
+audio.Map.play();
+```
+
 ### Mute Button on Screen
 
 ### Mouse Scroll Wheel to Zoom In/Out

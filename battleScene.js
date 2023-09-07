@@ -59,6 +59,7 @@ function initInteraction() {
               doorway.initiated = false
               // adding this to prevent reinitialization in doorway
               player.position.y += 20
+              playerHitBox.position.y += 20
               audio.Map.play();
 
             },

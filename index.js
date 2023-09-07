@@ -15,12 +15,12 @@ for (let i = 0; i < interactionsData.length; i += 50) {
 }
 
 const offset = {
-  x: -1240,
-  y: -500,
+  x: -618,
+  y: -1240,
 };
 
-const image = new Image();
-image.src = "./imgs/top-down-experimental-map.png";
+const worldMapimage = new Image();
+worldMapimage.src = "./imgs/world-map-1.png";
 
 const playerUpImage = new Image();
 playerUpImage.src = "./imgs/elf-player-up-sm.png";
@@ -35,7 +35,7 @@ const playerRightImage = new Image();
 playerRightImage.src = "./imgs/elf-player-right-sm.png";
 
 const foregroundImage = new Image();
-foregroundImage.src = "./imgs/top-down-experimental-map-foreground.png";
+foregroundImage.src = "./imgs/world-map-1-foreground.png";
 
 const player = new Sprite({
   position: {
@@ -74,7 +74,7 @@ const background = new Sprite({
     x: offset.x,
     y: offset.y,
   },
-  image: image,
+  image: worldMapimage,
 });
 
 const foreground = new Sprite({
@@ -167,6 +167,7 @@ function animate() {
   });
   player.draw();
   foreground.draw();
+  playerHitBox.draw();
 
   let moving = true;
   player.animate = false;
@@ -241,7 +242,7 @@ function animate() {
             ...boundary,
             position: {
               x: boundary.position.x,
-              y: boundary.position.y + 2,
+              y: boundary.position.y + 3,
             },
           },
         })
@@ -267,7 +268,7 @@ function animate() {
             ...boundary,
             position: {
               x: boundary.position.x,
-              y: boundary.position.y - 2,
+              y: boundary.position.y - 3,
             },
           },
         })
