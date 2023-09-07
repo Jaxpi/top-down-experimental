@@ -30,6 +30,8 @@ const fireRuins = new Sprite({
 
 let battleChar;
 let darkling;
+let darklingRed;
+let darklingBlue;
 let renderedSprites;
 let interactionAnimationID;
 let queue;
@@ -43,6 +45,8 @@ function initBattle() {
 
   battleChar = new BattleCharacters(battleCharacters.Player);
   darkling = new BattleCharacters(battleCharacters.Darkling);
+  darklingRed = new BattleCharacters(battleCharacters.DarklingRed);
+  darklingBlue = new BattleCharacters(battleCharacters.DarklingBlue);
   renderedSprites = [darkling, battleChar];
   queue = [];
 
@@ -57,13 +61,13 @@ function initBattle() {
       const selectedAttack = attacks[e.currentTarget.innerHTML];
       battleChar.attack({
         attack: selectedAttack,
-        recipient: darkling,
+        recipient: darklingRed,
         renderedSprites,
       });
 
-      if (darkling.health <= 0) {
+      if (darklingRed.health <= 0) {
         queue.push(() => {
-          darkling.faint();
+          darklingRed.faint();
         });
         queue.push(() => {
           gsap.to("#overlappingDiv", {
@@ -88,10 +92,10 @@ function initBattle() {
       }
 
       const randomAttack =
-        darkling.attacks[Math.floor(Math.random() * darkling.attacks.length)];
+        darklingRed.attacks[Math.floor(Math.random() * darklingRed.attacks.length)];
 
       queue.push(() => {
-        darkling.attack({
+        darklingRed.attack({
           attack: randomAttack,
           recipient: battleChar,
           renderedSprites,

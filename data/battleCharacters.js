@@ -12,7 +12,7 @@ const battleCharacters = {
     },
     animate: true,
     name: "Player",
-    attacks: [attacks.Tackle, attacks.Poison],
+    attacks: [attacks.Tackle, attacks.Poison, attacks.Burn, attacks.Freeze],
   },
 
   Darkling: {
