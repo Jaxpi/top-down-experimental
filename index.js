@@ -155,7 +155,7 @@ function animate() {
     boundary.draw();
     if (
       rectangularCollision({
-        rectangle1: player,
+        rectangle1: playerHitBox,
         rectangle2: boundary,
       })
     ) {
