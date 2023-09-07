@@ -1,11 +1,21 @@
-const generalStoreImg = new Image();
-generalStoreImg.src = "./imgs/general-store-3.jpg";
-const generalStoreBackground = new Sprite({
+// const generalStoreImg = new Image();
+// generalStoreImg.src = "./imgs/general-store-3.jpg";
+// const generalStoreBackground = new Sprite({
+//   position: {
+//     x: 0,
+//     y: 0,
+//   },
+//   image: generalStoreImg,
+// });
+
+const icyGrasslandImg = new Image();
+icyGrasslandImg.src = "./imgs/icy-grassland-1-crop.jpeg";
+const icyGrassland = new Sprite({
   position: {
     x: 0,
     y: 0,
   },
-  image: generalStoreImg,
+  image: icyGrasslandImg,
 });
 
 let battleChar;
@@ -114,7 +124,7 @@ function initBattle() {
 
 function animateBattle() {
   interactionAnimationID = window.requestAnimationFrame(animateBattle);
-  generalStoreBackground.draw();
+  icyGrassland.draw();
 
   renderedSprites.forEach((sprite) => {
     sprite.draw();
