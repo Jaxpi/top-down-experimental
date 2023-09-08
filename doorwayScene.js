@@ -49,7 +49,7 @@ const sageBackground = new Sprite({
 });
 
 const iceDungeonImg = new Image();
-iceDungeonImg.src = "./imgs/iceDungeon-1-crop.jpeg";
+iceDungeonImg.src = "./imgs/ice-dungeon-1-crop.jpeg";
 const iceDungeonBackground = new Sprite({
   position: {
     x: 0,
