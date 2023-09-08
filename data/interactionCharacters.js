@@ -1,14 +1,14 @@
 const interactionCharacters = {
   Player: {
     position: {
-      x: 100,
-      y: 220,
+      x: 50,
+      y: 120,
     },
     image: {
       src: './imgs/interactionChar.png'
     },
     frames: {
-      max: 3,
+      max: 1,
     },
     animate: true,
     // responds: false,
@@ -19,14 +19,13 @@ const interactionCharacters = {
   Friend: {
     position: {
       x: 500,
-      y: 100,
+      y: 50,
     },
     image:  {
       src: './imgs/friend.png'
     },
     frames: {
-      max: 3,
-      hold: 20,
+      max: 1,
     },
     animate: true,
     // responds: true,

@@ -92,10 +92,16 @@ let next;
 
 function initDoorway() {
   document.querySelector("#userInterface").style.display = "block";
-    document.querySelector("#dialogueBox").style.display = "none";
-    document.querySelector('#npcName').innerHTML = 'Friend';
-  //   document.querySelector("#enemyHealthBar").style.width = "100%";
-  //   document.querySelector("#playerHealthBar").style.width = "100%";
+  document.querySelector("#dialogueBox").style.display = "none";
+  document.querySelector("#npcName").innerHTML = "Friend";
+  document.querySelector("#enemyStats").style.width = 100;
+  document.querySelector("#playerStats").style.right = 475;
+  document.querySelector("#enemyStats").style.left = 875;
+  document.querySelector("#playerStats").style.width = 100;
+  document.querySelector("#enemyHealthBar").style.display = "none";
+  document.querySelector("#playerHealthBar").style.display = "none";
+  document.querySelector("#enemyBackgroundBar").style.height = "auto";
+  document.querySelector("#playerBackgroundBar").style.height = "auto";
   document.querySelector("#attacksBox").replaceChildren();
 
   interactionChar = new InteractionCharacters(interactionCharacters.Player);
@@ -189,6 +195,7 @@ function initDoorway() {
         });
       }
     });
+
     button.addEventListener("mouseenter", (e) => {
       const selectedDialogue = dialogues[e.currentTarget.innerHTML];
       document.querySelector("#attackType").innerHTML = selectedDialogue.name;
