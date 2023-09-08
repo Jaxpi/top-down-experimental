@@ -1,5 +1,5 @@
 const dialogues = {
-    Greeting: {
+    Greet: {
       name: "Greet",
       words: "Good Day",
     },

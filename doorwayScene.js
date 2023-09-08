@@ -121,9 +121,8 @@ function initDoorway() {
       interactionChar.dialogue({
         dialogue: selectedDialogue,
         recipient: friend,
-        interactionSprite,
+          interactionSprite,
       });
-
       // if player selects greet, npc responds with welcome, if player selects order npc = orderresponse, player = goodbye npc = goodbye and onclick return to map
 
       if (selectedDialogue === "Greet") {

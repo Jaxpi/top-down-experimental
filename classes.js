@@ -65,6 +65,7 @@ class InteractionCharacters extends Sprite {
     sprites,
     animate = false,
     rotation = 0,
+    isNPC = false,
     name,
     dialogues,
   }) {
@@ -76,9 +77,80 @@ class InteractionCharacters extends Sprite {
       animate,
       rotation,
     });
-    // (this.isEnemy = isEnemy),
-      (this.name = name),
-      (this.dialogues = dialogues);
+    (this.isNPC = isNPC), (this.name = name), (this.dialogues = dialogues);
+  }
+
+  dialogue({ dialogue, renderedSprites }) {
+    document.querySelector("#dialogueBox").style.display = "block";
+    document.querySelector("#dialogueBox").innerHTML = this.dialogue.words;
+
+    const dialogueTimeline = gsap.timeline();
+    let talkMotion = 5;
+    if (this.isNPC) movementDistance = -5;
+
+    switch (dialogue.name) {
+      case "Greet":
+        dialogueTimeline
+          .to(this.position, {
+            x: this.position.x + talkMotion,
+          })
+          .to(this.position, {
+            x: this.position.x - talkMotion,
+            duration: 0.5,
+          });
+        break;
+      case "Goodbye":
+        dialogueTimeline
+          .to(this.position, {
+            x: this.position.x + talkMotion,
+          })
+          .to(this.position, {
+            x: this.position.x - talkMotion,
+            duration: 0.5,
+          })
+          .to(this, { opacity: 0, duration: 1.5 });
+        break;
+      case "Welcome":
+        dialogueTimeline
+          .to(this.position, {
+            x: this.position.x + talkMotion,
+          })
+          .to(this.position, {
+            x: this.position.x - talkMotion,
+            duration: 0.5,
+          });
+        break;
+      case "Order":
+        dialogueTimeline
+          .to(this.position, {
+            x: this.position.x + talkMotion,
+          })
+          .to(this.position, {
+            x: this.position.x - talkMotion,
+            duration: 0.5,
+          });
+        break;
+      case "OrderResponse":
+        dialogueTimeline
+          .to(this.position, {
+            x: this.position.x + talkMotion,
+          })
+          .to(this.position, {
+            x: this.position.x - talkMotion,
+            duration: 0.5,
+          });
+        break;
+      case "Request":
+        dialogueTimeline
+          .to(this.position, {
+            x: this.position.x + talkMotion,
+          })
+          .to(this.position, {
+            x: this.position.x - talkMotion,
+            duration: 0.5,
+          });
+        break;
+    }
   }
 }
 
@@ -187,112 +259,112 @@ class BattleCharacters extends Sprite {
         });
 
         break;
-        case "Burn":
-          audio.InitFireball.play();
-          const fireballImage = new Image();
-          fireballImage.src = "./imgs/fireball.png";
-  
-          let fireballOrigin = this.position.x + 200;
-          if (this.isEnemy) fireballOrigin = this.position.x + 50;
-  
-          const fireball = new Sprite({
-            position: {
-              x: fireballOrigin,
-              y: this.position.y + 50,
-            },
-            image: fireballImage,
-            frames: {
-              max: 4,
-              hold: 2,
-            },
-            animate: true,
-            rotation,
-          });
-  
-          // in position 1, removing 0 items, add fireball to array
-          renderedSprites.splice(1, 0, fireball);
-  
-          gsap.to(fireball.position, {
-            x: recipient.position.x + recipient.width/3,
-            y: recipient.position.y + recipient.height/5,
-            duration: 1,
-            onComplete: () => {
-              audio.FireballHit.play();
-              gsap.to(healthBar, {
-                width: recipient.health + "%",
-              });
-  
-              gsap.to(recipient.position, {
-                x: recipient.position.x + 10,
-                yoyo: true,
-                repeat: 5,
-                duration: 0.08,
-              });
-              gsap.to(recipient, {
-                opacity: 0.5,
-                repeat: 5,
-                yoyo: true,
-                duration: 0.08,
-              });
-              // in position 1, remove 1 item from the array
-              renderedSprites.splice(1, 1);
-            },
-          });
-  
+      case "Burn":
+        audio.InitFireball.play();
+        const fireballImage = new Image();
+        fireballImage.src = "./imgs/fireball.png";
+
+        let fireballOrigin = this.position.x + 200;
+        if (this.isEnemy) fireballOrigin = this.position.x + 50;
+
+        const fireball = new Sprite({
+          position: {
+            x: fireballOrigin,
+            y: this.position.y + 50,
+          },
+          image: fireballImage,
+          frames: {
+            max: 4,
+            hold: 2,
+          },
+          animate: true,
+          rotation,
+        });
+
+        // in position 1, removing 0 items, add fireball to array
+        renderedSprites.splice(1, 0, fireball);
+
+        gsap.to(fireball.position, {
+          x: recipient.position.x + recipient.width / 3,
+          y: recipient.position.y + recipient.height / 5,
+          duration: 1,
+          onComplete: () => {
+            audio.FireballHit.play();
+            gsap.to(healthBar, {
+              width: recipient.health + "%",
+            });
+
+            gsap.to(recipient.position, {
+              x: recipient.position.x + 10,
+              yoyo: true,
+              repeat: 5,
+              duration: 0.08,
+            });
+            gsap.to(recipient, {
+              opacity: 0.5,
+              repeat: 5,
+              yoyo: true,
+              duration: 0.08,
+            });
+            // in position 1, remove 1 item from the array
+            renderedSprites.splice(1, 1);
+          },
+        });
+
         break;
-        case "Freeze":
-          audio.InitFireball.play();
-          const iceballImage = new Image();
-          iceballImage.src = "./imgs/iceball.png";
-  
-          let iceballOrigin = this.position.x + 200;
-          if (this.isEnemy) iceballOrigin = this.position.x + 50;
-  
-          const iceball = new Sprite({
-            position: {
-              x: iceballOrigin,
-              y: this.position.y + 50,
-            },
-            image: iceballImage,
-            frames: {
-              max: 4,
-              hold: 2,
-            },
-            animate: true,
-            rotation,
-          });
-  
-          // in position 1, removing 0 items, add iceball to array
-          renderedSprites.splice(1, 0, iceball);
-  
-          gsap.to(iceball.position, {
-            x: recipient.position.x + recipient.width/3,
-            y: recipient.position.y + recipient.height/5,
-            duration: 1,
-            onComplete: () => {
-              audio.FireballHit.play();
-              gsap.to(healthBar, {
-                width: recipient.health + "%",
-              });
-  
-              gsap.to(recipient.position, {
-                x: recipient.position.x + 10,
-                yoyo: true,
-                repeat: 5,
-                duration: 0.08,
-              });
-              gsap.to(recipient, {
-                opacity: 0.5,
-                repeat: 5,
-                yoyo: true,
-                duration: 0.08,
-              });
-              // in position 1, remove 1 item from the array
-              renderedSprites.splice(1, 1);
-            },
-          });
-  
-          break;
+      case "Freeze":
+        audio.InitFireball.play();
+        const iceballImage = new Image();
+        iceballImage.src = "./imgs/iceball.png";
+
+        let iceballOrigin = this.position.x + 200;
+        if (this.isEnemy) iceballOrigin = this.position.x + 50;
+
+        const iceball = new Sprite({
+          position: {
+            x: iceballOrigin,
+            y: this.position.y + 50,
+          },
+          image: iceballImage,
+          frames: {
+            max: 4,
+            hold: 2,
+          },
+          animate: true,
+          rotation,
+        });
+
+        // in position 1, removing 0 items, add iceball to array
+        renderedSprites.splice(1, 0, iceball);
+
+        gsap.to(iceball.position, {
+          x: recipient.position.x + recipient.width / 3,
+          y: recipient.position.y + recipient.height / 5,
+          duration: 1,
+          onComplete: () => {
+            audio.FireballHit.play();
+            gsap.to(healthBar, {
+              width: recipient.health + "%",
+            });
+
+            gsap.to(recipient.position, {
+              x: recipient.position.x + 10,
+              yoyo: true,
+              repeat: 5,
+              duration: 0.08,
+            });
+            gsap.to(recipient, {
+              opacity: 0.5,
+              repeat: 5,
+              yoyo: true,
+              duration: 0.08,
+            });
+            // in position 1, remove 1 item from the array
+            renderedSprites.splice(1, 1);
+          },
+        });
+
+        break;
       case "Tackle":
         const timeline = gsap.timeline();
 
