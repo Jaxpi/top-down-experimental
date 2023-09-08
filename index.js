@@ -4,6 +4,32 @@ const c = canvas.getContext("2d");
 canvas.width = 1024;
 canvas.height = 576;
 
+const keys = {
+  ArrowUp: {
+    pressed: false,
+  },
+  ArrowDown: {
+    pressed: false,
+  },
+  ArrowLeft: {
+    pressed: false,
+  },
+  ArrowRight: {
+    pressed: false,
+  },
+};
+
+const offset = {
+  x: -618,
+  y: -1240,
+};
+
+const enemyBattle = {
+  initiated: false,
+};
+
+// DATA MAPS
+
 const boundaryMap = [];
 for (let i = 0; i < collisions.length; i += 50) {
   boundaryMap.push(collisions.slice(i, 50 + i));
@@ -19,10 +45,12 @@ for (let i = 0; i < iceEnemyZoneData.length; i += 50) {
   iceEnemyZoneMap.push(iceEnemyZoneData.slice(i, 50 + i));
 }
 
-const offset = {
-  x: -618,
-  y: -1240,
-};
+const doorwayNameMap = [];
+for (let i = 0; i < doorwaysData.length; i += 50) {
+  doorwayNameMap.push(doorwaysData.slice(i, 50 + i));
+}
+
+// IMAGES
 
 const worldMapimage = new Image();
 worldMapimage.src = "./imgs/world-map-1.png";
@@ -42,6 +70,11 @@ playerRightImage.src = "./imgs/elf-player-right-sm.png";
 const foregroundImage = new Image();
 foregroundImage.src = "./imgs/world-map-1-foreground.png";
 
+const hitboxImage = new Image();
+hitboxImage.src = "./imgs/hitbox.png";
+
+// SPRITES
+
 const player = new Sprite({
   position: {
     x: canvas.width / 2 - 130 / 3 / 2,
@@ -59,9 +92,6 @@ const player = new Sprite({
     right: playerRightImage,
   },
 });
-
-const hitboxImage = new Image();
-hitboxImage.src = "./imgs/hitbox.png";
 
 const playerHitBox = new Sprite({
   position: {
@@ -90,23 +120,9 @@ const foreground = new Sprite({
   image: foregroundImage,
 });
 
-const keys = {
-  ArrowUp: {
-    pressed: false,
-  },
-  ArrowDown: {
-    pressed: false,
-  },
-  ArrowLeft: {
-    pressed: false,
-  },
-  ArrowRight: {
-    pressed: false,
-  },
-};
+// BOUNDARY ARRAYS
 
 const boundaries = [];
-
 boundaryMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 3432)
@@ -121,33 +137,11 @@ boundaryMap.forEach((row, i) => {
   });
 });
 
-// const interactions = [];
-
-// interactionsMap.forEach((row, i) => {
-//   row.forEach((symbol, j) => {
-//     if (symbol === 945)
-//       interactions.push(
-//         new Boundary({
-//           position: {
-//             x: j * Boundary.width + offset.x,
-//             y: i * Boundary.height + offset.y,
-//           },
-//         })
-//       );
-//   });
-// });
-
-const doorwayNameMap = [];
-for (let i = 0; i < doorwaysData.length; i += 50) {
-    doorwayNameMap.push(doorwaysData.slice(i, 50 + i));
-}
-
 const doorwayName = [];
-
 doorwayNameMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol !== 0)
-    doorwayName.push(
+      doorwayName.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
@@ -159,11 +153,10 @@ doorwayNameMap.forEach((row, i) => {
 });
 
 const fireEnemyZone = [];
-
 fireEnemyZoneMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 3432)
-    fireEnemyZone.push(
+      fireEnemyZone.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
@@ -175,11 +168,10 @@ fireEnemyZoneMap.forEach((row, i) => {
 });
 
 const iceEnemyZone = [];
-
 iceEnemyZoneMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 3432)
-    iceEnemyZone.push(
+      iceEnemyZone.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
@@ -190,9 +182,20 @@ iceEnemyZoneMap.forEach((row, i) => {
   });
 });
 
-const movables = [background, ...boundaries, foreground, ...fireEnemyZone, ...iceEnemyZone, ...doorwayName];
+// MOVABLES
 
+const movables = [
+  background,
+  ...boundaries,
+  foreground,
+  ...fireEnemyZone,
+  ...iceEnemyZone,
+  ...doorwayName,
+];
+
+// RECTANGULAR COLLISIONS
 // Removing + rectangle2.height will allow character to walk more "into" the doorway before initializing interaction (if the doorway is above the character)
+
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
@@ -202,13 +205,13 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
-const enemyBattle = {
-  initiated: false,
-};
+// MAIN WORLD ANIMATE FUNCTION
 
 function animate() {
   const animationID = window.requestAnimationFrame(animate);
   background.draw();
+
+  // DRAW BOUNDARIES AND DETECT COLLISIONS
   boundaries.forEach((boundary) => {
     boundary.draw();
     if (
@@ -220,6 +223,8 @@ function animate() {
       console.log("colliding");
     }
   });
+
+  // DRAW OTHERS
   fireEnemyZone.forEach((fireEnemyZone) => {
     fireEnemyZone.draw();
   });
@@ -228,7 +233,7 @@ function animate() {
   });
   doorwayName.forEach((doorwayName) => {
     doorwayName.draw();
-  })
+  });
   player.draw();
   foreground.draw();
   playerHitBox.draw();
@@ -236,6 +241,7 @@ function animate() {
   let moving = true;
   player.animate = false;
 
+  // BATTLE INITIATION DETECTION
   if (enemyBattle.initiated) return;
   if (
     keys.ArrowUp.pressed ||
@@ -243,6 +249,7 @@ function animate() {
     keys.ArrowLeft.pressed ||
     keys.ArrowRight.pressed
   ) {
+    // FIRE ZONE
     for (let i = 0; i < fireEnemyZone.length; i++) {
       const fireEnemyZoneSpot = fireEnemyZone[i];
       const overlappingArea =
@@ -291,6 +298,7 @@ function animate() {
         });
         break;
       }
+      // ICE ZONE
       for (let i = 0; i < iceEnemyZone.length; i++) {
         const iceEnemyZoneSpot = iceEnemyZone[i];
         const overlappingArea =
@@ -312,7 +320,7 @@ function animate() {
           overlappingArea > (player.width * player.height) / 2
         ) {
           window.cancelAnimationFrame(animationID);
-  
+
           audio.Map.stop();
           audio.InitBattle.play();
           audio.Battle.play();
@@ -339,106 +347,164 @@ function animate() {
           });
           break;
         }
-      }
-    }
-  }
+        // DOORWAYS
+        for (let i = 0; i < doorwayName.length; i++) {
+          const doorwayNameSpot = doorwayName[i];
+          const overlappingArea =
+            (Math.min(
+              player.position.x + player.width,
+              doorwayNameSpot.position.x + doorwayNameSpot.width
+            ) -
+              Math.max(player.position.x, doorwayNameSpot.position.x)) *
+            (Math.min(
+              player.position.y + player.height,
+              doorwayNameSpot.position.y + doorwayNameSpot.height
+            ) -
+              Math.max(player.position.y, doorwayNameSpot.position.y));
+          if (
+            rectangularCollision({
+              rectangle1: playerHitBox,
+              rectangle2: doorwayNameSpot,
+            }) &&
+            overlappingArea > (player.width * player.height) / 2
+          ) {
+            window.cancelAnimationFrame(animationID);
 
-  if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
-    player.animate = true;
-    player.image = player.sprites.up;
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i];
-      if (
-        rectangularCollision({
-          rectangle1: playerHitBox,
-          rectangle2: {
-            ...boundary,
-            position: {
-              x: boundary.position.x,
-              y: boundary.position.y + 3,
-            },
-          },
-        })
-      ) {
-        moving = false;
-        break;
+            audio.Map.stop();
+            // audio.InitBattle.play();
+            // audio.Battle.play();
+            // enemyBattle.initiated = true;
+            gsap.to("#overlappingDiv", {
+              opacity: 1,
+              // repeat: 2,
+              // yoyo: true,
+              duration: 0.4,
+              onComplete() {
+                gsap.to("#overlappingDiv", {
+                  opacity: 1,
+                  duration: 0.4,
+                  onComplete() {
+                    initDoorway();
+                    animateDoorway();
+                    gsap.to("#overlappingDiv", {
+                      opacity: 0,
+                      duration: 0.4,
+                    });
+                  },
+                });
+              },
+            });
+            break;
+          }
+        }
       }
     }
 
-    if (moving)
-      movables.forEach((movable) => {
-        movable.position.y += 3;
-      });
-  } else if (keys.ArrowDown.pressed && lastKey === "ArrowDown") {
-    player.animate = true;
-    player.image = player.sprites.down;
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i];
-      if (
-        rectangularCollision({
-          rectangle1: playerHitBox,
-          rectangle2: {
-            ...boundary,
-            position: {
-              x: boundary.position.x,
-              y: boundary.position.y - 3,
+    // COLLISION ACTIONS
+    // UP
+    if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
+      player.animate = true;
+      player.image = player.sprites.up;
+      for (let i = 0; i < boundaries.length; i++) {
+        const boundary = boundaries[i];
+        if (
+          rectangularCollision({
+            rectangle1: playerHitBox,
+            rectangle2: {
+              ...boundary,
+              position: {
+                x: boundary.position.x,
+                y: boundary.position.y + 3,
+              },
             },
-          },
-        })
-      ) {
-        moving = false;
-        break;
+          })
+        ) {
+          moving = false;
+          break;
+        }
       }
-    }
-    if (moving) movables.forEach((movable) => (movable.position.y -= 3));
-  } else if (keys.ArrowLeft.pressed && lastKey === "ArrowLeft") {
-    player.animate = true;
-    player.image = player.sprites.left;
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i];
-      if (
-        rectangularCollision({
-          rectangle1: playerHitBox,
-          rectangle2: {
-            ...boundary,
-            position: {
-              x: boundary.position.x + 3,
-              y: boundary.position.y,
+      if (moving)
+        movables.forEach((movable) => {
+          movable.position.y += 3;
+        });
+      // DOWN
+    } else if (keys.ArrowDown.pressed && lastKey === "ArrowDown") {
+      player.animate = true;
+      player.image = player.sprites.down;
+      for (let i = 0; i < boundaries.length; i++) {
+        const boundary = boundaries[i];
+        if (
+          rectangularCollision({
+            rectangle1: playerHitBox,
+            rectangle2: {
+              ...boundary,
+              position: {
+                x: boundary.position.x,
+                y: boundary.position.y - 3,
+              },
             },
-          },
-        })
-      ) {
-        moving = false;
-        break;
+          })
+        ) {
+          moving = false;
+          break;
+        }
       }
-    }
-    if (moving) movables.forEach((movable) => (movable.position.x += 3));
-  } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
-    player.animate = true;
-    player.image = player.sprites.right;
-    for (let i = 0; i < boundaries.length; i++) {
-      const boundary = boundaries[i];
-      if (
-        rectangularCollision({
-          rectangle1: playerHitBox,
-          rectangle2: {
-            ...boundary,
-            position: {
-              x: boundary.position.x - 3,
-              y: boundary.position.y,
+      if (moving) movables.forEach((movable) => (movable.position.y -= 3));
+      // LEFT
+    } else if (keys.ArrowLeft.pressed && lastKey === "ArrowLeft") {
+      player.animate = true;
+      player.image = player.sprites.left;
+      for (let i = 0; i < boundaries.length; i++) {
+        const boundary = boundaries[i];
+        if (
+          rectangularCollision({
+            rectangle1: playerHitBox,
+            rectangle2: {
+              ...boundary,
+              position: {
+                x: boundary.position.x + 3,
+                y: boundary.position.y,
+              },
             },
-          },
-        })
-      ) {
-        moving = false;
-        break;
+          })
+        ) {
+          moving = false;
+          break;
+        }
       }
+      if (moving) movables.forEach((movable) => (movable.position.x += 3));
+      // RIGHT
+    } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
+      player.animate = true;
+      player.image = player.sprites.right;
+      for (let i = 0; i < boundaries.length; i++) {
+        const boundary = boundaries[i];
+        if (
+          rectangularCollision({
+            rectangle1: playerHitBox,
+            rectangle2: {
+              ...boundary,
+              position: {
+                x: boundary.position.x - 3,
+                y: boundary.position.y,
+              },
+            },
+          })
+        ) {
+          moving = false;
+          break;
+        }
+      }
+      if (moving) movables.forEach((movable) => (movable.position.x -= 3));
     }
-    if (moving) movables.forEach((movable) => (movable.position.x -= 3));
   }
 }
 
+// CALL TO ANIMATE
+
 animate();
+
+// LAST KEY DETECTION
 
 let lastKey = "";
 window.addEventListener("keydown", (e) => {
@@ -465,6 +531,8 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+// KEYUP LISTENER
+
 window.addEventListener("keyup", (e) => {
   switch (e.key) {
     case "ArrowUp":
@@ -485,10 +553,12 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
-let clicked = false
-  addEventListener('click', () => {
-    if (!clicked) {
-      audio.Map.play()
-      clicked = true
-    }
-  });
+// CALL TO PLAY MAIN WORLD MUSIC
+
+let clicked = false;
+addEventListener("click", () => {
+  if (!clicked) {
+    audio.Map.play();
+    clicked = true;
+  }
+});

@@ -91,17 +91,15 @@ let interactionAnimationID;
 let next;
 
 function initDoorway() {
-
-console.log(doorwayName)
-
   document.querySelector("#userInterface").style.display = "block";
-  document.querySelector("#dialogueBox").style.display = "none";
+    document.querySelector("#dialogueBox").style.display = "none";
+    document.querySelector('#npcName').innerHTML = 'Friend';
   //   document.querySelector("#enemyHealthBar").style.width = "100%";
   //   document.querySelector("#playerHealthBar").style.width = "100%";
   document.querySelector("#attacksBox").replaceChildren();
 
-  interactionChar = new interactionCharacters(interactionCharacters.Player);
-  friend = new interactionCharacters(interactionCharacters.Friend);
+  interactionChar = new InteractionCharacters(interactionCharacters.Player);
+  friend = new InteractionCharacters(interactionCharacters.Friend);
   interactionSprite = [friend, interactionChar];
   next = [];
 
@@ -191,11 +189,10 @@ console.log(doorwayName)
         });
       }
     });
-  });
-
-  button.addEventListener("mouseenter", (e) => {
-    const selectedDialogue = dialogues[e.currentTarget.innerHTML];
-    document.querySelector("#attackType").innerHTML = selectedDialogue.name;
+    button.addEventListener("mouseenter", (e) => {
+      const selectedDialogue = dialogues[e.currentTarget.innerHTML];
+      document.querySelector("#attackType").innerHTML = selectedDialogue.name;
+    });
   });
 }
 
@@ -206,7 +203,7 @@ function animateDoorway() {
   // use doorwayName in code and link doorwayName to the sprites and background
 
   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-  friendHomeImg.draw();
+  friendHomeBackground.draw();
 
   interactionSprite.forEach((sprite) => {
     sprite.draw();

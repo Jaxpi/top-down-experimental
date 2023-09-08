@@ -29,6 +29,7 @@ let queue;
 function initFireBattle() {
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
+  document.querySelector('#npcName').innerHTML = 'Red Darkling';
   document.querySelector("#enemyHealthBar").style.width = "100%";
   document.querySelector("#playerHealthBar").style.width = "100%";
   document.querySelector("#attacksBox").replaceChildren();
@@ -136,6 +137,7 @@ function animateFireBattle() {
 function initIceBattle() {
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
+  document.querySelector('#npcName').innerHTML = 'Blue Darkling';
   document.querySelector("#enemyHealthBar").style.width = "100%";
   document.querySelector("#playerHealthBar").style.width = "100%";
   document.querySelector("#attacksBox").replaceChildren();

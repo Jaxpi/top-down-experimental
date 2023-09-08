@@ -57,6 +57,31 @@ class Sprite {
   }
 }
 
+class InteractionCharacters extends Sprite {
+  constructor({
+    position,
+    image,
+    frames = { max: 1, hold: 10 },
+    sprites,
+    animate = false,
+    rotation = 0,
+    name,
+    dialogues,
+  }) {
+    super({
+      position,
+      image,
+      frames,
+      sprites,
+      animate,
+      rotation,
+    });
+    // (this.isEnemy = isEnemy),
+      (this.name = name),
+      (this.dialogues = dialogues);
+  }
+}
+
 class BattleCharacters extends Sprite {
   constructor({
     position,
