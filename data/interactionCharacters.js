@@ -5,7 +5,7 @@ const interactionCharacters = {
       y: 220,
     },
     image: {
-      src: './imgs/elf-player-up-lg.png'
+      src: './imgs/interactionChar.png'
     },
     frames: {
       max: 3,
@@ -13,7 +13,7 @@ const interactionCharacters = {
     animate: true,
     responds: false,
     name: "Player",
-    dialogues: [dialogues.Greeting, dialogues.Order, dialogues.Goodbye],
+    dialogues: [dialogues.Greeting, dialogues.Order, dialogues.Request, dialogues.Goodbye],
   },
 
   Friend: {
@@ -22,7 +22,7 @@ const interactionCharacters = {
       y: 100,
     },
     image:  {
-      src: './imgs/darkling-enemy-1.png'
+      src: './imgs/friend.png'
     },
     frames: {
       max: 3,
@@ -94,7 +94,7 @@ const interactionCharacters = {
       y: 100,
     },
     image:  {
-      src: './imgs/darkling-enemy-1.png'
+      src: './imgs/grocer.png'
     },
     frames: {
       max: 3,

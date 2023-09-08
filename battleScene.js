@@ -23,7 +23,7 @@ let darkling;
 let darklingRed;
 let darklingBlue;
 let renderedSprites;
-let interactionAnimationID;
+let battleAnimationID;
 let queue;
 
 function initFireBattle() {
@@ -61,7 +61,7 @@ function initFireBattle() {
           gsap.to("#overlappingDiv", {
             opacity: 1,
             onComplete: () => {
-              cancelAnimationFrame(interactionAnimationID);
+              cancelAnimationFrame(battleAnimationID);
               animate();
               document.querySelector("#userInterface").style.display = "none";
               gsap.to("#overlappingDiv", {
@@ -97,7 +97,7 @@ function initFireBattle() {
             gsap.to("#overlappingDiv", {
               opacity: 1,
               onComplete: () => {
-                cancelAnimationFrame(interactionAnimationID);
+                cancelAnimationFrame(battleAnimationID);
                 animate();
                 document.querySelector("#userInterface").style.display = "none";
                 gsap.to("#overlappingDiv", {
@@ -125,7 +125,7 @@ function initFireBattle() {
 }
 
 function animateFireBattle() {
-  interactionAnimationID = window.requestAnimationFrame(animateFireBattle);
+  battleAnimationID = window.requestAnimationFrame(animateFireBattle);
   fireRuins.draw();
 
   renderedSprites.forEach((sprite) => {
@@ -168,7 +168,7 @@ function initIceBattle() {
           gsap.to("#overlappingDiv", {
             opacity: 1,
             onComplete: () => {
-              cancelAnimationFrame(interactionAnimationID);
+              cancelAnimationFrame(battleAnimationID);
               animate();
               document.querySelector("#userInterface").style.display = "none";
               gsap.to("#overlappingDiv", {
@@ -204,7 +204,7 @@ function initIceBattle() {
             gsap.to("#overlappingDiv", {
               opacity: 1,
               onComplete: () => {
-                cancelAnimationFrame(interactionAnimationID);
+                cancelAnimationFrame(battleAnimationID);
                 animate();
                 document.querySelector("#userInterface").style.display = "none";
                 gsap.to("#overlappingDiv", {
@@ -232,7 +232,7 @@ function initIceBattle() {
 }
 
 function animateIceBattle() {
-  interactionAnimationID = window.requestAnimationFrame(animateIceBattle);
+  battleAnimationID = window.requestAnimationFrame(animateIceBattle);
   icyGrassland.draw();
 
   renderedSprites.forEach((sprite) => {

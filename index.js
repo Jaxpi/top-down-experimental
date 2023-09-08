@@ -137,6 +137,27 @@ boundaryMap.forEach((row, i) => {
 //   });
 // });
 
+const doorwayNameMap = [];
+for (let i = 0; i < doorwaysData.length; i += 50) {
+    doorwayNameMap.push(doorwaysData.slice(i, 50 + i));
+}
+
+const doorwayName = [];
+
+doorwayNameMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol !== 0)
+    doorwayName.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y,
+          },
+        })
+      );
+  });
+});
+
 const fireEnemyZone = [];
 
 fireEnemyZoneMap.forEach((row, i) => {
@@ -169,7 +190,7 @@ iceEnemyZoneMap.forEach((row, i) => {
   });
 });
 
-const movables = [background, ...boundaries, foreground, ...fireEnemyZone, ...iceEnemyZone];
+const movables = [background, ...boundaries, foreground, ...fireEnemyZone, ...iceEnemyZone, ...doorwayName];
 
 // Removing + rectangle2.height will allow character to walk more "into" the doorway before initializing interaction (if the doorway is above the character)
 function rectangularCollision({ rectangle1, rectangle2 }) {
@@ -205,6 +226,9 @@ function animate() {
   iceEnemyZone.forEach((iceEnemyZone) => {
     iceEnemyZone.draw();
   });
+  doorwayName.forEach((doorwayName) => {
+    doorwayName.draw();
+  })
   player.draw();
   foreground.draw();
   playerHitBox.draw();
