@@ -82,7 +82,7 @@ class InteractionCharacters extends Sprite {
 
   dialogue({ dialogue, renderedSprites }) {
     document.querySelector("#dialogueBox").style.display = "block";
-    document.querySelector("#dialogueBox").innerHTML = this.dialogue.words;
+    document.querySelector("#dialogueBox").innerHTML = dialogue.words;
 
     const dialogueTimeline = gsap.timeline();
     let talkMotion = 5;
