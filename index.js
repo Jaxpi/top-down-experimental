@@ -137,6 +137,7 @@ boundaryMap.forEach((row, i) => {
   });
 });
 
+// const sageDoorway = []; if symbol == 4277 sageDoorway.push?
 const doorwayName = [];
 doorwayNameMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
@@ -236,7 +237,7 @@ function animate() {
   });
   player.draw();
   foreground.draw();
-  playerHitBox.draw();
+  // playerHitBox.draw();
 
   let moving = true;
   player.animate = false;

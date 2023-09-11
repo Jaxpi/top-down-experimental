@@ -186,9 +186,11 @@ function animateDoorway() {
   //let doorwayName = doorway array symbol
   // use doorwayName in code and link doorwayName to the sprites and background
 
+  // let doorwayBackground = image tied to that doorwayName symbol
+
   // sage = 4277; grocer = 4271; tavern = 4272; doctor = 4273; shop = 4274; friend 3 = 4267; friend 2 = 4268; friend 1 = 4269; home = 4270; icedungeon = 4278
 
-  // home has no dialogue - store or retrieve items maybe, maybe change clothes
+  // home has no dialogue - just store items, retrieve items, and change clothes (or something; maybe "play a game to pass some time" and have a match 3 or bubble shooter game)
 
   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
   friendHomeBackground.draw();
