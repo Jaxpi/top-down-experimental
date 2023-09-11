@@ -178,7 +178,6 @@ function initIceBattle() {
               });
 
               enemyBattle.initiated = false
-              // adding this to prevent reinitialization in enemyBattle
               player.position.y += 20
               playerHitBox.position.y += 20
               audio.Map.play();

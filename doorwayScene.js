@@ -113,7 +113,6 @@ function initDoorway() {
     const button = document.createElement("button");
     button.innerHTML = dialogue.name;
     document.querySelector("#attacksBox").append(button);
-    //console.log("I am here 1" + dialogue.name);
   });
 
   document.querySelectorAll("button").forEach((button) => {
@@ -164,7 +163,7 @@ function initDoorway() {
               player.position.y += 20;
               playerHitBox.position.y += 20;
               player.image = player.sprites.down;
-              audio.Map.play();
+              //   audio.Map.play();
             },
           });
         });
@@ -179,48 +178,43 @@ function initDoorway() {
 }
 
 function animateDoorway() {
-  if (doorwayNameSpot.symbol === 4267) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    friendHomeBackground.draw();
-  } else if (doorwayNameSpot.symbol === 4268) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    friendHomeBackground.draw();
-  } else if (doorwayNameSpot.symbol === 4269) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    friendHomeBackground.draw();
-  } else if (doorwayNameSpot.symbol === 4270) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    homeBackground.draw();
-  } else if (doorwayNameSpot.symbol === 4271) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    grocerBackground.draw();
-  } else if (doorwayNameSpot.symbol === 4272) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    tavernBackground.draw();
-  } else if (doorwayNameSpot.symbol === 4273) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    medicalBackground.draw();
-  } else if (doorwayNameSpot.symbol === 4274) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    generalStoreBackground.draw();
-  } else if (doorwayNameSpot.symbol === 4278) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    sageBackground.draw();
-  } else if (doorwayNameSpot.symbol === 4279) {
-    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-    iceDungeonBackground.draw();
+  interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+  switch (doorwayNameSpot.symbol) {
+    case 4267:
+      friendHomeBackground.draw();
+      break;
+    case 4268:
+      friendHomeBackground.draw();
+      break;
+    case 4269:
+      friendHomeBackground.draw();
+      break;
+    case 4270:
+      homeBackground.draw();
+      break;
+    case 4271:
+      grocerBackground.draw();
+      break;
+    case 4272:
+      tavernBackground.draw();
+      break;
+    case 4273:
+      medicalBackground.draw();
+      break;
+    case 4274:
+      generalStoreBackground.draw();
+      break;
+    case 4278:
+      sageBackground.draw();
+      break;
+    case 4279:
+      iceDungeonBackground.draw();
+      break;
   }
   interactionSprite.forEach((sprite) => {
     sprite.draw();
   });
 }
-
-//if ()
-// if symbol === ? animate x background and x sprite, else if y then y back and y sprite, else z... switch cases?
-
-// use doorwayName in code and link doorwayName to the sprites and background
-
-// let doorwayBackground = image tied to that doorwayName symbol
 
 // sage = 4277; grocer = 4271; tavern = 4272; doctor = 4273; shop = 4274; friend 3 = 4267; friend 2 = 4268; friend 1 = 4269; home = 4270; icedungeon = 4278
 

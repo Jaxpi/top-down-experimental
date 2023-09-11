@@ -374,10 +374,10 @@ function animate() {
           ) {
             window.cancelAnimationFrame(animationID);
 
-            audio.Map.stop();
-            // audio.InitBattle.play();
-            // audio.Battle.play();
-            // enemyBattle.initiated = true;
+            // audio.Map.stop();
+            // audio.InitBattle.play(); - replace with doorway enter sound
+            // audio.Battle.play(); - replace with doorway specific music
+            enemyBattle.initiated = true;
             gsap.to("#overlappingDiv", {
               opacity: 1,
               // repeat: 2,
