@@ -246,6 +246,7 @@ function animateIceBattle() {
 // animateBattle();
 
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
+  next = 0
   if (queue.length > 0) {
     queue[0]();
     queue.shift();

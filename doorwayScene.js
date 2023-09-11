@@ -113,6 +113,7 @@ function initDoorway() {
     const button = document.createElement("button");
     button.innerHTML = dialogue.name;
     document.querySelector("#attacksBox").append(button);
+    //console.log("I am here 1" + dialogue.name);
   });
 
   document.querySelectorAll("button").forEach((button) => {
@@ -123,74 +124,51 @@ function initDoorway() {
         recipient: friend,
         interactionSprite,
       });
-      // if player selects greet, npc responds with welcome, if player selects order npc = orderresponse, player = goodbye npc = goodbye and onclick return to map
-      if (friend.dialogue.Goodbye) {
-        next.push(() => {
-          gsap.to("#overlappingDiv", {
-            opacity: 1,
-            onComplete: () => {
-              cancelAnimationFrame(interactionAnimationID);
-              animate();
-              document.querySelector("#userInterface").style.display = "none";
-              gsap.to("#overlappingDiv", {
-                opacity: 0,
-              });
 
-              enemyBattle.initiated = false;
-              // adding this to prevent reinitialization in enemyBattle
-              player.position.y += 20;
-              playerHitBox.position.y += 20;
-              audio.Map.play();
-            },
-          });
-        });
-      }
-        
-      if (selectedDialogue === "Greet") {
-        next.push(() => {
-          interactionChar.dialogue({
-            dialogue: Greet,
-            recipient: friend,
-            interactionSprite,
-          });
-        });
+      // if player selects greet, npc responds with welcome, if player selects order npc = orderresponse, player = goodbye npc = goodbye and onclick return to map
+      if (selectedDialogue.name === "Greet") {
         next.push(() => {
           friend.dialogue({
-            dialogue: Welcome,
+            dialogue: dialogues.Welcome,
             recipient: interactionChar,
             interactionSprite,
           });
         });
-      } else if (selectedDialogue === "Order") {
-        next.push(() => {
-          interactionChar.dialogue({
-            dialogue: Order,
-            recipient: friend,
-            interactionSprite,
-          });
-        });
+      } else if (selectedDialogue.name === "Order") {
         next.push(() => {
           friend.dialogue({
-            dialogue: OrderResponse,
+            dialogue: dialogues.OrderResponse,
             recipient: interactionChar,
             interactionSprite,
           });
         });
-      } else if (selectedDialogue === "Goodbye") {
-        next.push(() => {
-          interactionChar.dialogue({
-            dialogue: Goodbye,
-            recipient: friend,
-            interactionSprite,
-          });
-        });
+      } else if (selectedDialogue.name === "Goodbye") {
         next.push(() => {
           friend.dialogue({
-            dialogue: Goodbye,
+            dialogue: dialogues.Goodbye,
             recipient: interactionChar,
             interactionSprite,
           });
         });
+            next.push(() => {
+              gsap.to("#overlappingDiv", {
+                opacity: 1,
+                onComplete: () => {
+                  cancelAnimationFrame(interactionAnimationID);
+                  animate();
+                  document.querySelector("#userInterface").style.display = "none";
+                  gsap.to("#overlappingDiv", {
+                    opacity: 0,
+                  });
+    
+                  enemyBattle.initiated = false;
+                  // adding this to prevent reinitialization in enemyBattle
+                  player.position.y += 20;
+                  playerHitBox.position.y += 20;
+                  audio.Map.play();
+                },
+              });
+            });
       }
     });
 
@@ -216,6 +194,7 @@ function animateDoorway() {
 }
 
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
+    queue = 0
   if (next.length > 0) {
     next[0]();
     next.shift();

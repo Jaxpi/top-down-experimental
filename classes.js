@@ -80,17 +80,21 @@ class InteractionCharacters extends Sprite {
     (this.isNPC = isNPC), (this.name = name), (this.dialogues = dialogues);
   }
 
-  dialogue({ dialogue, renderedSprites }) {
+  dialogue({ dialogue }) {
     document.querySelector("#dialogueBox").style.display = "block";
     document.querySelector("#dialogueBox").style.padding = "50";
     document.querySelector("#dialogueBox").innerHTML = dialogue.words;
 
     const dialogueTimeline = gsap.timeline();
     let talkMotion = 5;
-    if (this.isNPC) movementDistance = -5;
+    if (this.isNPC) talkMotion = -5;
 
     switch (dialogue.name) {
       case "Greet":
+      case "Welcome":
+      case "Order":
+      case "Order Response":
+      case "Request":
         dialogueTimeline
           .to(this.position, {
             x: this.position.x + talkMotion,
@@ -110,46 +114,6 @@ class InteractionCharacters extends Sprite {
             duration: 0.5,
           })
           .to(this, { opacity: 0, duration: 1.5 });
-        break;
-      case "Welcome":
-        dialogueTimeline
-          .to(this.position, {
-            x: this.position.x + talkMotion,
-          })
-          .to(this.position, {
-            x: this.position.x - talkMotion,
-            duration: 0.5,
-          });
-        break;
-      case "Order":
-        dialogueTimeline
-          .to(this.position, {
-            x: this.position.x + talkMotion,
-          })
-          .to(this.position, {
-            x: this.position.x - talkMotion,
-            duration: 0.5,
-          });
-        break;
-      case "OrderResponse":
-        dialogueTimeline
-          .to(this.position, {
-            x: this.position.x + talkMotion,
-          })
-          .to(this.position, {
-            x: this.position.x - talkMotion,
-            duration: 0.5,
-          });
-        break;
-      case "Request":
-        dialogueTimeline
-          .to(this.position, {
-            x: this.position.x + talkMotion,
-          })
-          .to(this.position, {
-            x: this.position.x - talkMotion,
-            duration: 0.5,
-          });
         break;
     }
   }
