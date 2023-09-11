@@ -121,10 +121,31 @@ function initDoorway() {
       interactionChar.dialogue({
         dialogue: selectedDialogue,
         recipient: friend,
-          interactionSprite,
+        interactionSprite,
       });
       // if player selects greet, npc responds with welcome, if player selects order npc = orderresponse, player = goodbye npc = goodbye and onclick return to map
+      if (friend.dialogue.Goodbye) {
+        next.push(() => {
+          gsap.to("#overlappingDiv", {
+            opacity: 1,
+            onComplete: () => {
+              cancelAnimationFrame(interactionAnimationID);
+              animate();
+              document.querySelector("#userInterface").style.display = "none";
+              gsap.to("#overlappingDiv", {
+                opacity: 0,
+              });
 
+              enemyBattle.initiated = false;
+              // adding this to prevent reinitialization in enemyBattle
+              player.position.y += 20;
+              playerHitBox.position.y += 20;
+              audio.Map.play();
+            },
+          });
+        });
+      }
+        
       if (selectedDialogue === "Greet") {
         next.push(() => {
           interactionChar.dialogue({
@@ -168,28 +189,6 @@ function initDoorway() {
             dialogue: Goodbye,
             recipient: interactionChar,
             interactionSprite,
-          });
-        });
-      }
-
-      if (friend.dialogue.Goodbye) {
-        next.push(() => {
-          gsap.to("#overlappingDiv", {
-            opacity: 1,
-            onComplete: () => {
-              cancelAnimationFrame(interactionAnimationID);
-              animate();
-              document.querySelector("#userInterface").style.display = "none";
-              gsap.to("#overlappingDiv", {
-                opacity: 0,
-              });
-
-              enemyBattle.initiated = false;
-              // adding this to prevent reinitialization in enemyBattle
-              player.position.y += 20;
-              playerHitBox.position.y += 20;
-              audio.Map.play();
-            },
           });
         });
       }
