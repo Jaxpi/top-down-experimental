@@ -194,7 +194,6 @@ function animateDoorway() {
 }
 
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
-    queue = 0
   if (next.length > 0) {
     next[0]();
     next.shift();
