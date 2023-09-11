@@ -150,25 +150,26 @@ function initDoorway() {
             interactionSprite,
           });
         });
-            next.push(() => {
+        next.push(() => {
+          gsap.to("#overlappingDiv", {
+            opacity: 1,
+            onComplete: () => {
+              cancelAnimationFrame(interactionAnimationID);
+              animate();
+              document.querySelector("#userInterface").style.display = "none";
               gsap.to("#overlappingDiv", {
-                opacity: 1,
-                onComplete: () => {
-                  cancelAnimationFrame(interactionAnimationID);
-                  animate();
-                  document.querySelector("#userInterface").style.display = "none";
-                  gsap.to("#overlappingDiv", {
-                    opacity: 0,
-                  });
-    
-                  enemyBattle.initiated = false;
-                  // adding this to prevent reinitialization in enemyBattle
-                  player.position.y += 20;
-                  playerHitBox.position.y += 20;
-                  audio.Map.play();
-                },
+                opacity: 0,
               });
-            });
+
+              enemyBattle.initiated = false;
+              // adding this to prevent reinitialization in enemyBattle
+              player.position.y += 20;
+              playerHitBox.position.y += 20;
+              player.image = player.sprites.down;
+              audio.Map.play();
+            },
+          });
+        });
       }
     });
 
@@ -180,10 +181,14 @@ function initDoorway() {
 }
 
 function animateDoorway() {
-  // if symbol === ? animate x background and x sprite, else if y then y back and y sprite, else z...
+  // if symbol === ? animate x background and x sprite, else if y then y back and y sprite, else z... switch cases?
 
   //let doorwayName = doorway array symbol
   // use doorwayName in code and link doorwayName to the sprites and background
+
+  // sage = 4277; grocer = 4271; tavern = 4272; doctor = 4273; shop = 4274; friend 3 = 4267; friend 2 = 4268; friend 1 = 4269; home = 4270; icedungeon = 4278
+
+  // home has no dialogue - store or retrieve items maybe, maybe change clothes
 
   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
   friendHomeBackground.draw();
