@@ -124,8 +124,6 @@ function initDoorway() {
         recipient: friend,
         interactionSprite,
       });
-
-      // if player selects greet, npc responds with welcome, if player selects order npc = orderresponse, player = goodbye npc = goodbye and onclick return to map
       if (selectedDialogue.name === "Greet") {
         next.push(() => {
           friend.dialogue({
@@ -181,24 +179,52 @@ function initDoorway() {
 }
 
 function animateDoorway() {
-  // if symbol === ? animate x background and x sprite, else if y then y back and y sprite, else z... switch cases?
-
-  //let doorwayName = doorway array symbol
-  // use doorwayName in code and link doorwayName to the sprites and background
-
-  // let doorwayBackground = image tied to that doorwayName symbol
-
-  // sage = 4277; grocer = 4271; tavern = 4272; doctor = 4273; shop = 4274; friend 3 = 4267; friend 2 = 4268; friend 1 = 4269; home = 4270; icedungeon = 4278
-
-  // home has no dialogue - just store items, retrieve items, and change clothes (or something; maybe "play a game to pass some time" and have a match 3 or bubble shooter game)
-
-  interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-  friendHomeBackground.draw();
-
+  if (doorwayNameSpot.symbol === 4267) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    friendHomeBackground.draw();
+  } else if (doorwayNameSpot.symbol === 4268) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    friendHomeBackground.draw();
+  } else if (doorwayNameSpot.symbol === 4269) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    friendHomeBackground.draw();
+  } else if (doorwayNameSpot.symbol === 4270) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    homeBackground.draw();
+  } else if (doorwayNameSpot.symbol === 4271) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    grocerBackground.draw();
+  } else if (doorwayNameSpot.symbol === 4272) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    tavernBackground.draw();
+  } else if (doorwayNameSpot.symbol === 4273) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    medicalBackground.draw();
+  } else if (doorwayNameSpot.symbol === 4274) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    generalStoreBackground.draw();
+  } else if (doorwayNameSpot.symbol === 4278) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    sageBackground.draw();
+  } else if (doorwayNameSpot.symbol === 4279) {
+    interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+    iceDungeonBackground.draw();
+  }
   interactionSprite.forEach((sprite) => {
     sprite.draw();
   });
 }
+
+//if ()
+// if symbol === ? animate x background and x sprite, else if y then y back and y sprite, else z... switch cases?
+
+// use doorwayName in code and link doorwayName to the sprites and background
+
+// let doorwayBackground = image tied to that doorwayName symbol
+
+// sage = 4277; grocer = 4271; tavern = 4272; doctor = 4273; shop = 4274; friend 3 = 4267; friend 2 = 4268; friend 1 = 4269; home = 4270; icedungeon = 4278
+
+// home has no dialogue - just store items, retrieve items, and change clothes (or something; maybe "play a game to pass some time" and have a match 3 or bubble shooter game)
 
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
   if (next.length > 0) {

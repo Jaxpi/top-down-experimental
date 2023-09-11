@@ -462,8 +462,11 @@ class BattleCharacters extends Sprite {
 class Boundary {
   static width = 48;
   static height = 48;
-  constructor({ position }) {
-    (this.position = position), (this.width = 48), (this.height = 48);
+  constructor({ position, symbol }) {
+    (this.position = position),
+      (this.width = 48),
+      (this.height = 48),
+      (this.symbol = symbol);
   }
   draw() {
     c.fillStyle = "rgba(0, 0, 0, 0)";

@@ -1,5 +1,6 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
+let doorwayNameSpot;
 
 canvas.width = 1024;
 canvas.height = 576;
@@ -141,15 +142,17 @@ boundaryMap.forEach((row, i) => {
 const doorwayName = [];
 doorwayNameMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
-    if (symbol !== 0)
+    if (symbol !== 0) {
       doorwayName.push(
         new Boundary({
           position: {
             x: j * Boundary.width + offset.x,
             y: i * Boundary.height + offset.y,
           },
+          symbol: symbol
         })
       );
+    }
   });
 });
 
@@ -350,7 +353,7 @@ function animate() {
         }
         // DOORWAYS
         for (let i = 0; i < doorwayName.length; i++) {
-          const doorwayNameSpot = doorwayName[i];
+          doorwayNameSpot = doorwayName[i];
           const overlappingArea =
             (Math.min(
               player.position.x + player.width,
