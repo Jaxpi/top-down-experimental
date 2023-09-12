@@ -78,20 +78,18 @@ const friendHomeBackground = new Sprite({
   image: friendHomeImg,
 });
 
-// let interactionChar = new InteractionCharacters(interactionCharacters.Player);
-// let friend = new InteractionCharacters(interactionCharacters.Friend);
-// let sage = new InteractionCharacters(interactionCharacters.Sage);
-// let tavernOwner = new InteractionCharacters(interactionCharacters.TavernOwner);
-// let doctor = new InteractionCharacters(interactionCharacters.Doctor);
-// let shopkeep = new InteractionCharacters(interactionCharacters.Shopkeep);
-// let grocer = new InteractionCharacters(interactionCharacters.Grocer);
-// let iceBoss = new InteractionCharacters(interactionCharacters.IceBoss);
+let interactionChar;
+let friend;
+let sage;
+let tavernOwner;
+let doctor;
+let shopkeep;
+let grocer;
+let iceBoss;
 let interactionSprite;
 let interactionAnimationID;
 let next;
-let interactionChar;
-let friend;
-// let npc;
+let npc = this.npc;
 
 function initDoorway() {
   // THIS IS LOGGING MANY TIMES
@@ -104,14 +102,20 @@ function initDoorway() {
   document.querySelector("#playerStats").style.width = 100;
   document.querySelector("#enemyBars").style.display = "none";
   document.querySelector("#playerBars").style.display = "none";
-//   document.querySelector("#enemyBackgroundBar").style.height = "auto";
-//   document.querySelector("#playerBackgroundBar").style.height = "auto";
-    document.querySelector("#attacksBox").style.display = "none";
-    document.querySelector("#npcName").innerHTML = 'Friend';
+  document.querySelector("#attacksBox").style.display = "none";
+  document.querySelector("#npcName").innerHTML = "Friend";
   document.querySelector("#dialogueButtonsBox").replaceChildren();
 
   interactionChar = new InteractionCharacters(interactionCharacters.Player);
   friend = new InteractionCharacters(interactionCharacters.Friend);
+  // let interactionChar = new InteractionCharacters(interactionCharacters.Player);
+  // let friend = new InteractionCharacters(interactionCharacters.Friend);
+  // let sage = new InteractionCharacters(interactionCharacters.Sage);
+  // let tavernOwner = new InteractionCharacters(interactionCharacters.TavernOwner);
+  // let doctor = new InteractionCharacters(interactionCharacters.Doctor);
+  // let shopkeep = new InteractionCharacters(interactionCharacters.Shopkeep);
+  // let grocer = new InteractionCharacters(interactionCharacters.Grocer);
+  // let iceBoss = new InteractionCharacters(interactionCharacters.IceBoss);
   interactionSprite = [interactionChar, friend];
   next = [];
 
