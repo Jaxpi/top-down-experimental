@@ -1,24 +1,29 @@
 body {
     background-color: black;
     font-family: Arial, Helvetica, sans-serif;
-  }
-  h1 {
+}
+
+h1 {
     margin: 0;
     font-size: 24px;
-  }
-  button {
+}
+
+button {
     border: 0;
     font-size: 24px;
-  }
-  button:hover {
+}
+  
+button:hover {
     background-color: lightgray;
     cursor: pointer;
-  }
-  #fullContainer {
+}
+
+#fullContainer {
     display: inline-block;
     position: relative"
-  }
-  #overlappingDiv {
+}
+
+#overlappingDiv {
     background-color: black;
     position: absolute;
     top: 0;
@@ -28,11 +33,13 @@ body {
     opacity: 0;
     pointer-events: none;
     z-index: 10;
-  }
-  #userInterface {
+}
+
+#userInterface {
     display: none;
-  }
-  #enemyStats {
+}
+
+#enemyStats {
     background-color: white;
     width: 250px;
     position: absolute;
@@ -40,40 +47,47 @@ body {
     left: 50;
     border: 3px solid black;
     padding: 12px;
-  }
-  #enemyBars {
+}
+
+#enemyBars {
     position: relative;
-  }
-  #EnemyBackgroundBar {
+}
+
+#EnemyBackgroundBar {
     height: 5px;
     background-color: rgb(170, 170, 170);
     margin-top: 10px;
-  }
-  #enemyHealthBar {
+}
+
+#enemyHealthBar {
     height: 5px;
     background-color: rgba(0, 204, 31, 0.794);
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-  }
-  #playerStats{
+}
+
+#playerStats{
     background-color: white;
     width: 250px;
     position: absolute;
-    top: 330;
-    right: 50;
+    top: 450;
+    left: 724;
     border: 3px solid black;
     padding: 12px;
   }
+
   #playerBars{
     position: relative
   }
+
   #playerBackgroundBar{
     height: 5px;
     background-color: rgb(170, 170, 170);
     margin-top: 10px;
   }
+
   #playerHealthBar{
     height: 5px;
     background-color: rgba(0, 204, 31, 0.794);
@@ -82,9 +96,12 @@ body {
     left: 0;
     right: 0;
   }
+
   #battleInterface{
     background-color: white;
     height: 140px;
+    width: 1024;
+    margin-left: 9;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -92,6 +109,7 @@ body {
     border-top: 3px solid black;
     display: flex;
   }
+
   #dialogueBox{
     position: absolute;
     top: 0;
@@ -104,16 +122,19 @@ body {
     display: none;
     cursor: pointer;
   }
+
   #attacksBox {
     width: 50%;
     display: grid;
     grid-template-columns: repeat(2, 1fr)
   }
+
   #dialogueButtonsBox {
     width: 50%;
     display: grid;
     grid-template-columns: repeat(2, 1fr)
   }
+
   #sidebar {
     display: flex;
     align-items: center;

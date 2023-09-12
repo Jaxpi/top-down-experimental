@@ -108,7 +108,6 @@ function initFireBattle() {
                 });
 
                 enemyBattle.initiated = false
-                player.position.y += 20
                 audio.Map.play();
 
               },
@@ -182,8 +181,6 @@ function initIceBattle() {
               });
 
               enemyBattle.initiated = false
-              player.position.y += 20
-              playerHitBox.position.y += 20
               audio.Map.play();
 
             },

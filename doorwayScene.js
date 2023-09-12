@@ -94,7 +94,7 @@ let friend;
 // let npc;
 
 function initDoorway() {
-  // THIS IS LOGGING THOUSANDS OF TIMES PER SECOND TOO
+  // THIS IS LOGGING MANY TIMES
   console.log("run initDoorway");
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
@@ -164,7 +164,6 @@ function initDoorway() {
               });
 
               enemyBattle.initiated = false;
-              // adding this to prevent reinitialization in enemyBattle
               player.position.y += 20;
               playerHitBox.position.y += 20;
               player.image = player.sprites.down;
@@ -245,8 +244,8 @@ function initDoorway() {
 // }
 
 function animateDoorway() {
-  // WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND
-  console.log('run animate doorway');
+  // WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND AND NOT STOPPING AFTER DOORWAY SCENE IS OVER?
+  console.log("run animate doorway");
   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
   friendHomeBackground.draw();
   //   document.querySelector("#npcName").innerHTML = npcCharName;
