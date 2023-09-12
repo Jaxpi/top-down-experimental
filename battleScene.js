@@ -27,11 +27,13 @@ let battleAnimationID;
 let queue;
 
 function initFireBattle() {
+  console.log("run initFireBattle");
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
   document.querySelector('#npcName').innerHTML = 'Red Darkling';
   document.querySelector("#enemyHealthBar").style.width = "100%";
   document.querySelector("#playerHealthBar").style.width = "100%";
+  document.querySelector("#dialogueButtonsBox").style.display = "none";
   document.querySelector("#attacksBox").replaceChildren();
 
   battleChar = new BattleCharacters(battleCharacters.Player);
@@ -126,6 +128,7 @@ function initFireBattle() {
 }
 
 function animateFireBattle() {
+  console.log("run animateFireBattle");
   battleAnimationID = window.requestAnimationFrame(animateFireBattle);
   fireRuins.draw();
 
@@ -135,6 +138,7 @@ function animateFireBattle() {
 }
 
 function initIceBattle() {
+  console.log("run initIceBattle");
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
   document.querySelector('#npcName').innerHTML = 'Blue Darkling';
@@ -233,6 +237,7 @@ function initIceBattle() {
 }
 
 function animateIceBattle() {
+  console.log("run animateIceBattle");
   battleAnimationID = window.requestAnimationFrame(animateIceBattle);
   icyGrassland.draw();
 

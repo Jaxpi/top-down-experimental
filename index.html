@@ -1,173 +1,45 @@
 <head>
-  <style>
-    body {
-      background-color: black;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    h1 {
-      margin: 0;
-      font-size: 24px;
-    }
-    button {
-      border: 0;
-      font-size: 24px;
-    }
-    button:hover {
-      background-color: lightgray;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
-<div style="display: inline-block; position: relative">
-  <div
-    id="overlappingDiv"
-    style="
-      background-color: black;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 10;
-    "
-  ></div>
+<div id="#fullContainer">
+  <div id="overlappingDiv"></div>
 
   <canvas> </canvas>
 
-  <div id="userInterface" style="display: none;">
-    <div
-      id="enemyStats"
-      style="
-        background-color: white;
-        width: 250px;
-        position: absolute;
-        top: 50;
-        left: 50;
-        border: 3px solid black;
-        padding: 12px;
-      "
-    >
+  <div id="userInterface">
+    <div id="enemyStats">
       <h1 id="npcName"></h1>
-      <div style="position: relative">
-        <div
-          id="EnemyBackgroundBar"
-          style="
-            height: 5px;
-            background-color: rgb(170, 170, 170);
-            margin-top: 10px;
-          "
-        ></div>
-        <div
-          id="enemyHealthBar"
-          style="
-            height: 5px;
-            background-color: rgba(0, 204, 31, 0.794);
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-          "
-        ></div>
+      <div id="enemyBars">
+        <div id="EnemyBackgroundBar"></div>
+        <div id="enemyHealthBar"></div>
       </div>
     </div>
 
-    <div
-      id="playerStats"
-      style="
-        background-color: white;
-        width: 250px;
-        position: absolute;
-        top: 330;
-        right: 50;
-        border: 3px solid black;
-        padding: 12px;
-      "
-    >
+    <div id="playerStats" style="">
       <h1>Player</h1>
-      <div style="position: relative">
-        <div
-          id="playerBackgroundBar"
-          style="
-            height: 5px;
-            background-color: rgb(170, 170, 170);
-            margin-top: 10px;
-          "
-        ></div>
-        <div
-          id="playerHealthBar"
-          style="
-            height: 5px;
-            background-color: rgba(0, 204, 31, 0.794);
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-          "
-        ></div>
+      <div id="playerBars">
+        <div id="playerBackgroundBar"></div>
+        <div id="playerHealthBar"></div>
       </div>
     </div>
-    <div
-      id="battleInterface"
-      style="
-        background-color: white;
-        height: 140px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        border-top: 3px solid black;
-        display: flex;
-      "
-    >
-      <div
-        style="
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          background-color: white;
-          font-size: 24px;
-          padding: 12px;
-          display: none;
-          cursor: pointer;
-        "
-        id="dialogueBox"
-      >
-        Dialogue
-      </div>
-      <div
-        id="attacksBox"
-        style="
-          width: 50%;
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-        "
-      >
-        <!-- <button>Tackle</button>
-      <button>Shadow</button> -->
-        <!-- <button>3</button>
-      <button>4</button> -->
-      </div>
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 50%;
-          border-left: 3px solid black;
-        "
-      >
+    <div id="battleInterface">
+      <div id="dialogueBox">Dialogue</div>
+      <div id="attacksBox"></div>
+      <div id="dialogueButtonsBox"></div>
+      <div id="sidebar">
         <h1 id="attackType"></h1>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+  integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
   integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="

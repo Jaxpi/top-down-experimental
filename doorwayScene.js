@@ -78,22 +78,26 @@ const friendHomeBackground = new Sprite({
   image: friendHomeImg,
 });
 
-let interactionChar;
-let friend;
-let sage;
-let tavernOwner;
-let doctor;
-let shopkeep;
-let grocer;
-let iceBoss;
+// let interactionChar = new InteractionCharacters(interactionCharacters.Player);
+// let friend = new InteractionCharacters(interactionCharacters.Friend);
+let sage = new InteractionCharacters(interactionCharacters.Sage);
+let tavernOwner = new InteractionCharacters(interactionCharacters.TavernOwner);
+let doctor = new InteractionCharacters(interactionCharacters.Doctor);
+let shopkeep = new InteractionCharacters(interactionCharacters.Shopkeep);
+let grocer = new InteractionCharacters(interactionCharacters.Grocer);
+let iceBoss = new InteractionCharacters(interactionCharacters.IceBoss);
 let interactionSprite;
 let interactionAnimationID;
 let next;
+let interactionChar;
+let friend;
+// let npc;
 
 function initDoorway() {
+  // THIS IS LOGGING THOUSANDS OF TIMES PER SECOND TOO
+  console.log("run initDoorway");
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
-  document.querySelector("#npcName").innerHTML = "Friend";
   document.querySelector("#enemyStats").style.width = 100;
   document.querySelector("#playerStats").style.right = 475;
   document.querySelector("#enemyStats").style.left = 875;
@@ -102,7 +106,8 @@ function initDoorway() {
   document.querySelector("#playerHealthBar").style.display = "none";
   document.querySelector("#enemyBackgroundBar").style.height = "auto";
   document.querySelector("#playerBackgroundBar").style.height = "auto";
-  document.querySelector("#attacksBox").replaceChildren();
+  document.querySelector("#attacksBox").style.display = "none";
+  document.querySelector("#dialogueButtonsBox").replaceChildren();
 
   interactionChar = new InteractionCharacters(interactionCharacters.Player);
   friend = new InteractionCharacters(interactionCharacters.Friend);
@@ -112,7 +117,7 @@ function initDoorway() {
   interactionChar.dialogues.forEach((dialogue) => {
     const button = document.createElement("button");
     button.innerHTML = dialogue.name;
-    document.querySelector("#attacksBox").append(button);
+    document.querySelector("#dialogueButtonsBox").append(button);
   });
 
   document.querySelectorAll("button").forEach((button) => {
@@ -177,40 +182,74 @@ function initDoorway() {
   });
 }
 
+// function animateDoorway() {
+//     // WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND
+//     console.log(interactionSprite.length)
+//   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
+//   let npcCharName;
+//   switch (doorwayNameSpot.symbol) {
+//     case 4267:
+//       friendHomeBackground.draw();
+//       npc = friend;
+//       npcCharName = "Friend";
+//       break;
+//     case 4268:
+//       friendHomeBackground.draw();
+//       npc = friend;
+//       npcCharName = "Friend";
+//       break;
+//     case 4269:
+//       friendHomeBackground.draw();
+//       npc = friend;
+//       npcCharName = "Friend";
+//       break;
+//     case 4270:
+//       homeBackground.draw();
+//       document.querySelector("#enemyStats").style.display = "none";
+//       break;
+//     case 4271:
+//       grocerBackground.draw();
+//       npc = grocer;
+//       npcCharName = "Grocer";
+//       break;
+//     case 4272:
+//       tavernBackground.draw();
+//       npc = tavernOwner;
+//       npcCharName = "Tavern Owner";
+//       break;
+//     case 4273:
+//       medicalBackground.draw();
+//       npc = doctor;
+//       npcCharName = "Doctor";
+//       break;
+//     case 4274:
+//       generalStoreBackground.draw();
+//       npc = shopkeep;
+//       npcCharName = "Shopkeep";
+//       break;
+//     case 4278:
+//       sageBackground.draw();
+//       npc = sage;
+//       npcCharName = "Sage";
+//       break;
+//     case 4279:
+//       iceDungeonBackground.draw();
+//       npc = iceBoss;
+//       npcCharName = "Icy McIcersson";
+//       break;
+//   }
+//   document.querySelector("#npcName").innerHTML = npcCharName;
+//   interactionSprite.forEach((sprite) => {
+//     sprite.draw();
+//   });
+// }
+
 function animateDoorway() {
+  // WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND
+  console.log('run animate doorway');
   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-  switch (doorwayNameSpot.symbol) {
-    case 4267:
-      friendHomeBackground.draw();
-      break;
-    case 4268:
-      friendHomeBackground.draw();
-      break;
-    case 4269:
-      friendHomeBackground.draw();
-      break;
-    case 4270:
-      homeBackground.draw();
-      break;
-    case 4271:
-      grocerBackground.draw();
-      break;
-    case 4272:
-      tavernBackground.draw();
-      break;
-    case 4273:
-      medicalBackground.draw();
-      break;
-    case 4274:
-      generalStoreBackground.draw();
-      break;
-    case 4278:
-      sageBackground.draw();
-      break;
-    case 4279:
-      iceDungeonBackground.draw();
-      break;
-  }
+  friendHomeBackground.draw();
+  //   document.querySelector("#npcName").innerHTML = npcCharName;
   interactionSprite.forEach((sprite) => {
     sprite.draw();
   });

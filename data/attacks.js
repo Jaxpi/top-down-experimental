@@ -1,7 +1,7 @@
 const attacks = {
   Tackle: {
     name: "Tackle",
-    damage: 25,
+    damage: 100,
     type: "Normal",
     color: "brown"
   },
@@ -25,13 +25,13 @@ const attacks = {
   },
   Burn: {
     name: "Burn",
-    damage: 25,
+    damage: 100,
     type: "Fire",
     color: "red"
   },
   Freeze: {
     name: "Freeze",
-    damage: 25,
+    damage: 100,
     type: "Ice",
     color: "blue"
   },

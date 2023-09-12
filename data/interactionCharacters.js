@@ -42,7 +42,7 @@ const interactionCharacters = {
       src: './imgs/darkling-enemy-red.png'
     },
     frames: {
-      max: 3,
+      max: 1,
       hold: 20,
     },
     animate: true,
@@ -60,7 +60,7 @@ const interactionCharacters = {
       src: './imgs/darkling-enemy-blue.png'
     },
     frames: {
-      max: 3,
+      max: 1,
       hold: 20,
     },
     animate: true,
@@ -78,7 +78,7 @@ const interactionCharacters = {
       src: './imgs/darkling-enemy-blue.png'
     },
     frames: {
-      max: 3,
+      max: 1,
       hold: 20,
     },
     animate: true,
@@ -96,7 +96,7 @@ const interactionCharacters = {
       src: './imgs/grocer.png'
     },
     frames: {
-      max: 3,
+      max: 1,
       hold: 20,
     },
     animate: true,
@@ -114,7 +114,7 @@ const interactionCharacters = {
       src: './imgs/iceBoss.png'
     },
     frames: {
-      max: 3,
+      max: 1,
       hold: 20,
     },
     animate: true,
@@ -132,7 +132,7 @@ const interactionCharacters = {
       src: './imgs/fire-sage.png'
     },
     frames: {
-      max: 3,
+      max: 1,
       hold: 20,
     },
     animate: true,

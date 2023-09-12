@@ -149,7 +149,7 @@ doorwayNameMap.forEach((row, i) => {
             x: j * Boundary.width + offset.x,
             y: i * Boundary.height + offset.y,
           },
-          symbol: symbol
+          symbol: symbol,
         })
       );
     }
@@ -212,6 +212,8 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
 // MAIN WORLD ANIMATE FUNCTION
 
 function animate() {
+  // ALL ANIMATE FUNCTIONS ARE BEING CALLED THOUSANDS OF TIMES PER SECOND
+  // console.log("run animate function");
   const animationID = window.requestAnimationFrame(animate);
   background.draw();
 
@@ -255,8 +257,9 @@ function animate() {
   ) {
     // FIRE ZONE
     for (let i = 0; i < fireEnemyZone.length; i++) {
+      // console.log('firezone' + fireEnemyZone.length);
       const fireEnemyZoneSpot = fireEnemyZone[i];
-      const overlappingArea =
+      const overlappingFireArea =
         (Math.min(
           player.position.x + player.width,
           fireEnemyZoneSpot.position.x + fireEnemyZoneSpot.width
@@ -272,7 +275,7 @@ function animate() {
           rectangle1: playerHitBox,
           rectangle2: fireEnemyZoneSpot,
         }) &&
-        overlappingArea > (player.width * player.height) / 2
+        overlappingFireArea > (player.width * player.height) / 2
       ) {
         window.cancelAnimationFrame(animationID);
 
@@ -302,10 +305,12 @@ function animate() {
         });
         break;
       }
+      
       // ICE ZONE
       for (let i = 0; i < iceEnemyZone.length; i++) {
+        // console.log('icezone' + iceEnemyZone.length);
         const iceEnemyZoneSpot = iceEnemyZone[i];
-        const overlappingArea =
+        const overlappingIceArea =
           (Math.min(
             player.position.x + player.width,
             iceEnemyZoneSpot.position.x + iceEnemyZoneSpot.width
@@ -321,7 +326,7 @@ function animate() {
             rectangle1: playerHitBox,
             rectangle2: iceEnemyZoneSpot,
           }) &&
-          overlappingArea > (player.width * player.height) / 2
+          overlappingIceArea > (player.width * player.height) / 2
         ) {
           window.cancelAnimationFrame(animationID);
 
@@ -351,10 +356,12 @@ function animate() {
           });
           break;
         }
+        
         // DOORWAYS
+        // console.log('doors' + doorwayName.length);
         for (let i = 0; i < doorwayName.length; i++) {
           doorwayNameSpot = doorwayName[i];
-          const overlappingArea =
+          const overlappingDoorArea =
             (Math.min(
               player.position.x + player.width,
               doorwayNameSpot.position.x + doorwayNameSpot.width
@@ -370,8 +377,9 @@ function animate() {
               rectangle1: playerHitBox,
               rectangle2: doorwayNameSpot,
             }) &&
-            overlappingArea > (player.width * player.height) / 2
+            overlappingDoorArea > (player.width * player.height) / 2
           ) {
+            // console.log("overlap");
             window.cancelAnimationFrame(animationID);
 
             // audio.Map.stop();
@@ -380,22 +388,14 @@ function animate() {
             enemyBattle.initiated = true;
             gsap.to("#overlappingDiv", {
               opacity: 1,
-              // repeat: 2,
-              // yoyo: true,
               duration: 0.4,
               onComplete() {
-                gsap.to("#overlappingDiv", {
-                  opacity: 1,
-                  duration: 0.4,
-                  onComplete() {
-                    initDoorway();
-                    animateDoorway();
-                    gsap.to("#overlappingDiv", {
-                      opacity: 0,
-                      duration: 0.4,
-                    });
-                  },
-                });
+                initDoorway();
+                animateDoorway();
+                // gsap.to("#overlappingDiv", {
+                //   opacity: 0,
+                //   duration: 0.4,
+                // });
               },
             });
             break;
@@ -506,7 +506,7 @@ function animate() {
 
 // CALL TO ANIMATE
 
-animate();
+// animate();
 
 // LAST KEY DETECTION
 
@@ -559,10 +559,10 @@ window.addEventListener("keyup", (e) => {
 
 // CALL TO PLAY MAIN WORLD MUSIC
 
-let clicked = false;
-addEventListener("click", () => {
-  if (!clicked) {
-    audio.Map.play();
-    clicked = true;
-  }
-});
+// let clicked = false;
+// addEventListener("click", () => {
+//   if (!clicked) {
+//     audio.Map.play();
+//     clicked = true;
+//   }
+// });
