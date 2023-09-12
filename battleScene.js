@@ -33,6 +33,13 @@ function initFireBattle() {
   document.querySelector("#npcName").innerHTML = "Red Darkling";
   document.querySelector("#enemyHealthBar").style.width = "100%";
   document.querySelector("#playerHealthBar").style.width = "100%";
+  document.querySelector("#enemyStats").style.width = 250;
+  document.querySelector("#playerStats").style.left = 724;
+  document.querySelector("#enemyStats").style.left = 50;
+  document.querySelector("#playerStats").style.width = 250;
+  document.querySelector("#enemyBars").style.display = "block";
+  document.querySelector("#playerBars").style.display = "block";
+  document.querySelector("#attacksBox").style.display = "grid";
   document.querySelector("#dialogueButtonsBox").style.display = "none";
   document.querySelector("#attacksBox").replaceChildren();
 
@@ -142,7 +149,7 @@ function initIceBattle() {
   document.querySelector("#dialogueBox").style.display = "none";
   document.querySelector("#npcName").innerHTML = "Blue Darkling";
   document.querySelector("#enemyStats").style.width = 250;
-  document.querySelector("#playerStats").style.left = 450;
+  document.querySelector("#playerStats").style.left = 724;
   document.querySelector("#enemyStats").style.left = 50;
   document.querySelector("#playerStats").style.width = 250;
   document.querySelector("#enemyBars").style.display = "block";
