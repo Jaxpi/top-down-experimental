@@ -30,7 +30,7 @@ function initFireBattle() {
   console.log("run initFireBattle");
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
-  document.querySelector('#npcName').innerHTML = 'Red Darkling';
+  document.querySelector("#npcName").innerHTML = "Red Darkling";
   document.querySelector("#enemyHealthBar").style.width = "100%";
   document.querySelector("#playerHealthBar").style.width = "100%";
   document.querySelector("#dialogueButtonsBox").style.display = "none";
@@ -71,19 +71,20 @@ function initFireBattle() {
                 opacity: 0,
               });
 
-              enemyBattle.initiated = false
+              enemyBattle.initiated = false;
               // adding this to prevent reinitialization in enemyBattle
-              player.position.y += 20
-              playerHitBox.position.y += 20
+              player.position.y += 20;
+              playerHitBox.position.y += 20;
               audio.Map.play();
-
             },
           });
         });
       }
 
       const randomAttack =
-        darklingRed.attacks[Math.floor(Math.random() * darklingRed.attacks.length)];
+        darklingRed.attacks[
+          Math.floor(Math.random() * darklingRed.attacks.length)
+        ];
 
       queue.push(() => {
         darklingRed.attack({
@@ -107,9 +108,8 @@ function initFireBattle() {
                   opacity: 0,
                 });
 
-                enemyBattle.initiated = false
+                enemyBattle.initiated = false;
                 audio.Map.play();
-
               },
             });
           });
@@ -140,9 +140,10 @@ function initIceBattle() {
   console.log("run initIceBattle");
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
-  document.querySelector('#npcName').innerHTML = 'Blue Darkling';
+  document.querySelector("#npcName").innerHTML = "Blue Darkling";
   document.querySelector("#enemyHealthBar").style.width = "100%";
   document.querySelector("#playerHealthBar").style.width = "100%";
+  document.querySelector("#dialogueButtonsBox").style.display = "none";
   document.querySelector("#attacksBox").replaceChildren();
 
   battleChar = new BattleCharacters(battleCharacters.Player);
@@ -180,16 +181,17 @@ function initIceBattle() {
                 opacity: 0,
               });
 
-              enemyBattle.initiated = false
+              enemyBattle.initiated = false;
               audio.Map.play();
-
             },
           });
         });
       }
 
       const randomAttack =
-        darklingBlue.attacks[Math.floor(Math.random() * darklingBlue.attacks.length)];
+        darklingBlue.attacks[
+          Math.floor(Math.random() * darklingBlue.attacks.length)
+        ];
 
       queue.push(() => {
         darklingBlue.attack({
@@ -213,10 +215,9 @@ function initIceBattle() {
                   opacity: 0,
                 });
 
-                enemyBattle.initiated = false
-                player.position.y += 20
+                enemyBattle.initiated = false;
+                player.position.y += 20;
                 audio.Map.play();
-
               },
             });
           });
@@ -243,12 +244,14 @@ function animateIceBattle() {
   });
 }
 
-// initBattle();
-// animateBattle();
-
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
   if (queue.length > 0) {
     queue[0]();
     queue.shift();
   } else e.currentTarget.style.display = "none";
 });
+
+// initFireBattle();
+// animateFireBattle();
+// initIceBattle();
+// animateIceBattle();

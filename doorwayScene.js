@@ -80,12 +80,12 @@ const friendHomeBackground = new Sprite({
 
 // let interactionChar = new InteractionCharacters(interactionCharacters.Player);
 // let friend = new InteractionCharacters(interactionCharacters.Friend);
-let sage = new InteractionCharacters(interactionCharacters.Sage);
-let tavernOwner = new InteractionCharacters(interactionCharacters.TavernOwner);
-let doctor = new InteractionCharacters(interactionCharacters.Doctor);
-let shopkeep = new InteractionCharacters(interactionCharacters.Shopkeep);
-let grocer = new InteractionCharacters(interactionCharacters.Grocer);
-let iceBoss = new InteractionCharacters(interactionCharacters.IceBoss);
+// let sage = new InteractionCharacters(interactionCharacters.Sage);
+// let tavernOwner = new InteractionCharacters(interactionCharacters.TavernOwner);
+// let doctor = new InteractionCharacters(interactionCharacters.Doctor);
+// let shopkeep = new InteractionCharacters(interactionCharacters.Shopkeep);
+// let grocer = new InteractionCharacters(interactionCharacters.Grocer);
+// let iceBoss = new InteractionCharacters(interactionCharacters.IceBoss);
 let interactionSprite;
 let interactionAnimationID;
 let next;
@@ -99,19 +99,20 @@ function initDoorway() {
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
   document.querySelector("#enemyStats").style.width = 100;
-  document.querySelector("#playerStats").style.right = 475;
+  document.querySelector("#playerStats").style.left = 450;
   document.querySelector("#enemyStats").style.left = 875;
   document.querySelector("#playerStats").style.width = 100;
-  document.querySelector("#enemyHealthBar").style.display = "none";
-  document.querySelector("#playerHealthBar").style.display = "none";
-  document.querySelector("#enemyBackgroundBar").style.height = "auto";
-  document.querySelector("#playerBackgroundBar").style.height = "auto";
-  document.querySelector("#attacksBox").style.display = "none";
+  document.querySelector("#enemyBars").style.display = "none";
+  document.querySelector("#playerBars").style.display = "none";
+//   document.querySelector("#enemyBackgroundBar").style.height = "auto";
+//   document.querySelector("#playerBackgroundBar").style.height = "auto";
+    document.querySelector("#attacksBox").style.display = "none";
+    document.querySelector("#npcName").innerHTML = 'Friend';
   document.querySelector("#dialogueButtonsBox").replaceChildren();
 
   interactionChar = new InteractionCharacters(interactionCharacters.Player);
   friend = new InteractionCharacters(interactionCharacters.Friend);
-  interactionSprite = [friend, interactionChar];
+  interactionSprite = [interactionChar, friend];
   next = [];
 
   interactionChar.dialogues.forEach((dialogue) => {
@@ -125,31 +126,31 @@ function initDoorway() {
       const selectedDialogue = dialogues[e.currentTarget.innerHTML];
       interactionChar.dialogue({
         dialogue: selectedDialogue,
-        recipient: friend,
-        interactionSprite,
+        // recipient: friend,
+        // interactionSprite,
       });
       if (selectedDialogue.name === "Greet") {
         next.push(() => {
           friend.dialogue({
             dialogue: dialogues.Welcome,
-            recipient: interactionChar,
-            interactionSprite,
+            // recipient: interactionChar,
+            // interactionSprite,
           });
         });
       } else if (selectedDialogue.name === "Order") {
         next.push(() => {
           friend.dialogue({
             dialogue: dialogues.OrderResponse,
-            recipient: interactionChar,
-            interactionSprite,
+            // recipient: interactionChar,
+            // interactionSprite,
           });
         });
       } else if (selectedDialogue.name === "Goodbye") {
         next.push(() => {
           friend.dialogue({
             dialogue: dialogues.Goodbye,
-            recipient: interactionChar,
-            interactionSprite,
+            // recipient: interactionChar,
+            // interactionSprite,
           });
         });
         next.push(() => {
@@ -182,8 +183,8 @@ function initDoorway() {
 }
 
 // function animateDoorway() {
-//     // WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND
-//     console.log(interactionSprite.length)
+// WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND AND NOT STOPPING AFTER DOORWAY SCENE IS OVER?
+//   console.log("run animate doorway");
 //   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
 //   let npcCharName;
 //   switch (doorwayNameSpot.symbol) {
@@ -264,3 +265,6 @@ document.querySelector("#dialogueBox").addEventListener("click", (e) => {
     next.shift();
   } else e.currentTarget.style.display = "none";
 });
+
+// initDoorway();
+// animateDoorway();
