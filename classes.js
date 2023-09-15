@@ -81,11 +81,9 @@ class InteractionCharacters extends Sprite {
   }
 
   dialogue({ dialogue }) {
-    console.log("1="+document.querySelector("#dialogueBox").innerHTML)
     document.querySelector("#dialogueBox").style.display = "block";
     document.querySelector("#dialogueBox").style.padding = "50";
     document.querySelector("#dialogueBox").innerHTML = dialogue.words;
-    console.log("2="+document.querySelector("#dialogueBox").innerHTML)
     const dialogueTimeline = gsap.timeline();
     let talkMotion = 5;
     if (this.isNPC) talkMotion = -5;

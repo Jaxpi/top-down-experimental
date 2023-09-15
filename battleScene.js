@@ -62,7 +62,6 @@ function initFireBattle() {
         recipient: darklingRed,
         renderedSprites,
       });
-      console.log(queue.length + "C");
       if (darklingRed.health <= 0) {
         queue.push(() => {
           darklingRed.faint();
@@ -139,7 +138,6 @@ function initFireBattle() {
 }
 
 function animateFireBattle() {
-  console.log("run animateFireBattle");
   battleAnimationID = window.requestAnimationFrame(animateFireBattle);
   fireRuins.draw();
 
@@ -149,7 +147,6 @@ function animateFireBattle() {
 }
 
 function initIceBattle() {
-  console.log("run initIceBattle");
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
   document.querySelector("#npcName").innerHTML = "Blue Darkling";
@@ -254,7 +251,6 @@ function initIceBattle() {
 }
 
 function animateIceBattle() {
-  console.log("run animateIceBattle");
   battleAnimationID = window.requestAnimationFrame(animateIceBattle);
   icyGrassland.draw();
 

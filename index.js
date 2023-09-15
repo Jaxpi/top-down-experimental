@@ -212,8 +212,6 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
 // MAIN WORLD ANIMATE FUNCTION
 
 function animate() {
-  // ALL ANIMATE FUNCTIONS ARE BEING CALLED THOUSANDS OF TIMES PER SECOND
-  // console.log("run animate function");
   const animationID = window.requestAnimationFrame(animate);
   background.draw();
 
@@ -257,7 +255,6 @@ function animate() {
   ) {
     // FIRE ZONE
     for (let i = 0; i < fireEnemyZone.length; i++) {
-      // console.log('firezone' + fireEnemyZone.length);
       const fireEnemyZoneSpot = fireEnemyZone[i];
       const overlappingFireArea =
         (Math.min(
@@ -309,7 +306,6 @@ function animate() {
 
     // ICE ZONE
     for (let i = 0; i < iceEnemyZone.length; i++) {
-      // console.log('icezone' + iceEnemyZone.length);
       const iceEnemyZoneSpot = iceEnemyZone[i];
       const overlappingIceArea =
         (Math.min(

@@ -189,7 +189,7 @@ function initDoorway() {
 }
 
 // function animateDoorway() {
-// WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND AND NOT STOPPING AFTER DOORWAY SCENE IS OVER?
+// WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND?
 //   console.log("run animate doorway");
 //   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
 //   let npcCharName;
@@ -251,8 +251,6 @@ function initDoorway() {
 // }
 
 function animateDoorway() {
-  // WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND AND NOT STOPPING AFTER DOORWAY SCENE IS OVER?
-  console.log("run animate doorway");
   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
   friendHomeBackground.draw();
   //   document.querySelector("#npcName").innerHTML = npcCharName;
