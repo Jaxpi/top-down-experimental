@@ -92,8 +92,7 @@ let next;
 let npc = this.npc;
 
 function initDoorway() {
-  // THIS IS LOGGING MANY TIMES
-  console.log("run initDoorway");
+  document.querySelector("#attackType").innerHTML = "";
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
   document.querySelector("#enemyStats").style.width = 100;
@@ -104,6 +103,7 @@ function initDoorway() {
   document.querySelector("#playerBars").style.display = "none";
   document.querySelector("#attacksBox").style.display = "none";
   document.querySelector("#npcName").innerHTML = "Friend";
+  document.querySelector("#dialogueButtonsBox").style.display = "grid";
   document.querySelector("#dialogueButtonsBox").replaceChildren();
 
   interactionChar = new InteractionCharacters(interactionCharacters.Player);
@@ -164,6 +164,7 @@ function initDoorway() {
               cancelAnimationFrame(interactionAnimationID);
               animate();
               document.querySelector("#userInterface").style.display = "none";
+              document.querySelector("#dialogueBox").style.display = "none";
               gsap.to("#overlappingDiv", {
                 opacity: 0,
               });
@@ -182,6 +183,7 @@ function initDoorway() {
     button.addEventListener("mouseenter", (e) => {
       const selectedDialogue = dialogues[e.currentTarget.innerHTML];
       document.querySelector("#attackType").innerHTML = selectedDialogue.name;
+      document.querySelector("#attackType").style.color = "black";
     });
   });
 }

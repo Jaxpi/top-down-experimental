@@ -27,7 +27,7 @@ let battleAnimationID;
 let queue;
 
 function initFireBattle() {
-  console.log("run initFireBattle");
+  document.querySelector("#attackType").innerHTML = "";
   document.querySelector("#userInterface").style.display = "block";
   document.querySelector("#dialogueBox").style.display = "none";
   document.querySelector("#npcName").innerHTML = "Red Darkling";
@@ -62,7 +62,7 @@ function initFireBattle() {
         recipient: darklingRed,
         renderedSprites,
       });
-
+      console.log(queue.length + "C");
       if (darklingRed.health <= 0) {
         queue.push(() => {
           darklingRed.faint();
@@ -73,7 +73,10 @@ function initFireBattle() {
             onComplete: () => {
               cancelAnimationFrame(battleAnimationID);
               animate();
+              document.querySelector("#attacksBox").style.display = "none";
+              document.querySelector("#dialogueBox").style.display = "none";
               document.querySelector("#userInterface").style.display = "none";
+              queue = [];
               gsap.to("#overlappingDiv", {
                 opacity: 0,
               });
@@ -110,6 +113,8 @@ function initFireBattle() {
               onComplete: () => {
                 cancelAnimationFrame(battleAnimationID);
                 animate();
+                document.querySelector("#attacksBox").style.display = "none";
+                document.querySelector("#dialogueBox").style.display = "none";
                 document.querySelector("#userInterface").style.display = "none";
                 gsap.to("#overlappingDiv", {
                   opacity: 0,
