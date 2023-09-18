@@ -33,13 +33,47 @@ const interactionCharacters = {
     dialogues: [dialogues.Greet, dialogues.Request, dialogues.Goodbye],
   },
 
+  Friend2: {
+    position: {
+      x: 500,
+      y: 50,
+    },
+    image:  {
+      src: './imgs/friend2.png'
+    },
+    frames: {
+      max: 1,
+    },
+    animate: true,
+    isNPC: true,
+    name: "Friend",
+    dialogues: [dialogues.Greet, dialogues.Request, dialogues.Goodbye],
+  },
+
+  Friend3: {
+    position: {
+      x: 500,
+      y: 50,
+    },
+    image:  {
+      src: './imgs/friend3.png'
+    },
+    frames: {
+      max: 1,
+    },
+    animate: true,
+    isNPC: true,
+    name: "Friend",
+    dialogues: [dialogues.Greet, dialogues.Request, dialogues.Goodbye],
+  },
+
   Shopkeep: {
     position: {
       x: 500,
-      y: 100,
+      y: 28,
     },
     image:  {
-      src: './imgs/darkling-enemy-red.png'
+      src: './imgs/shopkeep.png'
     },
     frames: {
       max: 1,
@@ -54,10 +88,10 @@ const interactionCharacters = {
   Doctor: {
     position: {
       x: 500,
-      y: 100,
+      y: 30,
     },
     image:  {
-      src: './imgs/darkling-enemy-blue.png'
+      src: './imgs/doctor.png'
     },
     frames: {
       max: 1,
@@ -75,7 +109,7 @@ const interactionCharacters = {
       y: 100,
     },
     image:  {
-      src: './imgs/darkling-enemy-blue.png'
+      src: ''
     },
     frames: {
       max: 1,
@@ -107,15 +141,15 @@ const interactionCharacters = {
 
   IceBoss: {
     position: {
-      x: 500,
-      y: 100,
+      x: 700,
+      y: 200,
     },
     image:  {
       src: './imgs/iceBoss.png'
     },
     frames: {
-      max: 1,
-      hold: 20,
+      max: 3,
+      hold: 40,
     },
     animate: true,
     isNPC: true,
@@ -132,12 +166,30 @@ const interactionCharacters = {
       src: './imgs/fire-sage.png'
     },
     frames: {
-      max: 1,
-      hold: 20,
+      max: 3,
+      hold: 40,
     },
     animate: true,
     isNPC: true,
     name: "Sage",
+    dialogues: [dialogues.Welcome, dialogues.Request, dialogues.Goodbye],
+  },
+
+  Blank: {
+    position: {
+      x: 500,
+      y: 100,
+    },
+    image:  {
+      src: ''
+    },
+    frames: {
+      max: 3,
+      hold: 40,
+    },
+    animate: true,
+    isNPC: true,
+    name: "",
     dialogues: [dialogues.Welcome, dialogues.Request, dialogues.Goodbye],
   },
 };

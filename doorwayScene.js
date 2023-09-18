@@ -9,7 +9,7 @@ const generalStoreBackground = new Sprite({
 });
 
 const tavernImg = new Image();
-tavernImg.src = "./imgs/interior-tavern-1-crop.png";
+tavernImg.src = "./imgs/tavern.png";
 const tavernBackground = new Sprite({
   position: {
     x: 0,
@@ -59,7 +59,7 @@ const iceDungeonBackground = new Sprite({
 });
 
 const homeImg = new Image();
-homeImg.src = "./imgs/interior-home-16-crop.jpeg";
+homeImg.src = "./imgs/home.jpeg";
 const homeBackground = new Sprite({
   position: {
     x: 0,
@@ -69,8 +69,28 @@ const homeBackground = new Sprite({
 });
 
 const friendHomeImg = new Image();
-friendHomeImg.src = "./imgs/interior-home-11-crop.jpeg";
+friendHomeImg.src = "./imgs/friendHome.jpeg";
 const friendHomeBackground = new Sprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  image: friendHomeImg,
+});
+
+const friend2HomeImg = new Image();
+friend2HomeImg.src = "./imgs/friend2Home.jpeg";
+const friend2HomeBackground = new Sprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  image: friend2HomeImg,
+});
+
+const friend3HomeImg = new Image();
+friend3HomeImg.src = "./imgs/friend3Home.jpeg";
+const friend3HomeBackground = new Sprite({
   position: {
     x: 0,
     y: 0,
@@ -80,6 +100,8 @@ const friendHomeBackground = new Sprite({
 
 let interactionChar;
 let friend;
+let friend2;
+let friend3;
 let sage;
 let tavernOwner;
 let doctor;
@@ -108,23 +130,27 @@ function initDoorway() {
 
   interactionChar = new InteractionCharacters(interactionCharacters.Player);
   friend = new InteractionCharacters(interactionCharacters.Friend);
+  friend2 = new InteractionCharacters(interactionCharacters.Friend2);
+  friend3 = new InteractionCharacters(interactionCharacters.Friend3);
   sage = new InteractionCharacters(interactionCharacters.Sage);
   tavernOwner = new InteractionCharacters(interactionCharacters.TavernOwner);
   doctor = new InteractionCharacters(interactionCharacters.Doctor);
   shopkeep = new InteractionCharacters(interactionCharacters.Shopkeep);
   grocer = new InteractionCharacters(interactionCharacters.Grocer);
   iceBoss = new InteractionCharacters(interactionCharacters.IceBoss);
+  blank = new InteractionCharacters(interactionCharacters.Blank);
+
 
   switch (doorwayNameSpot.symbol) {
     case 4267:
-      friendHomeBackground.draw();
-      npc = friend;
-      npcCharName = "Friend";
+      friend3HomeBackground.draw();
+      npc = friend3;
+      npcCharName = "Red";
       break;
     case 4268:
-      friendHomeBackground.draw();
-      npc = friend;
-      npcCharName = "Friend";
+      friend2HomeBackground.draw();
+      npc = friend2;
+      npcCharName = "Green";
       break;
     case 4269:
       friendHomeBackground.draw();
@@ -133,6 +159,7 @@ function initDoorway() {
       break;
     case 4270:
       homeBackground.draw();
+      npc = blank;
       document.querySelector("#enemyStats").style.display = "none";
       break;
     case 4271:
@@ -155,15 +182,15 @@ function initDoorway() {
       npc = shopkeep;
       npcCharName = "Shopkeep";
       break;
-    case 4278:
+    case 4277:
       sageBackground.draw();
       npc = sage;
       npcCharName = "Sage";
       break;
-    case 4279:
+    case 4278:
       iceDungeonBackground.draw();
       npc = iceBoss;
-      npcCharName = "Icy McIcersson";
+      npcCharName = "Icy Spider";
       break;
   }
   document.querySelector("#npcName").innerHTML = npcCharName;
@@ -242,7 +269,6 @@ function initDoorway() {
 
 function animateDoorway() {
   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-  // friendHomeBackground.draw();
   interactionSprite.forEach((sprite) => {
     sprite.draw();
   });
