@@ -89,7 +89,8 @@ let iceBoss;
 let interactionSprite;
 let interactionAnimationID;
 let next;
-let npc = this.npc;
+let npc;
+let npcCharName;
 
 function initDoorway() {
   document.querySelector("#attackType").innerHTML = "";
@@ -102,21 +103,72 @@ function initDoorway() {
   document.querySelector("#enemyBars").style.display = "none";
   document.querySelector("#playerBars").style.display = "none";
   document.querySelector("#attacksBox").style.display = "none";
-  document.querySelector("#npcName").innerHTML = "Friend";
   document.querySelector("#dialogueButtonsBox").style.display = "grid";
   document.querySelector("#dialogueButtonsBox").replaceChildren();
 
   interactionChar = new InteractionCharacters(interactionCharacters.Player);
   friend = new InteractionCharacters(interactionCharacters.Friend);
-  // let interactionChar = new InteractionCharacters(interactionCharacters.Player);
-  // let friend = new InteractionCharacters(interactionCharacters.Friend);
-  // let sage = new InteractionCharacters(interactionCharacters.Sage);
-  // let tavernOwner = new InteractionCharacters(interactionCharacters.TavernOwner);
-  // let doctor = new InteractionCharacters(interactionCharacters.Doctor);
-  // let shopkeep = new InteractionCharacters(interactionCharacters.Shopkeep);
-  // let grocer = new InteractionCharacters(interactionCharacters.Grocer);
-  // let iceBoss = new InteractionCharacters(interactionCharacters.IceBoss);
-  interactionSprite = [interactionChar, friend];
+  sage = new InteractionCharacters(interactionCharacters.Sage);
+  tavernOwner = new InteractionCharacters(interactionCharacters.TavernOwner);
+  doctor = new InteractionCharacters(interactionCharacters.Doctor);
+  shopkeep = new InteractionCharacters(interactionCharacters.Shopkeep);
+  grocer = new InteractionCharacters(interactionCharacters.Grocer);
+  iceBoss = new InteractionCharacters(interactionCharacters.IceBoss);
+
+  switch (doorwayNameSpot.symbol) {
+    case 4267:
+      friendHomeBackground.draw();
+      npc = friend;
+      npcCharName = "Friend";
+      break;
+    case 4268:
+      friendHomeBackground.draw();
+      npc = friend;
+      npcCharName = "Friend";
+      break;
+    case 4269:
+      friendHomeBackground.draw();
+      npc = friend;
+      npcCharName = "Friend";
+      break;
+    case 4270:
+      homeBackground.draw();
+      document.querySelector("#enemyStats").style.display = "none";
+      break;
+    case 4271:
+      grocerBackground.draw();
+      npc = grocer;
+      npcCharName = "Grocer";
+      break;
+    case 4272:
+      tavernBackground.draw();
+      npc = tavernOwner;
+      npcCharName = "Tavern Owner";
+      break;
+    case 4273:
+      medicalBackground.draw();
+      npc = doctor;
+      npcCharName = "Doctor";
+      break;
+    case 4274:
+      generalStoreBackground.draw();
+      npc = shopkeep;
+      npcCharName = "Shopkeep";
+      break;
+    case 4278:
+      sageBackground.draw();
+      npc = sage;
+      npcCharName = "Sage";
+      break;
+    case 4279:
+      iceDungeonBackground.draw();
+      npc = iceBoss;
+      npcCharName = "Icy McIcersson";
+      break;
+  }
+  document.querySelector("#npcName").innerHTML = npcCharName;
+
+  interactionSprite = [interactionChar, npc];
   next = [];
 
   interactionChar.dialogues.forEach((dialogue) => {
@@ -135,7 +187,7 @@ function initDoorway() {
       });
       if (selectedDialogue.name === "Greet") {
         next.push(() => {
-          friend.dialogue({
+          npc.dialogue({
             dialogue: dialogues.Welcome,
             // recipient: interactionChar,
             // interactionSprite,
@@ -143,7 +195,7 @@ function initDoorway() {
         });
       } else if (selectedDialogue.name === "Order") {
         next.push(() => {
-          friend.dialogue({
+          npc.dialogue({
             dialogue: dialogues.OrderResponse,
             // recipient: interactionChar,
             // interactionSprite,
@@ -151,7 +203,7 @@ function initDoorway() {
         });
       } else if (selectedDialogue.name === "Goodbye") {
         next.push(() => {
-          friend.dialogue({
+          npc.dialogue({
             dialogue: dialogues.Goodbye,
             // recipient: interactionChar,
             // interactionSprite,
@@ -188,72 +240,9 @@ function initDoorway() {
   });
 }
 
-// function animateDoorway() {
-// WHY IS THIS CALLING THOUSANDS OF TIMES PER SECOND?
-//   console.log("run animate doorway");
-//   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-//   let npcCharName;
-//   switch (doorwayNameSpot.symbol) {
-//     case 4267:
-//       friendHomeBackground.draw();
-//       npc = friend;
-//       npcCharName = "Friend";
-//       break;
-//     case 4268:
-//       friendHomeBackground.draw();
-//       npc = friend;
-//       npcCharName = "Friend";
-//       break;
-//     case 4269:
-//       friendHomeBackground.draw();
-//       npc = friend;
-//       npcCharName = "Friend";
-//       break;
-//     case 4270:
-//       homeBackground.draw();
-//       document.querySelector("#enemyStats").style.display = "none";
-//       break;
-//     case 4271:
-//       grocerBackground.draw();
-//       npc = grocer;
-//       npcCharName = "Grocer";
-//       break;
-//     case 4272:
-//       tavernBackground.draw();
-//       npc = tavernOwner;
-//       npcCharName = "Tavern Owner";
-//       break;
-//     case 4273:
-//       medicalBackground.draw();
-//       npc = doctor;
-//       npcCharName = "Doctor";
-//       break;
-//     case 4274:
-//       generalStoreBackground.draw();
-//       npc = shopkeep;
-//       npcCharName = "Shopkeep";
-//       break;
-//     case 4278:
-//       sageBackground.draw();
-//       npc = sage;
-//       npcCharName = "Sage";
-//       break;
-//     case 4279:
-//       iceDungeonBackground.draw();
-//       npc = iceBoss;
-//       npcCharName = "Icy McIcersson";
-//       break;
-//   }
-//   document.querySelector("#npcName").innerHTML = npcCharName;
-//   interactionSprite.forEach((sprite) => {
-//     sprite.draw();
-//   });
-// }
-
 function animateDoorway() {
   interactionAnimationID = window.requestAnimationFrame(animateDoorway);
-  friendHomeBackground.draw();
-  //   document.querySelector("#npcName").innerHTML = npcCharName;
+  // friendHomeBackground.draw();
   interactionSprite.forEach((sprite) => {
     sprite.draw();
   });

@@ -257,6 +257,7 @@ class BattleCharacters extends Sprite {
           duration: 1,
           onComplete: () => {
             audio.FireballHit.play();
+            // TO DO: if enemy is red darkling, 5 hit points less damage, if blue darkling, 5 hitpoints more damage
             gsap.to(healthBar, {
               width: recipient.health + "%",
             });
@@ -310,6 +311,7 @@ class BattleCharacters extends Sprite {
           duration: 1,
           onComplete: () => {
             audio.FireballHit.play();
+            // TO DO: if enemy is blue darkling, 5 hit points less damage, if red darkling, 5 hitpoints more damage
             gsap.to(healthBar, {
               width: recipient.health + "%",
             });
@@ -370,6 +372,7 @@ class BattleCharacters extends Sprite {
           });
         break;
       case "Poison":
+        // TO DO: enemy loses 5 hit points every turn after this from poison with a little shake animation, then they can do their attack if still alive
         audio.InitFireball.play();
         const poisonImage = new Image();
         poisonImage.src = "./imgs/Poison.png";

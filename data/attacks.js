@@ -7,7 +7,7 @@ const attacks = {
   },
   Poison: {
     name: "Poison",
-    damage: 30,
+    damage: 25,
     type: "Poison",
     color: "purple"
   },
@@ -25,13 +25,13 @@ const attacks = {
   },
   Burn: {
     name: "Burn",
-    damage: 100,
+    damage: 25,
     type: "Fire",
     color: "red"
   },
   Freeze: {
     name: "Freeze",
-    damage: 100,
+    damage: 25,
     type: "Ice",
     color: "blue"
   },
