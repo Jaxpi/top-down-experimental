@@ -295,6 +295,7 @@ class BattleCharacters extends Sprite {
         break;
       case "Freeze":
         audio.InitFireball.play();
+        console.log(renderedSprites + 'start')
         const iceballImage = new Image();
         iceballImage.src = "./imgs/iceball.png";
         
@@ -329,7 +330,6 @@ class BattleCharacters extends Sprite {
         //     hold: 20,
         //   },
         //   animate: true,
-        //   rotation,
         // });
 
         // in position 1, removing 0 items, add iceball to array
@@ -341,7 +341,8 @@ class BattleCharacters extends Sprite {
           duration: 1,
           onComplete: () => {
             audio.FireballHit.play();
-            // renderedSprites.splice(2, 0, freeze); HOW TO REMOVE THIS AFTER ONE CYCLE?
+            // renderedSprites.splice(2, 0, freeze);
+            //HOW TO REMOVE THIS AFTER ONE CYCLE?
             // TO DO: if enemy is blue darkling, 5 hit points less damage, if red darkling, 5 hitpoints more damage
             gsap.to(healthBar, {
               width: recipient.health + "%",

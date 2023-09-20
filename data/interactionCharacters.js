@@ -16,6 +16,24 @@ const interactionCharacters = {
     dialogues: [dialogues.Greet, dialogues.Order, dialogues.Request, dialogues.Goodbye],
   },
 
+  Staff: {
+    position: {
+        x: 580,
+        y: 270,
+      },
+    image: {
+        src: './imgs/chalice-icon-L.png'
+      },
+      frames: {
+        max: 8,
+        hold: 20,
+      },
+    animate: true,
+    isNPC: true,
+    name: "Staff",
+    dialogues: [dialogues.Greet]
+},
+
   Friend: {
     position: {
       x: 500,

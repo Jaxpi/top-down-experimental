@@ -8,10 +8,10 @@ const items = {
       benefit: "Health + 25%",
         type: "elixer",
         image: {
-            src: './imgs/interactionChar.png'
+            src: './imgs/potion-icon.png'
           },
           frames: {
-            max: 1,
+            max: 8,
           },
           animate: true,
     },
@@ -20,10 +20,10 @@ const items = {
         benefit: "Damage + 25%",
         type: "elixer",
         image: {
-            src: './imgs/interactionChar.png'
+            src: './imgs/potion-icon-red.png'
           },
           frames: {
-            max: 1,
+            max: 8,
           },
           animate: true,
     },
@@ -32,10 +32,10 @@ const items = {
         benefit: "Defense + 25%",
         type: "elixer",
         image: {
-            src: './imgs/interactionChar.png'
+            src: './imgs/potion-icon-blue.png'
           },
           frames: {
-            max: 1,
+            max: 8,
           },
           animate: true,
     },
@@ -44,22 +44,22 @@ const items = {
         benefit: "Health, Damage, and Defense + 5%",
         type: "weapon",
         image: {
-            src: './imgs/interactionChar.png'
+            src: './imgs/chalice-icon.png'
           },
           frames: {
-            max: 1,
+            max: 8,
           },
-          animate: true,
+        animate: true,
     },
     Sword: {
         name: "Sword",
         benefit: "Damage + 10%, Defense + 5%",
         type: "weapon",
         image: {
-            src: './imgs/interactionChar.png'
+            src: './imgs/sword-icon.png'
           },
           frames: {
-            max: 1,
+            max: 8,
           },
           animate: true,
     },
@@ -68,10 +68,10 @@ const items = {
         benefit: "Defense + 10%, Damage + 5%",
         type: "weapon",
         image: {
-            src: './imgs/interactionChar.png'
+            src: './imgs/bow-icon.png'
           },
           frames: {
-            max: 1,
+            max: 8,
           },
           animate: true,
     },

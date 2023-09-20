@@ -113,6 +113,7 @@ let interactionAnimationID;
 let next;
 let npc;
 let npcCharName;
+let staff;
 
 function initDoorway() {
   document.querySelector("#attackType").innerHTML = "";
@@ -139,7 +140,7 @@ function initDoorway() {
   grocer = new InteractionCharacters(interactionCharacters.Grocer);
   iceBoss = new InteractionCharacters(interactionCharacters.IceBoss);
   blank = new InteractionCharacters(interactionCharacters.Blank);
-
+  staff = new InteractionCharacters(interactionCharacters.Staff);
 
   switch (doorwayNameSpot.symbol) {
     case 4267:
@@ -159,7 +160,7 @@ function initDoorway() {
       break;
     case 4270:
       homeBackground.draw();
-      npc = blank;
+      npc = staff;
       document.querySelector("#enemyStats").style.display = "none";
       break;
     case 4271:
@@ -193,8 +194,8 @@ function initDoorway() {
       npcCharName = "Icy Spider";
       break;
   }
+  
   document.querySelector("#npcName").innerHTML = npcCharName;
-
   interactionSprite = [interactionChar, npc];
   next = [];
 
@@ -209,31 +210,23 @@ function initDoorway() {
       const selectedDialogue = dialogues[e.currentTarget.innerHTML];
       interactionChar.dialogue({
         dialogue: selectedDialogue,
-        // recipient: friend,
-        // interactionSprite,
       });
       if (selectedDialogue.name === "Greet") {
         next.push(() => {
           npc.dialogue({
             dialogue: dialogues.Welcome,
-            // recipient: interactionChar,
-            // interactionSprite,
           });
         });
       } else if (selectedDialogue.name === "Order") {
         next.push(() => {
           npc.dialogue({
             dialogue: dialogues.OrderResponse,
-            // recipient: interactionChar,
-            // interactionSprite,
           });
         });
       } else if (selectedDialogue.name === "Goodbye") {
         next.push(() => {
           npc.dialogue({
             dialogue: dialogues.Goodbye,
-            // recipient: interactionChar,
-            // interactionSprite,
           });
         });
         next.push(() => {
