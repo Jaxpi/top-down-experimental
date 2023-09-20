@@ -94,7 +94,6 @@ class InteractionCharacters extends Sprite {
       case "Order":
       case "Order Response":
       case "Request":
-
         dialogueTimeline
           .to(this.position, {
             x: this.position.x + talkMotion,
@@ -230,6 +229,8 @@ class BattleCharacters extends Sprite {
         audio.InitFireball.play();
         const fireballImage = new Image();
         fireballImage.src = "./imgs/fireball.png";
+        // const flameEffectImage = new Image();
+        // flameEffectImage.src = "./imgs/flameEffectL.png";
 
         let fireballOrigin = this.position.x + 200;
         if (this.isEnemy) fireballOrigin = this.position.x + 50;
@@ -247,6 +248,20 @@ class BattleCharacters extends Sprite {
           animate: true,
           rotation,
         });
+        // const flame = new Sprite({
+        //   position: {
+        //     x: recipient.position.x,
+        //     y: recipient.position.y,
+        //   },
+        //   image: flameEffectImage,
+        //   frames: {
+        //     max: 5,
+        //     hold: 20,
+        //   },
+        //   animate: true,
+        //   rotation,
+        // });
+
 
         // in position 1, removing 0 items, add fireball to array
         renderedSprites.splice(1, 0, fireball);
@@ -261,7 +276,6 @@ class BattleCharacters extends Sprite {
             gsap.to(healthBar, {
               width: recipient.health + "%",
             });
-
             gsap.to(recipient.position, {
               x: recipient.position.x + 10,
               yoyo: true,
@@ -278,12 +292,14 @@ class BattleCharacters extends Sprite {
             renderedSprites.splice(1, 1);
           },
         });
-
         break;
       case "Freeze":
         audio.InitFireball.play();
         const iceballImage = new Image();
         iceballImage.src = "./imgs/iceball.png";
+        
+        // const iceEffectImage = new Image();
+        // iceEffectImage.src = "./imgs/iceEffect1L.png";
 
         let iceballOrigin = this.position.x + 200;
         if (this.isEnemy) iceballOrigin = this.position.x + 50;
@@ -302,6 +318,20 @@ class BattleCharacters extends Sprite {
           rotation,
         });
 
+        // const freeze = new Sprite({
+        //   position: {
+        //     x: recipient.position.x,
+        //     y: recipient.position.y,
+        //   },
+        //   image: iceEffectImage,
+        //   frames: {
+        //     max: 10,
+        //     hold: 20,
+        //   },
+        //   animate: true,
+        //   rotation,
+        // });
+
         // in position 1, removing 0 items, add iceball to array
         renderedSprites.splice(1, 0, iceball);
 
@@ -311,6 +341,7 @@ class BattleCharacters extends Sprite {
           duration: 1,
           onComplete: () => {
             audio.FireballHit.play();
+            // renderedSprites.splice(2, 0, freeze); HOW TO REMOVE THIS AFTER ONE CYCLE?
             // TO DO: if enemy is blue darkling, 5 hit points less damage, if red darkling, 5 hitpoints more damage
             gsap.to(healthBar, {
               width: recipient.health + "%",

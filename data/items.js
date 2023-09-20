@@ -6,51 +6,121 @@ const items = {
     HealthPotion: {
       name: "Health Potion",
       benefit: "Health + 25%",
-      type: "elixer"
+        type: "elixer",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
     PowerPotion: {
         name: "Power Potion",
         benefit: "Damage + 25%",
-        type: "elixer"
+        type: "elixer",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
     ShieldPotion: {
         name: "Shield Potion",
         benefit: "Defense + 25%",
-        type: "elixer"
+        type: "elixer",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
     Staff: {
         name: "Staff",
         benefit: "Health, Damage, and Defense + 5%",
-        type: "weapon"
+        type: "weapon",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
     Sword: {
         name: "Sword",
         benefit: "Damage + 10%, Defense + 5%",
-        type: "weapon"
+        type: "weapon",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
     Axe: {
         name: "Axe",
         benefit: "Defense + 10%, Damage + 5%",
-        type: "weapon"
+        type: "weapon",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
     Nomad: {
         name: "Nomad",
         benefit: "Health, Damage, and Defense + 5%",
-        type: "outfit"
+        type: "outfit",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
     Warrior: {
         name: "Warrior",
         benefit: "Damage + 10%, Defense + 5%",
-        type: "outfit"
+        type: "outfit",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
     Guardian: {
         name: "Guardian",
         benefit: "Defense + 10%, Damage + 5%",
-        type: "outfit"
+        type: "outfit",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
     Mystic: {
         name: "Mystic",
         benefit: "Health + 10%, Damage + 2.5%, Defense + 2.5%",
-        type: "outfit"
+        type: "outfit",
+        image: {
+            src: './imgs/interactionChar.png'
+          },
+          frames: {
+            max: 1,
+          },
+          animate: true,
     },
   };
