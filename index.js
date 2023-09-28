@@ -29,6 +29,28 @@ const enemyBattle = {
   initiated: false,
 };
 
+// NAV BAR
+
+let zoom = 100;
+
+let signedIn;
+let signInButton = document.querySelector("#signInButton");
+signInButton.addEventListener("click", () => {
+  if (!signedIn) {
+    signInButton.innerHTML = "login";
+    signedIn = false;
+  } else { signInButton.innerHTML = "logout"; signedIn = true}
+});
+
+let mute = true;
+let muteButton = document.querySelector("#muteButton");
+muteButton.addEventListener("click", () => {
+  if (mute) {
+    muteButton.innerHTML = "music_note";
+    mute = false; audio.Map.play();;
+  } else { muteButton.innerHTML = "music_off"; mute = true; audio.Map.stop();}
+});
+
 // DATA MAPS
 
 const boundaryMap = [];
@@ -138,7 +160,6 @@ boundaryMap.forEach((row, i) => {
   });
 });
 
-// const sageDoorway = []; if symbol == 4277 sageDoorway.push?
 const doorwayName = [];
 doorwayNameMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
