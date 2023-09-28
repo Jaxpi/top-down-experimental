@@ -23,40 +23,37 @@ nav button:hover {
   -webkit-text-stroke: 1px black;
 }
 
-#muteButton, #signInButton
-{
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
-}
+#muteButton, #signInButton {
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+  }
 }
 
-/* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 1024; /* Full width */
-  height: 576; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 1024;
+  height: 576;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
   padding-top: 60px;
   margin: 8px;
 }
 
-/* Modal Content/Box */
 .modal-content {
   display: flex;
   background-color: #fefefe;
-  margin: 5px auto; /* 15% from the top and centered */
+  margin: 5px auto;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
   height: 50px;
   justify-content: center;
 }
@@ -83,7 +80,6 @@ input {
   width: 80px;
 }
 
-/* The Close Button */
 .close {
   position: relative;
   top: 0;
@@ -93,14 +89,12 @@ input {
   font-weight: bold;
 }
 
-/* Close button on hover */
 .close:hover,
 .close:focus {
   color: red;
   cursor: pointer;
 }
 
-/* Add Zoom Animation */
 .animate {
   -webkit-animation: animatezoom 0.6s;
   animation: animatezoom 0.6s

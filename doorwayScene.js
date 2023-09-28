@@ -245,7 +245,7 @@ function initDoorway() {
               player.position.y += 20;
               playerHitBox.position.y += 20;
               player.image = player.sprites.down;
-              if (!mute) audio.Map.play();
+              // if (!mute) audio.Map.play();
             },
           });
         });

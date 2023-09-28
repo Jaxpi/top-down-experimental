@@ -31,8 +31,6 @@ const enemyBattle = {
 
 // NAV BAR
 
-let zoom = 100;
-
 let signedIn;
 let signInButton = document.querySelector("#signInButton");
 signInButton.addEventListener("click", () => {
