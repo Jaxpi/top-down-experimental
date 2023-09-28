@@ -194,7 +194,7 @@ function initDoorway() {
       npcCharName = "Icy Spider";
       break;
   }
-  
+
   document.querySelector("#npcName").innerHTML = npcCharName;
   interactionSprite = [interactionChar, npc];
   next = [];
@@ -245,7 +245,7 @@ function initDoorway() {
               player.position.y += 20;
               playerHitBox.position.y += 20;
               player.image = player.sprites.down;
-              //   audio.Map.play();
+              if (!mute) audio.Map.play();
             },
           });
         });

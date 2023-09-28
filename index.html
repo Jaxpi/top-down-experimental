@@ -4,9 +4,36 @@
 </head>
 
 <nav>
-  <button class="material-icons" id="signInButton">login</button>
+  <!-- <button class="material-icons" id="signInButton">login</button> -->
   <button class="material-icons" id="muteButton">music_off</button>
-  <!-- <i class="material-icons">music_note</i> -->
+
+  <!-- Button to open the modal login form -->
+<button class="material-icons" id="signInButton" onclick="document.getElementById('id01').style.display='block'">login</button>
+
+<!-- The Modal -->
+<div id="id01" class="modal">
+
+  <!-- Modal Content -->
+  <form class="modal-content animate" action="/action_page.php">
+
+    <div class="inputContainer">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <button id="loginButton" type="submit">Login</button>
+      <button id="signUpButton" type="submit">Sign Up</button>
+      <span onclick="document.getElementById('id01').style.display='none'"
+      class="close" title="Close Modal">&times;</span>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+
+    </div>
+  </form>
+</div>
 </nav>
 
 <div id="#fullContainer">
@@ -19,7 +46,7 @@
     <div id="enemyStats">
       <h1 id="npcName"></h1>
       <div id="enemyBars">
-        <div id="EnemyBackgroundBar"></div>
+        <div id="enemyBackgroundBar"></div>
         <div id="enemyHealthBar"></div>
       </div>
     </div>

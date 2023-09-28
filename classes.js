@@ -154,8 +154,8 @@ class BattleCharacters extends Sprite {
     gsap.to(this, {
       opacity: 0,
     });
-    audio.Victory.play();
-    audio.Battle.stop();
+    if (!mute) audio.Victory.play();
+    if (!mute) audio.Battle.stop();
   }
 
   attack({ attack, recipient, renderedSprites }) {
@@ -173,7 +173,7 @@ class BattleCharacters extends Sprite {
 
     switch (attack.name) {
       case "Shadow":
-        audio.InitFireball.play();
+        if (!mute) audio.InitFireball.play();
         const shadowImage = new Image();
         shadowImage.src = "./imgs/Smoke2.png";
 
@@ -202,7 +202,7 @@ class BattleCharacters extends Sprite {
           y: recipient.position.y,
           duration: 1,
           onComplete: () => {
-            audio.FireballHit.play();
+            if (!mute) audio.FireballHit.play();
             gsap.to(healthBar, {
               width: recipient.health + "%",
             });
@@ -226,7 +226,7 @@ class BattleCharacters extends Sprite {
 
         break;
       case "Burn":
-        audio.InitFireball.play();
+        if (!mute) audio.InitFireball.play();
         const fireballImage = new Image();
         fireballImage.src = "./imgs/fireball.png";
         // const flameEffectImage = new Image();
@@ -271,7 +271,7 @@ class BattleCharacters extends Sprite {
           y: recipient.position.y + recipient.height / 5,
           duration: 1,
           onComplete: () => {
-            audio.FireballHit.play();
+            if (!mute) audio.FireballHit.play();
             // TO DO: if enemy is red darkling, 5 hit points less damage, if blue darkling, 5 hitpoints more damage
             gsap.to(healthBar, {
               width: recipient.health + "%",
@@ -294,7 +294,7 @@ class BattleCharacters extends Sprite {
         });
         break;
       case "Freeze":
-        audio.InitFireball.play();
+        if (!mute) audio.InitFireball.play();
         console.log(renderedSprites + 'start')
         const iceballImage = new Image();
         iceballImage.src = "./imgs/iceball.png";
@@ -340,7 +340,7 @@ class BattleCharacters extends Sprite {
           y: recipient.position.y + recipient.height / 5,
           duration: 1,
           onComplete: () => {
-            audio.FireballHit.play();
+            if (!mute) audio.FireballHit.play();
             // renderedSprites.splice(2, 0, freeze);
             //HOW TO REMOVE THIS AFTER ONE CYCLE?
             // TO DO: if enemy is blue darkling, 5 hit points less damage, if red darkling, 5 hitpoints more damage
@@ -380,7 +380,7 @@ class BattleCharacters extends Sprite {
             x: this.position.x + movementDistance * 2,
             duration: 0.1,
             onComplete: () => {
-              audio.TackleHit.play();
+              if (!mute) audio.TackleHit.play();
               gsap.to(healthBar, {
                 width: recipient.health + "%",
               });
@@ -405,7 +405,7 @@ class BattleCharacters extends Sprite {
         break;
       case "Poison":
         // TO DO: enemy loses 5 hit points every turn after this from poison with a little shake animation, then they can do their attack if still alive
-        audio.InitFireball.play();
+        if (!mute) audio.InitFireball.play();
         const poisonImage = new Image();
         poisonImage.src = "./imgs/Poison.png";
 
@@ -433,7 +433,7 @@ class BattleCharacters extends Sprite {
           y: recipient.position.y,
           duration: 1,
           onComplete: () => {
-            audio.FireballHit.play();
+            if (!mute) audio.FireballHit.play();
             gsap.to(healthBar, {
               width: recipient.health + "%",
             });
@@ -468,7 +468,7 @@ class BattleCharacters extends Sprite {
             x: this.position.x + moveDistance * 2,
             duration: 0.1,
             onComplete: () => {
-              audio.TackleHit.play();
+              if (!mute) audio.TackleHit.play();
               gsap.to(healthBar, {
                 width: recipient.health + "%",
               });

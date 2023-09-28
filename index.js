@@ -298,8 +298,11 @@ function animate() {
         window.cancelAnimationFrame(animationID);
 
         audio.Map.stop();
-        audio.InitBattle.play();
-        audio.Battle.play();
+        if (!mute) {
+          audio.InitBattle.play();
+          audio.Battle.play();
+        }
+
         enemyBattle.initiated = true;
         gsap.to("#overlappingDiv", {
           opacity: 1,
@@ -349,8 +352,11 @@ function animate() {
         window.cancelAnimationFrame(animationID);
 
         audio.Map.stop();
-        audio.InitBattle.play();
-        audio.Battle.play();
+        if (!mute) {
+          audio.InitBattle.play();
+          audio.Battle.play();
+        }
+
         enemyBattle.initiated = true;
         gsap.to("#overlappingDiv", {
           opacity: 1,

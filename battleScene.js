@@ -84,7 +84,7 @@ function initFireBattle() {
               // adding this to prevent reinitialization in enemyBattle
               player.position.y += 20;
               playerHitBox.position.y += 20;
-              audio.Map.play();
+              if (!mute) audio.Map.play();
             },
           });
         });
@@ -120,7 +120,7 @@ function initFireBattle() {
                 });
 
                 enemyBattle.initiated = false;
-                audio.Map.play();
+                if (!mute) audio.Map.play();
               },
             });
           });
@@ -198,7 +198,7 @@ function initIceBattle() {
               });
 
               enemyBattle.initiated = false;
-              audio.Map.play();
+              if (!mute) audio.Map.play();
             },
           });
         });
@@ -233,7 +233,7 @@ function initIceBattle() {
 
                 enemyBattle.initiated = false;
                 player.position.y += 20;
-                audio.Map.play();
+                if (!mute) audio.Map.play();
               },
             });
           });
